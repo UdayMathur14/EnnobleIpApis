@@ -88,6 +88,7 @@ namespace DataAccess.Repositories.Masters
             response.Filters = new Dictionary<string, List<string>>
             {
                 { "CustomerCode", CustomerCode },
+                { "CustomerName", CustomerName },
                 { "Status", Status },
             };
 
