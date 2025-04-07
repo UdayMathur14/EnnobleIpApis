@@ -5,6 +5,7 @@ namespace BusinessLogic.Interfaces.Masters
 {
     public interface IBankService
     {
+        Task<IResponseWrapper<BankCreateResponseModel>> CreateBankAsync(BankRequestModel bank);
         Task<IResponseWrapper<BankReadResponseModel>> GetBankAsync(int bankId);
         Task<IResponseWrapper<BankSearchResponseModel>> SearchBankAsync(BankSearchRequestModel requestModel, string? offset, string count);
         Task<IResponseWrapper<BankReadResponseModel>> UpdateBankAsync(BankUpdateRequestModel requestModel, int bankId);

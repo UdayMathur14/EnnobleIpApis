@@ -15,7 +15,33 @@ namespace BusinessLogic.Services.Masters
 {
     internal class CustomerService(ICustomerRepository customerRepository, IMapper mapper) : ICustomerService
     {
-       
+        public async Task<IResponseWrapper<CustomerCreateResponseModel>> CreateCustomerAsync(CustomerRequestModel requestModel)
+        {
+            var wrapper = new ResponseWrapper<CustomerCreateResponseModel>();
+
+            CustomerEntity? CustomerEntity = await customerRepository.IsExistsAsync(requestModel.CustomerCode, requestModel.CustomerName);
+
+            if (CustomerEntity != null)
+            {
+                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.CustomerCode.ToString()));
+            }
+            else
+            {
+                CustomerEntity entity = mapper.Map<CustomerEntity>(requestModel);
+
+
+                entity.Status = Status.Active.ToString();
+
+                int id = await customerRepository.AddAsync(entity);
+
+                wrapper.Response = new CustomerCreateResponseModel()
+                {
+                    Id = id
+                };
+            }
+            return wrapper;
+        }
+
         public async Task<IResponseWrapper<CustomerReadResponseModel>> GetCustomerAsync(int customerId)
         {
             var wrapper = new ResponseWrapper<CustomerReadResponseModel>();

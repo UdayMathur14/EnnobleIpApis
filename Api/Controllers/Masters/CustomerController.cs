@@ -35,5 +35,13 @@ namespace Api.Controllers.V1.Masters
             IResponseWrapper<CustomerReadResponseModel> result = await customerService.UpdateCustomerAsync(customer, customerId);
             return HandleResponse(result);
         }
+
+
+        [HttpPost("create")]
+        public async Task<IActionResult> Create(CustomerRequestModel Customer)
+        {
+            IResponseWrapper<CustomerCreateResponseModel> result = await customerService.CreateCustomerAsync(Customer);
+            return HandleResponse(result, StatusCodes.Status201Created);
+        }
     }
 }

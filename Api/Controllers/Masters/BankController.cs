@@ -1,7 +1,9 @@
 ﻿using BusinessLogic.Interfaces.Masters;
+using DataAccess.Domain.Masters.Customer;
 using Microsoft.AspNetCore.Mvc;
 using Models.RequestModels.Masters.Bank;
 using Models.ResponseModels.Masters.Bank;
+using Models.ResponseModels.Masters.Customer;
 using Utilities;
 
 namespace Api.Controllers.V1.Masters
@@ -33,6 +35,13 @@ namespace Api.Controllers.V1.Masters
         {
             IResponseWrapper<BankReadResponseModel> result = await bankService.UpdateBankAsync(bank, bankId);
             return HandleResponse(result);
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> Create(BankRequestModel bank)
+        {
+            IResponseWrapper<BankCreateResponseModel> result = await bankService.CreateBankAsync(bank);
+            return HandleResponse(result, StatusCodes.Status201Created);
         }
 
     }

@@ -15,6 +15,32 @@ namespace BusinessLogic.Services.Masters
 {
     public class BankService(IBankRepository bankRepository, IMapper mapper) : IBankService
     {
+        public async Task<IResponseWrapper<BankCreateResponseModel>> CreateBankAsync(BankRequestModel requestModel)
+        {
+            var wrapper = new ResponseWrapper<BankCreateResponseModel>();
+
+            BankEntity? BankEntity = await bankRepository.IsExistsAsync(requestModel.AccountNumber, requestModel.AccountType);
+
+            if (BankEntity != null)
+            {
+                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.AccountNumber.ToString()));
+            }
+            else
+            {
+                BankEntity entity = mapper.Map<BankEntity>(requestModel);
+
+
+                entity.Status = Status.Active.ToString();
+
+                int id = await bankRepository.AddAsync(entity);
+
+                wrapper.Response = new BankCreateResponseModel()
+                {
+                    Id = id
+                };
+            }
+            return wrapper;
+        }
 
         public async Task<IResponseWrapper<BankReadResponseModel>> GetBankAsync(int bankId)
         {

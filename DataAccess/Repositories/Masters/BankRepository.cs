@@ -23,10 +23,10 @@ namespace DataAccess.Repositories.Masters
         }
 
       
-        public async Task<BankEntity?> IsExistsAsync(string? bankCode, string? value, int? typeId)
+        public async Task<BankEntity?> IsExistsAsync(string? AccountNumber, string? AccountType)
         {
             return await _context.BankEntity                       
-                        .Where(x => x.BankCode == bankCode).SingleOrDefaultAsync();
+                        .Where(x => x.AccountNumber == AccountNumber).SingleOrDefaultAsync();
         }
         
         public async Task<BankSearchResponseEntity> SearchBankAsync(BankSearchRequestEntity request)
@@ -59,10 +59,7 @@ namespace DataAccess.Repositories.Masters
                         .Distinct()
                         .ToListAsync();
 
-            //if (request.PlantCodes != null && request.PlantCodes.Any(p => !string.IsNullOrWhiteSpace(p)))
-            //{
-            //    query = query.Where(t => t.BankTaxMappings.Any(tm => request.PlantCodes.Contains(tm.PlantName) && tm.Status == "Active"));
-            //}
+        
 
             if (!string.IsNullOrWhiteSpace(request.BankCode))
             {
@@ -108,7 +105,6 @@ namespace DataAccess.Repositories.Masters
 
             response.Filters = new Dictionary<string, List<string>>
             {
-                //{ "PlantCodes",  },
                 { "BankCode", BankCode },
                 { "BankName", BankName },
                  { "BankType",BankType  },
