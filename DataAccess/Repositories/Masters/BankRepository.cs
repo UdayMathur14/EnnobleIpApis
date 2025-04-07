@@ -49,6 +49,10 @@ namespace DataAccess.Repositories.Masters
                             .Select(a => a.BankName)
                             .Distinct()
                             .ToListAsync();
+            var BankType = await _context.BankEntity
+                           .Select(a => a.AccountType)
+                           .Distinct()
+                           .ToListAsync();
 
             var Status = await _context.BankEntity
                         .Select(a => a.Status)
@@ -106,7 +110,8 @@ namespace DataAccess.Repositories.Masters
             {
                 //{ "PlantCodes",  },
                 { "BankCode", BankCode },
-                { "BankName", BankName },           
+                { "BankName", BankName },
+                 { "BankType",BankType  },
                 { "Status", Status },
             };
 

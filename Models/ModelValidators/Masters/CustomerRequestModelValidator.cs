@@ -11,9 +11,9 @@ namespace Models.ModelValidators.Masters
         {
             this.RuleLevelCascadeMode = CascadeMode.Stop;
 
-            this.RuleFor(x => x.CustomerContactNo).NotNull().NotEmpty().WithMessage(Messages.InvalidContactNo.Description);
-            this.RuleFor(x => x.CustomerEmailId).NotNull().NotEmpty().WithMessage(Messages.InvalidEmailId.Description);
-            this.RuleFor(x => x.Status).NotEmpty().IsEnumName(typeof(Status), caseSensitive: false).WithMessage(Messages.InvalidStatus.Description);
+            //this.RuleFor(x => x.CustomerContactNo).NotNull().NotEmpty().WithMessage(Messages.InvalidContactNo.Description);
+            //this.RuleFor(x => x.CustomerEmailId).NotNull().NotEmpty().WithMessage(Messages.InvalidEmailId.Description);
+            //this.RuleFor(x => x.Status).NotEmpty().IsEnumName(typeof(Status), caseSensitive: false).WithMessage(Messages.InvalidStatus.Description);
         }
     }
 }

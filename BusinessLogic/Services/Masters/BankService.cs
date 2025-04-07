@@ -90,8 +90,20 @@ namespace BusinessLogic.Services.Masters
                     bankEntity.InactiveDate = DateTime.Now;
                 }
 
-                bankEntity.LastUpdatedBy = requestModel.ActionBy;
+                bankEntity.BankCode = requestModel.BankCode;
+                bankEntity.BankName = requestModel.BankName;
+                bankEntity.BankAddress1 = requestModel.BankAddress1;
+                bankEntity.BankAddress2 = requestModel.BankAddress2;
+                bankEntity.City = requestModel.City;
+                bankEntity.State = requestModel.State;
+                bankEntity.Country = requestModel.Country;
                 bankEntity.BankContactNo = requestModel.BankContactNo;
+                bankEntity.BankEmailId = requestModel.BankEmailId;
+                bankEntity.BankBranch = requestModel.BankBranch;
+                bankEntity.IFSCCode = requestModel.IfscCode;
+                bankEntity.AccountNumber = requestModel.AccountNumber;
+                bankEntity.AccountHolderName = requestModel.AccountHolderName;
+                bankEntity.AccountType = requestModel.AccountType;
                 bankEntity.Status = requestModel.Status;
 
 

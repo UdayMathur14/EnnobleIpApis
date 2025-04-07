@@ -47,6 +47,11 @@ namespace DataAccess.Repositories.Masters
                         .Distinct()
                         .ToListAsync();
 
+            var Value = await _context.LookUpEntity
+                       .Select(a => a.Value)
+                       .Distinct()
+                       .ToListAsync();
+
             var Status = await _context.LookUpEntity
                         .Select(a => a.Status)
                         .Distinct()
@@ -96,6 +101,7 @@ namespace DataAccess.Repositories.Masters
             {
                 { "LookUpType", LookUpType },
                 { "Code", Code },
+                { "Value", Value },
                 { "Status", Status }
             };
 

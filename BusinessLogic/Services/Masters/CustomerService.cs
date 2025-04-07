@@ -80,9 +80,35 @@ namespace BusinessLogic.Services.Masters
             }
             else
             {
-                //customerEntity.CustomerContactNo = requestModel.CustomerContactNo;
-                //customerEntity.CustomerEmailId = requestModel.CustomerEmailId;
+                customerEntity.CustomerType = requestModel.CustomerType;
+                customerEntity.CustomerCode = requestModel.CustomerCode;
+                customerEntity.CustomerName = requestModel.CustomerName;
+
+                customerEntity.BillingAddressLine1 = requestModel.BillingAddressLine1;
+                customerEntity.BillingAddressLine2 = requestModel.BillingAddressLine2;
+                customerEntity.BillingCity = requestModel.BillingCity;
+                customerEntity.BillingState = requestModel.BillingState;
+                customerEntity.BillingCountry = requestModel.BillingCountry;
+                customerEntity.BillingPinCode = requestModel.BillingPinCode;
+
+                customerEntity.ShippingAddressLine1 = requestModel.ShippingAddressLine1;
+                customerEntity.ShippingAddressLine2 = requestModel.ShippingAddressLine2;
+                customerEntity.ShippingCity = requestModel.ShippingCity;
+                customerEntity.ShippingState = requestModel.ShippingState;
+                customerEntity.ShippingCountry = requestModel.ShippingCountry;
+                customerEntity.ShippingPinCode = requestModel.ShippingPinCode;
+
+                customerEntity.ContactPersonName = requestModel.ContactPersonName;
+                customerEntity.Designation = requestModel.Designation;
+                customerEntity.Email = requestModel.Email;
+                customerEntity.MobileNumber = requestModel.MobileNumber;
+
+                customerEntity.Currency = requestModel.Currency;
+                customerEntity.PaymentTerms = requestModel.PaymentTerms;
+
                 customerEntity.Status = requestModel.Status;
+                customerEntity.LastUpdatedBy = requestModel.ActionBy; // from BaseRequestModel
+
 
                 var customerResponse = await customerRepository.UpdateAsync(customerEntity);
 
