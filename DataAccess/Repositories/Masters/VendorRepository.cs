@@ -19,9 +19,9 @@ namespace DataAccess.Repositories.Masters
             return await _context.VendorEntity.FindAsync(id);
         }
 
-        public async Task<VendorEntity?> IsExistsAsync(string? type)
+        public async Task<VendorEntity?> IsExistsAsync(string? code)
         {
-            return await _context.VendorEntity.SingleOrDefaultAsync();
+            return await _context.VendorEntity.Where(c=>c.VendorCode==code).SingleOrDefaultAsync();
         }
 
         public async Task<VendorSearchResponseEntity> SearchLookUpAsync(VendorSearchRequestEntity request)
@@ -54,7 +54,10 @@ namespace DataAccess.Repositories.Masters
             {
                 query = query.Where(t => t.VendorName!.ToLower().Contains(request.VendorName.ToLower()));
             }
-
+            if (!string.IsNullOrWhiteSpace(request.VendorCode))
+            {
+                query = query.Where(t => t.VendorCode!.ToLower().Contains(request.VendorCode.ToLower()));
+            }
 
             if (request.Count == 0)
             {
