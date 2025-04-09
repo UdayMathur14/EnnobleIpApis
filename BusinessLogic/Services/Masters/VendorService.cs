@@ -84,7 +84,6 @@ namespace BusinessLogic.Services.Masters
             else
             {
                 VendorEntity entity = mapper.Map<VendorEntity>(requestModel);
-
                 
                 entity.Status = Status.Active.ToString();
 

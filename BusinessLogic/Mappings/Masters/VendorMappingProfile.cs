@@ -14,6 +14,7 @@ namespace BusinessLogic.Mappings.Masters
             CreateMap<VendorRequestModel, VendorRequestEntity>();
             CreateMap<VendorEntity, VendorSearchResponse>();
             CreateMap<VendorRequestModel, VendorEntity>();
+            CreateMap<VendorEntity, VendorRequestModel>();
             CreateMap<VendorUpdateRequestModel, VendorEntity>();
 
             CreateMap<VendorEntity, VendorReadResponseModel>();

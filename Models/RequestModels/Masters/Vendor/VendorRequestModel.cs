@@ -29,7 +29,7 @@ namespace Models.RequestModels.Masters.Vendor
         public string? Pan { get; set; }
         public string? Gst { get; set; }
         public string? GstTreatment { get; set; }
-        public string? MsmeRegistered { get; set; }
+        public bool? MsmeRegistered { get; set; }
         public string? MsmeType { get; set; }
         public string? MsmeNo { get; set; }
 
