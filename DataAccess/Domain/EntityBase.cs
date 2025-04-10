@@ -20,12 +20,12 @@ namespace DataAccess.Domain
         public string? CreatedBy { get; set; }
 
         [Column("CREATION_DATE")]
-        public DateTime CreationDate { get; set; } = new DateTime();
+        public DateTime CreationDate { get; set; } 
 
         [Column("LAST_UPDATED_BY")]
         public string? LastUpdatedBy { get; set; }  
 
         [Column("LAST_UPDATE_DATE")]
-        public DateTime LastUpdateDate { get; set; } = new DateTime();
+        public DateTime LastUpdateDate { get; set; } 
     }
 }

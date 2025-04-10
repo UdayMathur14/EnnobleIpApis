@@ -108,9 +108,12 @@ namespace DataAccess.Repositories.Masters
                 .Where(d => d.Status != Status.Inactive.ToString())
                 .FirstOrDefaultAsync(f => f.CustomerCode == customerCode);
 
-        public Task<int> AddAsync(CustomerEntity entity)
+        public async Task<int> AddAsync(CustomerEntity entity)
         {
-            throw new NotImplementedException();
+            _context.CustomerEntity.Add(entity);
+            await _context.SaveChangesAsync();
+
+            return entity.Id;
         }
     }
 }

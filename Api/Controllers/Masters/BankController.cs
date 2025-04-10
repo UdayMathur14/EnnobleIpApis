@@ -1,9 +1,7 @@
 ﻿using BusinessLogic.Interfaces.Masters;
-using DataAccess.Domain.Masters.Customer;
 using Microsoft.AspNetCore.Mvc;
 using Models.RequestModels.Masters.Bank;
 using Models.ResponseModels.Masters.Bank;
-using Models.ResponseModels.Masters.Customer;
 using Utilities;
 
 namespace Api.Controllers.V1.Masters
@@ -12,7 +10,6 @@ namespace Api.Controllers.V1.Masters
     [ApiController]
     public class BankController(IBankService bankService) : CssControllerBase
     {
-        
         [ProducesResponseType(typeof(MessageStatusModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BankReadResponseModel), StatusCodes.Status200OK)]
         [HttpGet("{bankId}")]
