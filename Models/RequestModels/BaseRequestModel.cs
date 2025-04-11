@@ -2,6 +2,6 @@
 {
     public class BaseRequestModel
     {
-        public string ActionBy { get; set; }   
+        public string? ActionBy { get; set; }   
     }
 }
