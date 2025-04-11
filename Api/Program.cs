@@ -21,7 +21,7 @@ builder.Services.AddDataAccessDependencies(builder.Configuration, builder.Enviro
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
-            builder => builder.WithOrigins("http://localhost:4200",  "http://localhost:83", "http://localhost:84")
+            builder => builder.WithOrigins("http://localhost:4200", "http://localhost:83", "http://localhost:84")
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 });
@@ -35,6 +35,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
 app.UseCors("AllowAll");
 
 app.MapControllers();

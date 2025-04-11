@@ -133,7 +133,7 @@ namespace BusinessLogic.Services.Masters
                 customerEntity.PaymentTerms = requestModel.PaymentTerms;
 
                 customerEntity.Status = requestModel.Status;
-                customerEntity.LastUpdatedBy = requestModel.ActionBy; // from BaseRequestModel
+                //customerEntity.LastUpdatedBy = requestModel.ActionBy; // from BaseRequestModel
 
 
                 var customerResponse = await customerRepository.UpdateAsync(customerEntity);
