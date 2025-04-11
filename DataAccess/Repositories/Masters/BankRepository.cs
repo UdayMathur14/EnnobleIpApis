@@ -70,6 +70,10 @@ namespace DataAccess.Repositories.Masters
             {
                 query = query.Where(t => t.BankName!.ToLower().Contains(request.BankName.ToLower()));
             }
+            if (!string.IsNullOrWhiteSpace(request.AccountType))
+            {
+                query = query.Where(t => t.AccountType!.ToLower().Contains(request.AccountType.ToLower()));
+            }
 
             if (!string.IsNullOrEmpty(request.Status))
             {

@@ -29,7 +29,6 @@ namespace DataAccess.Domain.Masters.Bank
 
         [StringLength(50)]
         public string? AccountType { get; set; }
-
         public string? BankAddress1 { get; set; }
         public string? BankAddress2 { get; set; }
         public string? City { get; set; }
