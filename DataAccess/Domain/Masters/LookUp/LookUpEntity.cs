@@ -17,8 +17,6 @@ namespace DataAccess.Domain.Masters.LookUp
 
         [Column("DESCRIPTION")]
         public string? Description { get; set; }
-
-        [ForeignKey("TypeId")]
         public LookUpTypeEntity? LookUpType { get; set; }
     }
 

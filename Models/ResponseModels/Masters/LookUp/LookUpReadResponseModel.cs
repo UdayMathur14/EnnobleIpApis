@@ -4,6 +4,7 @@ namespace Models.ResponseModels.Masters
 {
     public class LookUpReadResponseModel : BaseResponseModel
     {
+        public int TypeId { get; set; }
         public string? Code { get; set; }
         public string? Value { get; set; }
         public string? Description { get; set; }

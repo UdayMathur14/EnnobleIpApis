@@ -11,11 +11,11 @@ namespace DataAccess.Configuration.Master
             builder.Property(e => e.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.Property(e => e.CreationDate)
-                .HasDefaultValueSql("GETDATE()");
+            //builder.Property(e => e.CreationDate)
+            //    .HasDefaultValueSql("GETDATE()");
 
-            builder.Property(e => e.LastUpdateDate)
-                    .HasDefaultValueSql("GETDATE()");
+            //builder.Property(e => e.LastUpdateDate)
+            //        .HasDefaultValueSql("GETDATE()");
 
 
 

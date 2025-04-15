@@ -19,16 +19,16 @@ namespace BusinessLogic.Mappings.Masters
                 .ForMember(dest => dest.LookUpType, opt => opt.MapFrom(src => src.LookUpType));
 
             CreateMap<LookUpTypeEntity, CommonNestedResponseModel>()
-                .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Type))
-                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Description));
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
 
             CreateMap<LookUpSearchResponseEntity, LookUpSearchResponse>(); 
             
             CreateMap<LookUpRequestModel, LookUpRequestEntity >();
 
             CreateMap<LookUpTypeEntity, CommonNestedResponseModel>()
-                .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Type))
-                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Description));
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
 
             CreateMap<LookUpEntity, LookUpSearchResponse>();
                

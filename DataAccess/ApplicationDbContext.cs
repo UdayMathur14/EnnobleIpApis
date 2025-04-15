@@ -1,4 +1,5 @@
-﻿using DataAccess.Domain.Masters.Bank;
+﻿using DataAccess.Configuration.Master;
+using DataAccess.Domain.Masters.Bank;
 using DataAccess.Domain.Masters.Country;
 using DataAccess.Domain.Masters.Customer;
 using DataAccess.Domain.Masters.LookUp;
@@ -22,5 +23,11 @@ namespace DataAccess
         public virtual DbSet<VendorEntity> VendorEntity { get; set; }
         public virtual DbSet<BankEntity> BankEntity { get; set; }
         public virtual DbSet<CountryEntity> CountryEntity { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new LookUpConfiguration());
+            modelBuilder.ApplyConfiguration(new LookUpTypeConfiguration());
+        }
     }
 }
