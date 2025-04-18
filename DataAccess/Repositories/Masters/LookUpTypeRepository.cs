@@ -1,6 +1,7 @@
 ﻿using DataAccess.Domain.Masters.LookUpType;
 using DataAccess.Interfaces.Masters;
 using Microsoft.EntityFrameworkCore;
+using Utilities.Constants;
 
 namespace DataAccess.Repositories.Masters
 {
@@ -34,6 +35,20 @@ namespace DataAccess.Repositories.Masters
             {
                 query = query.Where(t => t.Type!.ToLower().Contains(request.Type.ToLower()));
             }
+            if (!string.IsNullOrWhiteSpace(request.Status))
+            {
+                query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
+            }
+
+            var Status = await _context.LookUpTypeEntity
+                        .Select(a => a.Status)
+                        .Distinct()
+                        .ToListAsync();
+
+            var Type = await _context.LookUpTypeEntity
+                        .Select(a => a.Type)
+                        .Distinct()
+                        .ToListAsync();
 
             if (request.Count == 0)
             {
@@ -61,7 +76,11 @@ namespace DataAccess.Repositories.Masters
                 response.Paging.PrevPage = response.Paging.CurrentPage > 1 ? $"?offset={(request.Offset - request.Count)}&count={request.Count}" : null;
 
             }
-
+            response.Filters = new Dictionary<string, List<string>>
+            {
+                { "LookUpType", Type },
+                { "Status", Status }
+            };
             return response;
         }
          
