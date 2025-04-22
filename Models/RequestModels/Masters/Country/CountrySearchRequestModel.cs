@@ -4,7 +4,6 @@
     {
         public string? CountryCode { get; set; }
         public string? CountryName { get; set; }
-        public string? GlSubCategory { get; set; }
         public string? Status { get; set; }
     }
 }
