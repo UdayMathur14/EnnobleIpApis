@@ -57,6 +57,12 @@ namespace Models.ResponseModels.Masters.Vendor
         public string? BankCity { get; set; }
         public string? BankState { get; set; }
         public string? BankPinCode { get; set; }
+        public string? iban { get; set; }
+        public string? SortCode { get; set; }
+        public string? routingNo { get; set; }
+        public string? bankCountry { get; set; }
+        public string? fctcCharge { get; set; }
+        public string? completionYear { get; set; }
     }
 
 }

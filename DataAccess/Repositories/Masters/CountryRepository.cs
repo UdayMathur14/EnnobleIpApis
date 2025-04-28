@@ -39,10 +39,6 @@ namespace DataAccess.Repositories.Masters
                             .Distinct()
                             .ToListAsync();
 
-            var GlSubCategory = await _context.CountryEntity
-                        .Distinct()
-                        .ToListAsync();
-
             var Status = await _context.CountryEntity
                             .Select(a => a.Status)
                             .Distinct()
