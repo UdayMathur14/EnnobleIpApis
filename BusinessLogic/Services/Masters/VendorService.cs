@@ -4,6 +4,7 @@ using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Interfaces.Masters;
 using Models.RequestModels.Masters.Vendor;
 using Models.ResponseModels.Masters.Vendor;
+using System.Numerics;
 using Utilities;
 using Utilities.Constants;
 using Utilities.Extensions;
@@ -36,7 +37,7 @@ namespace BusinessLogic.Services.Masters
 
             VendorSearchRequestEntity? request = mapper.Map<VendorSearchRequestEntity>(requestModel);
 
-            VendorSearchResponseEntity entityResponse = await VendorRepository.SearchLookUpAsync(request);
+            VendorSearchResponseEntity entityResponse = await VendorRepository.SearchVendorAsync(request);
             VendorSearchResponse lookUpReadResponse = mapper.Map<VendorSearchResponse>(entityResponse);
 
             wrapper.Response = lookUpReadResponse;
@@ -86,6 +87,9 @@ namespace BusinessLogic.Services.Masters
                 VendorEntity entity = mapper.Map<VendorEntity>(requestModel);
                 
                 entity.Status = Status.Active.ToString();
+                entity.CreationDate = DateTime.Now;
+                entity.LastUpdateDate = DateTime.Now;
+
 
                 int id = await VendorRepository.AddAsync(entity);
 

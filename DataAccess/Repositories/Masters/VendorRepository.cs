@@ -21,10 +21,11 @@ namespace DataAccess.Repositories.Masters
 
         public async Task<VendorEntity?> IsExistsAsync(string? code)
         {
-            return await _context.VendorEntity.Where(c=>c.VendorCode==code).SingleOrDefaultAsync();
+            //return await _context.VendorEntity.Where(c=>c.VendorCode==code).SingleOrDefaultAsync();
+            return null;
         }
 
-        public async Task<VendorSearchResponseEntity> SearchLookUpAsync(VendorSearchRequestEntity request)
+        public async Task<VendorSearchResponseEntity> SearchVendorAsync(VendorSearchRequestEntity request)
         {
             var response = new VendorSearchResponseEntity();
 
@@ -37,6 +38,11 @@ namespace DataAccess.Repositories.Masters
 
             var VendorCode = await _context.VendorEntity
                        .Select(a => a.VendorCode)
+                       .Distinct()
+                       .ToListAsync();
+
+            var VendorType = await _context.VendorEntity
+                       .Select(a => a.VendorType)
                        .Distinct()
                        .ToListAsync();
 
@@ -57,6 +63,10 @@ namespace DataAccess.Repositories.Masters
             if (!string.IsNullOrWhiteSpace(request.VendorCode))
             {
                 query = query.Where(t => t.VendorCode!.ToLower().Contains(request.VendorCode.ToLower()));
+            }
+            if (!string.IsNullOrWhiteSpace(request.VendorType))
+            {
+                query = query.Where(t => t.VendorType!.ToLower().Contains(request.VendorType.ToLower()));
             }
 
             if (request.Count == 0)
@@ -89,6 +99,7 @@ namespace DataAccess.Repositories.Masters
             {
                 { "VendorName", VendorName  },
                 { "VendorCode", VendorCode  },
+                { "VendorType",VendorType},
                 { "Status", Status }
             };
 

@@ -11,6 +11,7 @@ namespace DataAccess.Domain.Masters.Vendor
     {
         public string? VendorName { get; set; }
         public string? VendorCode { get; set; }
+        public string? VendorType { get; set; }
         public string? Status { get; set; }
         public int Offset { get; set; }
         public int Count { get; set; }
