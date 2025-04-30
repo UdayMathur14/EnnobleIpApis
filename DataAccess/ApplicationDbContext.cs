@@ -4,6 +4,7 @@ using DataAccess.Domain.Masters.Country;
 using DataAccess.Domain.Masters.Customer;
 using DataAccess.Domain.Masters.LookUp;
 using DataAccess.Domain.Masters.LookUpType;
+using DataAccess.Domain.Masters.State;
 using DataAccess.Domain.Masters.Vendor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,7 @@ namespace DataAccess
         public virtual DbSet<VendorEntity> VendorEntity { get; set; }
         public virtual DbSet<BankEntity> BankEntity { get; set; }
         public virtual DbSet<CountryEntity> CountryEntity { get; set; }
+        public virtual DbSet<StateEntity> StateEntity { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

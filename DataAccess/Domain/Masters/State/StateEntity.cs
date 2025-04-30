@@ -1,0 +1,15 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DataAccess.Domain.Masters.State
+{
+    [Table("STATE_MST_TB")]
+    public class StateEntity : EntityBase
+    {
+        [StringLength(255)]
+        public string? StateName { get; set; }
+
+        [StringLength(50)]
+        public string? CountryName { get; set; }
+    }
+}

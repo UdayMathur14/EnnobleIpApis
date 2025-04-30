@@ -16,6 +16,7 @@ namespace ServiceFreight.DataAccess.Extensions
             services.AddScoped<IVendorRepository, VendorRepository>();
             services.AddScoped<IBankRepository, BankRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IStateRepository, StateRepository>();
 
             return services;
         }

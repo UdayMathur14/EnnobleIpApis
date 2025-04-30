@@ -31,6 +31,9 @@ namespace ServiceFreight.BusinessLogic.Extensions
             services.AddScoped<ICountryService, CountryService>();
             services.AddAutoMapper(typeof(CountryMappingProfile).Assembly);
 
+            services.AddScoped<IStateService, StateService>();
+            services.AddAutoMapper(typeof(StateMappingProfile).Assembly);
+
             return services;
         }
     }
