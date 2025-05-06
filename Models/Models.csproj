@@ -22,8 +22,6 @@
 
   <ItemGroup>
     <Folder Include="ModelValidators\Transactions\" />
-    <Folder Include="RequestModels\Transactions\" />
-    <Folder Include="ResponseModels\Transactions\" />
   </ItemGroup>
 
 </Project>

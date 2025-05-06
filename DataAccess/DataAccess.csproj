@@ -20,11 +20,4 @@
     <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Configuration\Transactions\" />
-    <Folder Include="Domain\Transactions\" />
-    <Folder Include="Interfaces\Transactions\" />
-    <Folder Include="Repositories\Transactions\" />
-  </ItemGroup>
-
 </Project>

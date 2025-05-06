@@ -1,6 +1,9 @@
 ﻿using BusinessLogic.Interfaces.Masters;
+using BusinessLogic.Interfaces.Transactions;
 using BusinessLogic.Mappings.Masters;
+using BusinessLogic.Mappings.Transactions;
 using BusinessLogic.Services.Masters;
+using BusinessLogic.Services.Transactions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,7 +15,7 @@ namespace ServiceFreight.BusinessLogic.Extensions
         public static IServiceCollection AddBusinessLogicDependencies(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
         {
             
-
+            //masters 
             services.AddScoped<ILookUpTypeService, LookUpTypeService>();
             services.AddAutoMapper(typeof(LookUpTypeMappingProfile).Assembly);
 
@@ -33,6 +36,10 @@ namespace ServiceFreight.BusinessLogic.Extensions
 
             services.AddScoped<IStateService, StateService>();
             services.AddAutoMapper(typeof(StateMappingProfile).Assembly);
+
+            //transactions 
+            services.AddScoped<ITransactionService, TransactionService>();
+            services.AddAutoMapper(typeof(TransactionMappingProfile).Assembly);
 
             return services;
         }

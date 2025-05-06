@@ -22,11 +22,4 @@
     <ProjectReference Include="..\Utilities\Utilities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\Transactions\" />
-    <Folder Include="Mappings\Transactions\" />
-    <Folder Include="Rules\Transactions\" />
-    <Folder Include="Services\Transactions\" />
-  </ItemGroup>
-
 </Project>
