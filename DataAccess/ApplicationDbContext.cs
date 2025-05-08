@@ -1,4 +1,5 @@
 ﻿using DataAccess.Configuration.Master;
+using DataAccess.Configuration.Masters;
 using DataAccess.Domain.Masters.Bank;
 using DataAccess.Domain.Masters.Country;
 using DataAccess.Domain.Masters.Customer;
@@ -36,6 +37,8 @@ namespace DataAccess
         {
             modelBuilder.ApplyConfiguration(new LookUpConfiguration());
             modelBuilder.ApplyConfiguration(new LookUpTypeConfiguration());
+
+            modelBuilder.ApplyConfiguration(new TransactionMasterConfiguration());
         }
     }
 }

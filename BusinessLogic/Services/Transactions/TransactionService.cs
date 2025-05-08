@@ -4,6 +4,7 @@ using DataAccess.Domain.Masters.Transaction;
 using DataAccess.Interfaces.Transactions;
 using Models.RequestModels.Masters.Transaction;
 using Models.ResponseModels.Masters.Transaction;
+using Models.ResponseModels.Transactions.Transaction;
 using Utilities;
 using Utilities.Constants;
 using Utilities.Extensions;
@@ -75,11 +76,11 @@ namespace BusinessLogic.Services.Transactions
         {
             var wrapper = new ResponseWrapper<TransactionCreateResponseModel>();
 
-            TransactionEntity? TransactionEntity = await TransactionRepository.IsExistsAsync(requestModel.TransactionCode);
+            TransactionEntity? TransactionEntity = await TransactionRepository.IsExistsAsync(requestModel.Description);
 
             if (TransactionEntity != null)
             {
-                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.TransactionCode.ToString()));
+                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.Description.ToString()));
             }
             else
             {

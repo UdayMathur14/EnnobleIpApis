@@ -1,172 +1,100 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DataAccess.Domain.Masters.LookUpType;
+using DataAccess.Domain.Masters.Vendor;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.Domain.Masters.Transaction
 {
-    [Table("Transaction_MST_TB")]
-    public class TransactionEntity : EntityBase
+    [Table("VENDOR_INVOICE_TXN")]
+    public class TransactionEntity :EntityBase
     {
+        public int? SNo { get; set; }
+        public int? VendorID { get; set; }
 
-        [Column("VENDOR_TYPE")]
-        [StringLength(50)]
-        public string? TransactionType { get; set; }
+        public DateTime? InvoiceDate { get; set; }
 
-        [Column("VENDOR_CODE")]
-        [Required]
-        [StringLength(50)]
-        public string TransactionCode { get; set; }
+        [MaxLength(20)]
+        public string? FY { get; set; }
 
-        [Column("VENDOR_NAME")]
-        [Required]
-        [StringLength(255)]
-        public string TransactionName { get; set; }
+        [MaxLength(100)]
+        public string? ClientInvoiceNo { get; set; }
 
-        [Column("BILLING_ADDRESS_LINE_1")]
-        [StringLength(255)]
-        public string? BillingAddressLine1 { get; set; }
+        public DateTime? DueDateAsPerInvoice { get; set; }
 
-        [Column("BILLING_ADDRESS_LINE_2")]
-        [StringLength(255)]
-        public string? BillingAddressLine2 { get; set; }
+        public int? CreditDaysAsPerContract { get; set; }
 
-        [Column("BILLING_CITY")]
-        [StringLength(100)]
-        public string? BillingCity { get; set; }
+        // DueDateAsPerContract is a computed column in SQL
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime? DueDateAsPerContract { get; set; }
 
-        [Column("BILLING_STATE")]
-        [StringLength(100)]
-        public string? BillingState { get; set; }
+        public int? CustomerID { get; set; }
 
-        [Column("BILLING_COUNTRY")]
-        [StringLength(100)]
-        public string? BillingCountry { get; set; }
+        public string? Description { get; set; }
 
-        [Column("BILLING_PIN_CODE")]
-        [StringLength(20)]
-        public string? BillingPinCode { get; set; }
+        [MaxLength(500)]
+        public string? Title { get; set; }
 
-        [Column("SHIPPING_ADDRESS_LINE_1")]
-        [StringLength(255)]
-        public string? ShippingAddressLine1 { get; set; }
+        [MaxLength(100)]
+        public string? ApplicationNumber { get; set; }
 
-        [Column("SHIPPING_ADDRESS_LINE_2")]
-        [StringLength(255)]
-        public string? ShippingAddressLine2 { get; set; }
+        [MaxLength(100)]
+        public string? ClientRefNo { get; set; }
 
-        [Column("SHIPPING_CITY")]
-        [StringLength(100)]
-        public string? ShippingCity { get; set; }
+        [MaxLength(100)]
+        public string? OurRefNo { get; set; }
 
-        [Column("SHIPPING_STATE")]
-        [StringLength(100)]
-        public string? ShippingState { get; set; }
+        [MaxLength(20)]
+        public string? OfficialFilingReceiptSupporting { get; set; }
 
-        [Column("SHIPPING_COUNTRY")]
-        [StringLength(100)]
-        public string? ShippingCountry { get; set; }
+        [MaxLength(50)]
+        public string? WorkDeliveryDateOrMonth { get; set; }
 
-        [Column("SHIPPING_PIN_CODE")]
-        [StringLength(20)]
-        public string? ShippingPinCode { get; set; }
+        public int? CurrencyPID { get; set; }
 
-        [Column("PAN")]
-        [StringLength(20)]
-        public string? PAN { get; set; }
+        public int? ProfessionalFeeAmt { get; set; }
+        public int? GovtOrOfficialFeeAmt { get; set; }
+        public int? OtherChargesAmt { get; set; }
+        public int? DiscountAmt { get; set; }
+        public int? DiscountCreditNoteAmt { get; set; }
 
-        [Column("GST")]
-        [StringLength(20)]
-        public string? GST { get; set; }
+        // TotalAmt is a computed column in SQL
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int? TotalAmt { get; set; }
 
-        [Column("GST_TREATMENT")]
-        [StringLength(100)]
-        public string? GSTTreatment { get; set; }
+        public DateTime? PaymentDate { get; set; }
+        public int? BankID { get; set; }
 
-        [Column("MSME_REGISTERED")]
-        public bool? MSMERegistered { get; set; }
+        [MaxLength(100)]
+        public string? OWRMNo { get; set; }
 
-        [Column("MSME_TYPE")]
-        [StringLength(50)]
-        public string? MSMEType { get; set; }
+        [MaxLength(100)]
+        public string? CustomerPONo { get; set; }
 
-        [Column("MSME_NO")]
-        [StringLength(50)]
-        public string? MSMENo { get; set; }
+        public DateTime? PODate { get; set; }
 
-        [Column("CONTACT_PERSON_NAME")]
-        [StringLength(255)]
-        public string? ContactPersonName { get; set; }
+        public int? POValueInclusiveTaxes { get; set; }
 
-        [Column("DESIGNATION")]
-        [StringLength(100)]
-        public string? Designation { get; set; }
+        [MaxLength(100)]
+        public string? OurInvoiceNo { get; set; }
 
-        [Column("EMAIL_1")]
-        [StringLength(255)]
-        public string? Email1 { get; set; }
+        public int? CurrencySID { get; set; }
+        public int? InvoiceAmt { get; set; }
 
-        [Column("EMAIL_2")]
-        [StringLength(255)]
-        public string? Email2 { get; set; }
+        [MaxLength(100)]
+        public string? GovtFeeInvoiceNo { get; set; }
 
-        [Column("PHONE_MOBILE_NO")]
-        [StringLength(50)]
-        public string? PhoneMobileNo { get; set; }
+        public int? OfficialFeeInvAmount { get; set; }
 
-        [Column("CURRENCY")]
-        [StringLength(10)]
-        public string? Currency { get; set; }
+        [MaxLength(100)]
+        public string? EstimateNoProfFee { get; set; }
 
-        [Column("PAYMENT_TERMS")]
-        [StringLength(255)]
-        public string? PaymentTerms { get; set; }
+        [MaxLength(100)]
+        public string? EstimateNoGovtFee { get; set; }
 
-        [Column("BANK_NAME")]
-        [StringLength(255)]
-        public string? BankName { get; set; }
+        public string? Remarks { get; set; }
 
-        [Column("ACCOUNT_HOLDER_NAME")]
-        [StringLength(255)]
-        public string? AccountHolderName { get; set; }
-
-        [Column("ACCOUNT_NUMBER")]
-        [StringLength(50)]
-        public string? AccountNumber { get; set; }
-
-        [Column("CONFIRM_ACCOUNT_NUMBER")]
-        [StringLength(50)]
-        public string? ConfirmAccountNumber { get; set; }
-
-        [Column("IFSC_CODE")]
-        [StringLength(20)]
-        public string? IFSCCode { get; set; }
-
-        [Column("SWIFT_CODE")]
-        [StringLength(20)]
-        public string? SwiftCode { get; set; }
-
-        [Column("BANK_ADDRESS_LINE_1")]
-        [StringLength(255)]
-        public string? BankAddressLine1 { get; set; }
-
-        [Column("BANK_ADDRESS_LINE_2")]
-        [StringLength(255)]
-        public string? BankAddressLine2 { get; set; }
-
-        [Column("BRANCH")]
-        [StringLength(100)]
-        public string? Branch { get; set; }
-
-        [Column("BANK_CITY")]
-        [StringLength(100)]
-        public string? BankCity { get; set; }
-
-        [Column("BANK_STATE")]
-        [StringLength(100)]
-        public string? BankState { get; set; }
-
-        [Column("BANK_PIN_CODE")]
-        [StringLength(20)]
-        public string? BankPinCode { get; set; }
+        [MaxLength(10)]
+        public string? PostedInTally { get; set; }
+        public VendorEntity? VendorEntity { get; set; }
     }
-
 }

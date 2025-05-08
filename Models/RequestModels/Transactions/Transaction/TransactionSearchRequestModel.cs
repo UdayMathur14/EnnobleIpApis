@@ -8,9 +8,11 @@ namespace Models.RequestModels.Masters.Transaction
 {
     public class TransactionSearchRequestModel
     {
-        public string? TransactionName { get; set; }  
-        public string? TransactionCode { get; set; }
-        public string? TransactionType { get; set; }
+        public int? VendorID { get; set; }
+        public string? ClientInvoiceNo { get; set; }
+        public string? OurInvoiceNo { get; set; }
+        public DateTime? InvoiceDateFrom { get; set; }
+        public DateTime? InvoiceDateTo { get; set; }
         public string? Status { get; set; }
     }
 }

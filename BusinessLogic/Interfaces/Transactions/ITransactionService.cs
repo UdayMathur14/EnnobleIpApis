@@ -1,5 +1,6 @@
 ﻿using Models.RequestModels.Masters.Transaction;
 using Models.ResponseModels.Masters.Transaction;
+using Models.ResponseModels.Transactions.Transaction;
 using Utilities;
 
 namespace BusinessLogic.Interfaces.Transactions

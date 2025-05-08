@@ -6,63 +6,97 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.ResponseModels.Masters.Transaction
+namespace Models.ResponseModels.Transactions.Transaction
 {
     public class TransactionReadResponseModel : BaseResponseModel
     {
-        public string TransactionType { get; set; }
-        public string TransactionCode { get; set; }
-        public string TransactionName { get; set; }
+        public int? SNo { get; set; }
+        public int? VendorID { get; set; }
 
-        public string? BillingAddressLine1 { get; set; }
-        public string? BillingAddressLine2 { get; set; }
-        public string? BillingCity { get; set; }
-        public string? BillingState { get; set; }
-        public string? BillingCountry { get; set; }
-        public string? BillingPinCode { get; set; }
+        public DateTime? InvoiceDate { get; set; }
 
-        public string? ShippingAddressLine1 { get; set; }
-        public string? ShippingAddressLine2 { get; set; }
-        public string? ShippingCity { get; set; }
-        public string? ShippingState { get; set; }
-        public string? ShippingCountry { get; set; }
-        public string? ShippingPinCode { get; set; }
+        [MaxLength(20)]
+        public string? FY { get; set; }
 
-        public string? PAN { get; set; }
-        public string? GST { get; set; }
-        public string? GSTTreatment { get; set; }
+        [MaxLength(100)]
+        public string? ClientInvoiceNo { get; set; }
 
-        public bool? MSMERegistered { get; set; }
-        public string? MSMEType { get; set; }
-        public string? MSMENo { get; set; }
+        public DateTime? DueDateAsPerInvoice { get; set; }
 
-        public string? ContactPersonName { get; set; }
-        public string? Designation { get; set; }
-        public string? Email1 { get; set; }
-        public string? Email2 { get; set; }
-        public string? PhoneMobileNo { get; set; }
+        public int? CreditDaysAsPerContract { get; set; }
 
-        public string? Currency { get; set; }
-        public string? PaymentTerms { get; set; }
+        // DueDateAsPerContract is a computed column in SQL
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime? DueDateAsPerContract { get; set; }
 
-        public string? BankName { get; set; }
-        public string? AccountHolderName { get; set; }
-        public string? AccountNumber { get; set; }
-        public string? ConfirmAccountNumber { get; set; }
-        public string? IFSCCode { get; set; }
-        public string? SwiftCode { get; set; }
-        public string? BankAddressLine1 { get; set; }
-        public string? BankAddressLine2 { get; set; }
-        public string? Branch { get; set; }
-        public string? BankCity { get; set; }
-        public string? BankState { get; set; }
-        public string? BankPinCode { get; set; }
-        public string? iban { get; set; }
-        public string? SortCode { get; set; }
-        public string? routingNo { get; set; }
-        public string? bankCountry { get; set; }
-        public string? fctcCharge { get; set; }
-        public string? completionYear { get; set; }
+        public int? CustomerID { get; set; }
+
+        public string? Description { get; set; }
+
+        [MaxLength(500)]
+        public string? Title { get; set; }
+
+        [MaxLength(100)]
+        public string? ApplicationNumber { get; set; }
+
+        [MaxLength(100)]
+        public string? ClientRefNo { get; set; }
+
+        [MaxLength(100)]
+        public string? OurRefNo { get; set; }
+
+        [MaxLength(20)]
+        public string? OfficialFilingReceiptSupporting { get; set; }
+
+        [MaxLength(50)]
+        public string? WorkDeliveryDateOrMonth { get; set; }
+
+        public int? CurrencyPID { get; set; }
+
+        public int? ProfessionalFeeAmt { get; set; }
+        public int? GovtOrOfficialFeeAmt { get; set; }
+        public int? OtherChargesAmt { get; set; }
+        public int? DiscountAmt { get; set; }
+        public int? DiscountCreditNoteAmt { get; set; }
+
+        // TotalAmt is a computed column in SQL
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int? TotalAmt { get; set; }
+
+        public DateTime? PaymentDate { get; set; }
+        public int? BankID { get; set; }
+
+        [MaxLength(100)]
+        public string? OWRMNo { get; set; }
+
+        [MaxLength(100)]
+        public string? CustomerPONo { get; set; }
+
+        public DateTime? PODate { get; set; }
+
+        public int? POValueInclusiveTaxes { get; set; }
+
+        [MaxLength(100)]
+        public string? OurInvoiceNo { get; set; }
+
+        public int? CurrencySID { get; set; }
+        public int? InvoiceAmt { get; set; }
+
+        [MaxLength(100)]
+        public string? GovtFeeInvoiceNo { get; set; }
+
+        public int? OfficialFeeInvAmount { get; set; }
+
+        [MaxLength(100)]
+        public string? EstimateNoProfFee { get; set; }
+
+        [MaxLength(100)]
+        public string? EstimateNoGovtFee { get; set; }
+
+        public string? Remarks { get; set; }
+
+        [MaxLength(10)]
+        public string? PostedInTally { get; set; }
     }
 
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Models.RequestModels.Masters.Transaction;
 using Models.ResponseModels.Masters.Transaction;
+using Models.ResponseModels.Transactions.Transaction;
 using Utilities;
 
 namespace Api.Controllers.Transactions

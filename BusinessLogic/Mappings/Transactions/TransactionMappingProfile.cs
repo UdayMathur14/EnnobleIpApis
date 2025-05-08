@@ -2,6 +2,7 @@
 using DataAccess.Domain.Masters.Transaction;
 using Models.RequestModels.Masters.Transaction;
 using Models.ResponseModels.Masters.Transaction;
+using Models.ResponseModels.Transactions.Transaction;
 using System;
 using System.Collections.Generic;
 using System.Linq;

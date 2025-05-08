@@ -4,7 +4,6 @@ using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Interfaces.Masters;
 using Models.RequestModels.Masters.Vendor;
 using Models.ResponseModels.Masters.Vendor;
-using System.Numerics;
 using Utilities;
 using Utilities.Constants;
 using Utilities.Extensions;
@@ -76,11 +75,11 @@ namespace BusinessLogic.Services.Masters
         {
             var wrapper = new ResponseWrapper<VendorCreateResponseModel>();
 
-            VendorEntity? VendorEntity = await VendorRepository.IsExistsAsync(requestModel.VendorCode);
+            VendorEntity? VendorEntity = await VendorRepository.IsExistsAsync(requestModel.Description);
 
             if (VendorEntity != null)
             {
-                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.VendorCode.ToString()));
+                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.Description.ToString()));
             }
             else
             {

@@ -9,6 +9,12 @@ namespace DataAccess.Configuration.Masters
         public void Configure(EntityTypeBuilder<TransactionEntity> builder)
         {
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
+
+            builder.HasOne(b => b.VendorEntity)  
+            .WithMany(a => a.Transactions)     
+            .HasForeignKey(b => b.VendorID);
+
+
         }
     }
 }

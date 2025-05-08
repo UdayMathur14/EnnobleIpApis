@@ -1,4 +1,5 @@
 ﻿using Models.ResponseModels.BaseResponseSetup;
+using Models.ResponseModels.Transactions.Transaction;
 
 namespace Models.ResponseModels.Masters.Transaction
 {

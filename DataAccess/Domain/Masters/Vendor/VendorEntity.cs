@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DataAccess.Domain.Masters.LookUp;
+using DataAccess.Domain.Masters.Transaction;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.Domain.Masters.Vendor
@@ -6,7 +8,6 @@ namespace DataAccess.Domain.Masters.Vendor
     [Table("VENDOR_MST_TB")]
     public class VendorEntity : EntityBase
     {
-
         [Column("VENDOR_TYPE")]
         [StringLength(50)]
         public string? VendorType { get; set; }
@@ -162,11 +163,13 @@ namespace DataAccess.Domain.Masters.Vendor
 
         [Column("BANK_STATE")]
         [StringLength(100)]
-        public string? BankState { get; set; }
+        public string? BankState { get; set; }x`
 
         [Column("BANK_PIN_CODE")]
         [StringLength(20)]
         public string? BankPinCode { get; set; }
-    }
 
+        public ICollection<TransactionEntity>? Transactions { get; set; }
+
+    }
 }

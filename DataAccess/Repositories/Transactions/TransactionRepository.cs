@@ -31,20 +31,20 @@ namespace DataAccess.Repositories.Transactions
 
             var query = _context.TransactionEntity.AsQueryable();
 
-            var TransactionName = await _context.TransactionEntity
-                       .Select(a => a.TransactionName)
-                       .Distinct()
-                       .ToListAsync();
+            //var TransactionName = await _context.TransactionEntity
+            //           .Select(a => a.TransactionName)
+            //           .Distinct()
+            //           .ToListAsync();
 
-            var TransactionCode = await _context.TransactionEntity
-                       .Select(a => a.TransactionCode)
-                       .Distinct()
-                       .ToListAsync();
+            //var TransactionCode = await _context.TransactionEntity
+            //           .Select(a => a.TransactionCode)
+            //           .Distinct()
+            //           .ToListAsync();
 
-            var TransactionType = await _context.TransactionEntity
-                       .Select(a => a.TransactionType)
-                       .Distinct()
-                       .ToListAsync();
+            //var TransactionType = await _context.TransactionEntity
+            //           .Select(a => a.TransactionType)
+            //           .Distinct()
+            //           .ToListAsync();
 
 
             var Status = await _context.TransactionEntity
@@ -52,22 +52,22 @@ namespace DataAccess.Repositories.Transactions
                        .Distinct()
                        .ToListAsync();
 
-            if (!string.IsNullOrWhiteSpace(request.Status))
-            {
-                query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
-            }
-            if (!string.IsNullOrWhiteSpace(request.TransactionName))
-            {
-                query = query.Where(t => t.TransactionName!.ToLower().Contains(request.TransactionName.ToLower()));
-            }
-            if (!string.IsNullOrWhiteSpace(request.TransactionCode))
-            {
-                query = query.Where(t => t.TransactionCode!.ToLower().Contains(request.TransactionCode.ToLower()));
-            }
-            if (!string.IsNullOrWhiteSpace(request.TransactionType))
-            {
-                query = query.Where(t => t.TransactionType!.ToLower().Contains(request.TransactionType.ToLower()));
-            }
+            //if (!string.IsNullOrWhiteSpace(request.Status))
+            //{
+            //    query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
+            //}
+            //if (!string.IsNullOrWhiteSpace(request.TransactionName))
+            //{
+            //    query = query.Where(t => t.TransactionName!.ToLower().Contains(request.TransactionName.ToLower()));
+            //}
+            //if (!string.IsNullOrWhiteSpace(request.TransactionCode))
+            //{
+            //    query = query.Where(t => t.TransactionCode!.ToLower().Contains(request.TransactionCode.ToLower()));
+            //}
+            //if (!string.IsNullOrWhiteSpace(request.TransactionType))
+            //{
+            //    query = query.Where(t => t.TransactionType!.ToLower().Contains(request.TransactionType.ToLower()));
+            //}
 
             if (request.Count == 0)
             {
@@ -97,9 +97,9 @@ namespace DataAccess.Repositories.Transactions
             }
             response.Filters = new Dictionary<string, List<string>>
             {
-                { "TransactionName", TransactionName  },
-                { "TransactionCode", TransactionCode  },
-                { "TransactionType",TransactionType},
+                //{ "TransactionName", TransactionName  },
+                //{ "TransactionCode", TransactionCode  },
+                //{ "TransactionType",TransactionType},
                 { "Status", Status }
             };
 
