@@ -163,7 +163,7 @@ namespace DataAccess.Domain.Masters.Vendor
 
         [Column("BANK_STATE")]
         [StringLength(100)]
-        public string? BankState { get; set; }x`
+        public string? BankState { get; set; }
 
         [Column("BANK_PIN_CODE")]
         [StringLength(20)]
