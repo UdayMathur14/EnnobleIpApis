@@ -2,9 +2,9 @@
 using Utilities;
 using Utilities.Constants;
 
-namespace BusinessLogic.Rules.Masters.Transaction.Search
+namespace BusinessLogic.Rules.Masters.VendorInvoiceTxn.Search
 {
-    public partial class TransactionSearchRules
+    public partial class VendorInvoiceTxnSearchRules
     {
         public void RequestHasValidOffset()
         {
@@ -19,7 +19,7 @@ namespace BusinessLogic.Rules.Masters.Transaction.Search
                     );
             }
 
-            this.TransactionSearchRequestEntity.Offset = intoffSet;
+            this.VendorInvoiceTxnSearchRequestEntity.Offset = intoffSet;
         }
     }
 }

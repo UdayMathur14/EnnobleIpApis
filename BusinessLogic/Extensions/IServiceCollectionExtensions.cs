@@ -1,9 +1,9 @@
 ﻿using BusinessLogic.Interfaces.Masters;
-using BusinessLogic.Interfaces.Transactions;
+using BusinessLogic.Interfaces.VendorInvoiceTxns;
 using BusinessLogic.Mappings.Masters;
-using BusinessLogic.Mappings.Transactions;
+using BusinessLogic.Mappings.VendorInvoiceTxns;
 using BusinessLogic.Services.Masters;
-using BusinessLogic.Services.Transactions;
+using BusinessLogic.Services.VendorInvoiceTxns;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,8 +38,8 @@ namespace ServiceFreight.BusinessLogic.Extensions
             services.AddAutoMapper(typeof(StateMappingProfile).Assembly);
 
             //transactions 
-            services.AddScoped<ITransactionService, TransactionService>();
-            services.AddAutoMapper(typeof(TransactionMappingProfile).Assembly);
+            services.AddScoped<IVendorInvoiceTxnService, VendorInvoiceTxnService>();
+            services.AddAutoMapper(typeof(VendorInvoiceTxnMappingProfile).Assembly);
 
             return services;
         }

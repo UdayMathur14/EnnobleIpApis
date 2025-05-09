@@ -3,10 +3,10 @@ using DataAccess.Domain.Masters.Vendor;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DataAccess.Domain.Masters.Transaction
+namespace DataAccess.Domain.Masters.VendorInvoiceTxn
 {
     [Table("VENDOR_INVOICE_TXN")]
-    public class TransactionEntity :EntityBase
+    public class VendorInvoiceTxnEntity :EntityBase
     {
         public int? SNo { get; set; }
         public int? VendorID { get; set; }

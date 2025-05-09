@@ -1,5 +1,4 @@
-﻿using DataAccess.Domain.Masters.LookUp;
-using DataAccess.Domain.Masters.Transaction;
+﻿using DataAccess.Domain.Masters.VendorInvoiceTxn;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -169,7 +168,7 @@ namespace DataAccess.Domain.Masters.Vendor
         [StringLength(20)]
         public string? BankPinCode { get; set; }
 
-        public ICollection<TransactionEntity>? Transactions { get; set; }
+        public ICollection<VendorInvoiceTxnEntity>? VendorInvoiceTxns { get; set; }
 
     }
 }

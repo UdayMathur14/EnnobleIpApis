@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.RequestModels.Masters.Transaction
+namespace Models.RequestModels.Masters.VendorInvoiceTxn
 {
-    public class TransactionRequestModel
+    public class VendorInvoiceTxnRequestModel
     {
         public int? SNo { get; set; }
         public int? VendorID { get; set; }

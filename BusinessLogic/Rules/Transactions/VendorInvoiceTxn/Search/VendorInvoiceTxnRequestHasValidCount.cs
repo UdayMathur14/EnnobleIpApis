@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Utilities.Constants;
 
-namespace BusinessLogic.Rules.Masters.Transaction.Search
+namespace BusinessLogic.Rules.Masters.VendorInvoiceTxn.Search
 {
-    public partial class TransactionSearchRules
+    public partial class VendorInvoiceTxnSearchRules
     {
         public void RequestHasValidCount()
         {
@@ -23,7 +23,7 @@ namespace BusinessLogic.Rules.Masters.Transaction.Search
                     );
             }
 
-            this.TransactionSearchRequestEntity.Count = intCount;
+            this.VendorInvoiceTxnSearchRequestEntity.Count = intCount;
         }
     }
 }

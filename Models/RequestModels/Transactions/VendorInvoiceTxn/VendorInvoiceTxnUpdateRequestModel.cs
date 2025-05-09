@@ -1,12 +1,12 @@
-﻿namespace Models.RequestModels.Masters.Transaction
+﻿namespace Models.RequestModels.Masters.VendorInvoiceTxn
 {
-    public class TransactionUpdateRequestModel
+    public class VendorInvoiceTxnUpdateRequestModel
     {
         public string? ActionBy { get; set; }
 
-        public string? TransactionType { get; set; }
-        public string? TransactionCode { get; set; }
-        public string? TransactionName { get; set; }
+        public string? VendorInvoiceTxnType { get; set; }
+        public string? VendorInvoiceTxnCode { get; set; }
+        public string? VendorInvoiceTxnName { get; set; }
 
         public string? BillingAddressLine1 { get; set; }
         public string? BillingAddressLine2 { get; set; }

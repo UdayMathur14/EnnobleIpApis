@@ -1,7 +1,7 @@
 ﻿using DataAccess.Interfaces.Masters;
-using DataAccess.Interfaces.Transactions;
+using DataAccess.Interfaces.VendorInvoiceTxn;
 using DataAccess.Repositories.Masters;
-using DataAccess.Repositories.Transactions;
+using DataAccess.Repositories.VendorInvoiceTxns;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +22,7 @@ namespace ServiceFreight.DataAccess.Extensions
             services.AddScoped<IStateRepository, StateRepository>();
 
             //transactions
-            services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IVendorInvoiceTxnRepository, VendorInvoiceTxnRepository>();
             return services;
         }
     }

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.ResponseModels.Transactions.Transaction
+namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
 {
-    public class TransactionReadResponseModel : BaseResponseModel
+    public class VendorInvoiceTxnReadResponseModel : BaseResponseModel
     {
         public int? SNo { get; set; }
         public int? VendorID { get; set; }

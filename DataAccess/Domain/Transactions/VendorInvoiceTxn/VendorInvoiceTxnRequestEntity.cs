@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Domain.Masters.Transaction
+namespace DataAccess.Domain.Masters.VendorInvoiceTxn
 {
-    public class TransactionRequestEntity
+    public class VendorInvoiceTxnRequestEntity
     {
         public decimal Id { get; set; }
 

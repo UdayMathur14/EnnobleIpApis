@@ -1,17 +1,17 @@
-﻿using DataAccess.Domain.Masters.Transaction;
+﻿using DataAccess.Domain.Masters.VendorInvoiceTxn;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataAccess.Configuration.Masters
 {
-    public sealed class TransactionMasterConfiguration : IEntityTypeConfiguration<TransactionEntity>
+    public sealed class VendorInvoiceTxnMasterConfiguration : IEntityTypeConfiguration<VendorInvoiceTxnEntity>
     {
-        public void Configure(EntityTypeBuilder<TransactionEntity> builder)
+        public void Configure(EntityTypeBuilder<VendorInvoiceTxnEntity> builder)
         {
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
 
             builder.HasOne(b => b.VendorEntity)  
-            .WithMany(a => a.Transactions)     
+            .WithMany(a => a.VendorInvoiceTxns)     
             .HasForeignKey(b => b.VendorID);
 
 
