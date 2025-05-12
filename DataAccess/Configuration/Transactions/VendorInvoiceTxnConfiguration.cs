@@ -14,6 +14,15 @@ namespace DataAccess.Configuration.Masters
             .WithMany(a => a.VendorInvoiceTxns)     
             .HasForeignKey(b => b.VendorID);
 
+            builder.HasOne(b => b.CustomerEntity)
+           .WithMany(a => a.CustomerInvoiceTxns)
+           .HasForeignKey(b => b.CustomerID);
+
+            builder.HasMany(e => e.Fees)
+               .WithOne()  // no navigation back from Fee to Invoice
+               .HasForeignKey(f => f.VendorInvoiceTxnID)
+               .OnDelete(DeleteBehavior.Cascade);
+
 
         }
     }

@@ -1,5 +1,7 @@
-﻿using DataAccess.Domain.Masters.LookUpType;
+﻿using DataAccess.Domain.Masters.Customer;
+using DataAccess.Domain.Masters.LookUpType;
 using DataAccess.Domain.Masters.Vendor;
+using DataAccess.Domain.Transactions.VendorInvoiceTxn;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,7 +10,6 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
     [Table("VENDOR_INVOICE_TXN")]
     public class VendorInvoiceTxnEntity :EntityBase
     {
-        public int? SNo { get; set; }
         public int? VendorID { get; set; }
 
         public DateTime? InvoiceDate { get; set; }
@@ -49,7 +50,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         [MaxLength(50)]
         public string? WorkDeliveryDateOrMonth { get; set; }
 
-        public int? CurrencyPID { get; set; }
+        public string? Currency { get; set; }
 
         public int? ProfessionalFeeAmt { get; set; }
         public int? GovtOrOfficialFeeAmt { get; set; }
@@ -77,7 +78,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         [MaxLength(100)]
         public string? OurInvoiceNo { get; set; }
 
-        public int? CurrencySID { get; set; }
+        public string? CurrencySID { get; set; }
         public int? InvoiceAmt { get; set; }
 
         [MaxLength(100)]
@@ -96,5 +97,8 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         [MaxLength(10)]
         public string? PostedInTally { get; set; }
         public VendorEntity? VendorEntity { get; set; }
+        public CustomerEntity? CustomerEntity { get; set; }
+
+        public List<VendorInvoiceFeesEntity>? Fees { get; set; }
     }
 }

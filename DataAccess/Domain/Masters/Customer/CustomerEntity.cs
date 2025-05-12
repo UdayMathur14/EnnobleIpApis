@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DataAccess.Domain.Masters.VendorInvoiceTxn;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.Domain.Masters.Customer
@@ -93,6 +94,8 @@ namespace DataAccess.Domain.Masters.Customer
         [Column("PAYMENT_TERMS")]
         [StringLength(255)]
         public string? PaymentTerms { get; set; }
+
+        public ICollection<VendorInvoiceTxnEntity> CustomerInvoiceTxns { get; set; } = new List<VendorInvoiceTxnEntity>();
     }
 
 }
