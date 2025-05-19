@@ -10,7 +10,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
     public class VendorInvoiceTxnSearchRequestEntity
     {
         public string? VendorInvoiceTxnName { get; set; }
-        public string? VendorInvoiceTxnCode { get; set; }
+        public string? ClientInvoiceNumber { get; set; }
         public string? VendorInvoiceTxnType { get; set; }
         public string? Status { get; set; }
         public int Offset { get; set; }

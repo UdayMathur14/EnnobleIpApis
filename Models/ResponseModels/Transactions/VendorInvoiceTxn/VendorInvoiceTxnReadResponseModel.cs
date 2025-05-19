@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
 {
     public class VendorInvoiceTxnReadResponseModel : BaseResponseModel
     {
-        public int? SNo { get; set; }
         public int? VendorID { get; set; }
 
         public DateTime? InvoiceDate { get; set; }
@@ -51,7 +45,7 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         [MaxLength(50)]
         public string? WorkDeliveryDateOrMonth { get; set; }
 
-        public int? CurrencyPID { get; set; }
+        public int? CurrencyID { get; set; }
 
         public int? ProfessionalFeeAmt { get; set; }
         public int? GovtOrOfficialFeeAmt { get; set; }
