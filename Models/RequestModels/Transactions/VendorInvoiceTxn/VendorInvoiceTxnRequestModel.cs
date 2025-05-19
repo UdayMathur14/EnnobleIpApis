@@ -8,7 +8,6 @@ namespace Models.RequestModels.Masters.VendorInvoiceTxn
 {
     public class VendorInvoiceTxnRequestModel
     {
-        public int? SNo { get; set; }
         public int? VendorID { get; set; }
         public DateTime? InvoiceDate { get; set; }
         public string? FY { get; set; }
@@ -23,7 +22,7 @@ namespace Models.RequestModels.Masters.VendorInvoiceTxn
         public string? OurRefNo { get; set; }
         public string? OfficialFilingReceiptSupporting { get; set; }
         public string? WorkDeliveryDateOrMonth { get; set; }
-        public int? CurrencyPID { get; set; }
+        public int? CurrencyID { get; set; }
         public int? ProfessionalFeeAmt { get; set; }
         public int? GovtOrOfficialFeeAmt { get; set; }
         public int? OtherChargesAmt { get; set; }

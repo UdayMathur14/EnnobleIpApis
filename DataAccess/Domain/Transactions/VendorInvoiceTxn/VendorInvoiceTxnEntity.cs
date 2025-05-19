@@ -1,5 +1,4 @@
 ﻿using DataAccess.Domain.Masters.Customer;
-using DataAccess.Domain.Masters.LookUpType;
 using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Domain.Transactions.VendorInvoiceTxn;
 using System.ComponentModel.DataAnnotations;
@@ -50,7 +49,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         [MaxLength(50)]
         public string? WorkDeliveryDateOrMonth { get; set; }
 
-        public string? Currency { get; set; }
+        public string? CurrencyID { get; set; }
 
         public int? ProfessionalFeeAmt { get; set; }
         public int? GovtOrOfficialFeeAmt { get; set; }
