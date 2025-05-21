@@ -13,7 +13,6 @@ namespace DataAccess.Repositories.Masters
 
             return entity.Id;
         }
-
         public async Task<VendorEntity?> FindAsync(int id)
         {
             return await _context.VendorEntity.FindAsync(id);
