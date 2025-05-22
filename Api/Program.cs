@@ -21,7 +21,7 @@ builder.Services.AddDataAccessDependencies(builder.Configuration, builder.Enviro
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
-            builder => builder.WithOrigins("http://localhost:4200", "http://localhost:83", "http://localhost:84")
+            builder => builder.WithOrigins("http://localhost:4200", "http://localhost:83", "http://localhost:84", "http://192.168.29.100:83")
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 });
