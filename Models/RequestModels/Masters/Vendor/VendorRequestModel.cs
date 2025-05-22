@@ -2,43 +2,51 @@
 {
     public class VendorRequestModel
     {
-        public string? ActionBy { get; set; }
-        public DateTime? InvoiceDate { get; set; }
-        public string? ClientInvoiceNo { get; set; }
-        public DateTime? DueDateAsPerInvoice { get; set; }
-        public int? CreditDaysAsPerContract { get; set; }
-        public int? CustomerID { get; set; }
-        public string? Description { get; set; }
-        public string? Title { get; set; }
-        public string? ApplicationNumber { get; set; }
-        public string? ClientRefNo { get; set; }
-        public string? OurRefNo { get; set; }
-        public string? OfficialFilingReceiptSupporting { get; set; }
-        public string? WorkDeliveryDateOrMonth { get; set; }
-        public int? CurrencyPID { get; set; }
+        public string? VendorType { get; set; }
+        public string? VendorCode { get; set; }
+        public string? VendorName { get; set; }
 
-        public int? ProfessionalFeeAmt { get; set; }
-        public int? GovtOrOfficialFeeAmt { get; set; }
-        public int? OtherChargesAmt { get; set; }
-        public int? DiscountAmt { get; set; }
-        public int? DiscountCreditNoteAmt { get; set; }
+        public string? BillingAddressLine1 { get; set; }
+        public string? BillingAddressLine2 { get; set; }
+        public string? BillingCity { get; set; }
+        public string? BillingState { get; set; }
+        public string? BillingCountry { get; set; }
+        public string? BillingPinCode { get; set; }
 
-        public DateTime? PaymentDate { get; set; }
-        public int? BankID { get; set; }
-        public string? OWRMNo { get; set; }
-        public string? CustomerPONo { get; set; }
-        public DateTime? PODate { get; set; }
-        public int? POValueInclusiveTaxes { get; set; }
-        public string? OurInvoiceNo { get; set; }
-        public int? CurrencySID { get; set; }
-        public int? InvoiceAmt { get; set; }
+        public string? ShippingAddressLine1 { get; set; }
+        public string? ShippingAddressLine2 { get; set; }
+        public string? ShippingCity { get; set; }
+        public string? ShippingState { get; set; }
+        public string? ShippingCountry { get; set; }
+        public string? ShippingPinCode { get; set; }
 
-        public string? GovtFeeInvoiceNo { get; set; }
-        public int? OfficialFeeInvAmount { get; set; }
-        public string? EstimateNoProfFee { get; set; }
-        public string? EstimateNoGovtFee { get; set; }
-        public string? Remarks { get; set; }
-        public string? Status { get; set; }
-        public DateTime? InactiveDate { get; set; }
+        public string? Pan { get; set; }
+        public string? Gst { get; set; }
+        public string? GstTreatment { get; set; }
+        public bool? MsmeRegistered { get; set; }
+        public string? MsmeType { get; set; }
+        public string? MsmeNo { get; set; }
+
+        public string? ContactPersonName { get; set; }
+        public string? Designation { get; set; }
+        public string? Email1 { get; set; }
+        public string? Email2 { get; set; }
+        public string? PhoneMobileNo { get; set; }
+
+        public string? Currency { get; set; }
+        public string? PaymentTerms { get; set; }
+
+        public string? BankName { get; set; }
+        public string? AccountHolderName { get; set; }
+        public string? AccountNumber { get; set; }
+        public string? ConfirmAccountNumber { get; set; }
+        public string? IfscCode { get; set; }
+        public string? SwiftCode { get; set; }
+        public string? BankAddressLine1 { get; set; }
+        public string? BankAddressLine2 { get; set; }
+        public string? Branch { get; set; }
+        public string? BankCity { get; set; }
+        public string? BankState { get; set; }
+        public string? BankPinCode { get; set; }
     }
 }

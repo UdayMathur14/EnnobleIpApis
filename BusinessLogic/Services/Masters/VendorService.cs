@@ -75,11 +75,11 @@ namespace BusinessLogic.Services.Masters
         {
             var wrapper = new ResponseWrapper<VendorCreateResponseModel>();
 
-            VendorEntity? VendorEntity = await VendorRepository.IsExistsAsync(requestModel.Description);
+            VendorEntity? VendorEntity = await VendorRepository.IsExistsAsync(requestModel.BillingAddressLine1);
 
             if (VendorEntity != null)
             {
-                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.Description.ToString()));
+                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.BillingAddressLine1.ToString()));
             }
             else
             {
