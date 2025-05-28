@@ -112,6 +112,10 @@ namespace DataAccess.Domain.Masters.Vendor
         [StringLength(50)]
         public string? PhoneMobileNo { get; set; }
 
+        [Column("Country_Code")]
+        [StringLength(5)]
+        public string? CountryCode { get; set; }
+
         [Column("CURRENCY")]
         [StringLength(10)]
         public string? Currency { get; set; }
@@ -159,6 +163,11 @@ namespace DataAccess.Domain.Masters.Vendor
         [Column("BANK_CITY")]
         [StringLength(100)]
         public string? BankCity { get; set; }
+
+
+        [Column("BANK_COUNTRY")]
+        [StringLength(100)]
+        public string? BankCountry { get; set; }
 
         [Column("BANK_STATE")]
         [StringLength(100)]

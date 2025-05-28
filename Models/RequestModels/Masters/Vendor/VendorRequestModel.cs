@@ -33,6 +33,10 @@
         public string? Email2 { get; set; }
         public string? PhoneMobileNo { get; set; }
 
+        public string? CountryCode { get; set; }
+
+
+
         public string? Currency { get; set; }
         public string? PaymentTerms { get; set; }
 
@@ -47,6 +51,7 @@
         public string? Branch { get; set; }
         public string? BankCity { get; set; }
         public string? BankState { get; set; }
+        public string? BankCountry { get; set; }
         public string? BankPinCode { get; set; }
     }
 }

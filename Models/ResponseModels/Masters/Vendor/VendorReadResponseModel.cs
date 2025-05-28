@@ -42,6 +42,8 @@ namespace Models.ResponseModels.Masters.Vendor
         public string? Email2 { get; set; }
         public string? PhoneMobileNo { get; set; }
 
+        public string? CountryCode { get; set; }
+
         public string? Currency { get; set; }
         public string? PaymentTerms { get; set; }
 
