@@ -30,7 +30,7 @@ namespace Api.Controllers.Masters
         [HttpPut("update/{id}")]
         public async Task<IActionResult> Update(int id, VendorUpdateRequestModel Vendor)
         {
-                IResponseWrapper<VendorReadResponseModel> result = await vendorService.UpdateVendorAsync(Vendor, id);
+            IResponseWrapper<VendorReadResponseModel> result = await vendorService.UpdateVendorAsync(Vendor, id);
             return HandleResponse(result);
         }
 

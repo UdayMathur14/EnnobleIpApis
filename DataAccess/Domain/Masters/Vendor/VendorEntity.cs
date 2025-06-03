@@ -177,6 +177,21 @@ namespace DataAccess.Domain.Masters.Vendor
         [StringLength(20)]
         public string? BankPinCode { get; set; }
 
+        [Column("IBAN")]
+        public string? iban { get; set; }
+
+        [Column("SORT_CODE")]
+        public string? SortCode { get; set; }
+
+        [Column("ROUTING_NO")]
+        public string? routingNo { get; set; }
+
+        [Column("FC_TC_CHARGES")]
+        public string? fctcCharge { get; set; }
+
+        [Column("COMPL_DOC_YEAR")]
+        public string? complDocyear { get; set; }
+
         public ICollection<VendorInvoiceTxnEntity>? VendorInvoiceTxns { get; set; }
 
     }

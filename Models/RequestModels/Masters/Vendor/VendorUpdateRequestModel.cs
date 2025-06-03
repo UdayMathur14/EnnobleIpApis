@@ -56,7 +56,7 @@
         public string? routingNo { get; set; }
         public string? bankCountry { get; set; }
         public string? fctcCharge { get; set; }
-        public string? completionYear { get; set; }
+        public string? complDocyear { get; set; }
         public string? Status { get; set; }
     }
 }
