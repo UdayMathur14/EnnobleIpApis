@@ -23,10 +23,6 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
 
         public int? CreditDaysAsPerContract { get; set; }
 
-        // DueDateAsPerContract is a computed column in SQL
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime? DueDateAsPerContract { get; set; }
-
         public int? CustomerID { get; set; }
 
         public string? Description { get; set; }
@@ -36,6 +32,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
 
         [MaxLength(100)]
         public string? ApplicationNumber { get; set; }
+        public DateTime? FillingDate { get; set; }
 
         [MaxLength(100)]
         public string? ClientRefNo { get; set; }
@@ -44,28 +41,31 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public string? OurRefNo { get; set; }
 
         [MaxLength(20)]
-        public string? OfficialFilingReceiptSupporting { get; set; }
+        public bool? OfficialFilingReceiptSupporting { get; set; }
 
         [MaxLength(50)]
         public string? WorkDeliveryDateOrMonth { get; set; }
 
-        public string? CurrencyID { get; set; }
+        public string? CurrencyPID { get; set; }
 
         public int? ProfessionalFeeAmt { get; set; }
         public int? GovtOrOfficialFeeAmt { get; set; }
         public int? OtherChargesAmt { get; set; }
         public int? DiscountAmt { get; set; }
         public int? DiscountCreditNoteAmt { get; set; }
+        public int? TotalAmount { get; set; }
 
-        // TotalAmt is a computed column in SQL
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public int? TotalAmt { get; set; }
 
         public DateTime? PaymentDate { get; set; }
         public int? BankID { get; set; }
 
         [MaxLength(100)]
-        public string? OWRMNo { get; set; }
+        public string? OWRMNo1 { get; set; }
+        public string? OWRMNo2 { get; set; }
+        public string? Currency2 { get; set; }
+        public string? PaymentAmount { get; set; }
+
+
 
         [MaxLength(100)]
         public string? CustomerPONo { get; set; }
@@ -73,31 +73,24 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public DateTime? PODate { get; set; }
 
         public int? POValueInclusiveTaxes { get; set; }
-
-        [MaxLength(100)]
+        public string? ProfessionalFeeInvoiceNo { get; set; }
+        public string? Currency3 { get; set; }
+        public int? ProfessionalFeeInvoiceAmount { get; set; }
+        public string? GovtFeesInvoiceNo { get; set; }
         public string? OurInvoiceNo { get; set; }
+        public int? InvoiceAmount { get; set; }
 
-        public string? CurrencySID { get; set; }
-        public int? InvoiceAmt { get; set; }
-
-        [MaxLength(100)]
         public string? GovtFeeInvoiceNo { get; set; }
-
         public int? OfficialFeeInvAmount { get; set; }
-
-        [MaxLength(100)]
-        public string? EstimateNoProfFee { get; set; }
-
-        [MaxLength(100)]
-        public string? EstimateNoGovtFee { get; set; }
-
+        public int? EstimateNoProfFee { get; set; }
+        public int? EstimateNoGovtFee { get; set; }
         public string? Remarks { get; set; }
-
-        [MaxLength(10)]
         public string? PostedInTally { get; set; }
+        public string? Status { get; set; }
+        public int? TotalAmt { get; set; }
+
         public VendorEntity? VendorEntity { get; set; }
         public CustomerEntity? CustomerEntity { get; set; }
-
-        public List<VendorInvoiceFeesEntity>? Fees { get; set; }
+        public List<VendorInvoiceFeesEntity>? FeeDetails { get; set; }
     }
 }

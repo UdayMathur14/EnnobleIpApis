@@ -13,14 +13,12 @@ namespace DataAccess.Domain.Transactions.VendorInvoiceTxn
         [ForeignKey("VendorInvoiceTxnEntity")]
         public int VendorInvoiceTxnID { get; set; }
 
-        public int FeeTypeID { get; set; }  // From dropdown (e.g., Professional Fee, Govt Fee etc.)
-
-        public int? CountryID { get; set; } // From dropdown
-
-        public int Amount { get; set; }
-
-        [MaxLength(500)]
-        public string? Remarks { get; set; }
+        public string? feeType { get; set; }
+        public int? subFeeValue { get; set; }
+        public int? country { get; set; }
+        public int? amount { get; set; }
+        public int? remarks { get; set; }
+        public int? language { get; set; }
 
         public VendorInvoiceTxnEntity? VendorInvoiceTxnEntity { get; set; }
     }

@@ -37,7 +37,7 @@ namespace Models.RequestModels.Masters.VendorInvoiceTxn
         // Tab 2
         public DateTime? PaymentDate { get; set; }          
         public int? BankID { get; set; }                    
-        public string? OWRMNo { get; set; }                 
+        public string? OWRMNo1 { get; set; }                 
         public string? OWRMNo2 { get; set; }                
         public string? Currency2 { get; set; }              
         public int? PaymentAmount { get; set; }             
@@ -60,16 +60,18 @@ namespace Models.RequestModels.Masters.VendorInvoiceTxn
         public string? Remarks { get; set; }                
         public string? PostedInTally { get; set; }          
         public string? Status { get; set; }                 
-        public List<FeeDetails>? FeeDetails { get; set; }  
+        public List<VendorInvoiceFeesEntity>? FeeDetails { get; set; }  
         public int? TotalAmt { get; set; }                  
     }
 
-    public class FeeDetails
+    public class VendorInvoiceFeesEntity
     {
-        public string? Description { get; set; }
-        public int? Quantity { get; set; }
-        public int? Rate { get; set; }
-        public int? Amount { get; set; }
+        public string? feeType { get; set; }
+        public int? subFeeValue { get; set; }
+        public int? country { get; set; }
+        public int? amount { get; set; }
+        public int? remarks { get; set; }
+        public int? language { get; set; }
     }
 
 
