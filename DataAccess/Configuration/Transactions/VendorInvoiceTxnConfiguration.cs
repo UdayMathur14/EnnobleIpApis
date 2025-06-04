@@ -1,6 +1,7 @@
 ﻿using DataAccess.Domain.Masters.VendorInvoiceTxn;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace DataAccess.Configuration.Masters
 {
@@ -18,10 +19,10 @@ namespace DataAccess.Configuration.Masters
            .WithMany(a => a.CustomerInvoiceTxns)
            .HasForeignKey(b => b.CustomerID);
 
-            builder.HasMany(e => e.FeeDetails)
-               .WithOne()  // no navigation back from Fee to Invoice
-               .HasForeignKey(f => f.VendorInvoiceTxnID)
-               .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(v => v.FeeDetails)
+       .WithOne(f => f.VendorInvoiceTxnEntity)
+       .HasForeignKey(f => f.VendorInvoiceTxnID);
+
 
 
         }

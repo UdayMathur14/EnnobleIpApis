@@ -60,7 +60,7 @@ namespace Models.RequestModels.Masters.VendorInvoiceTxn
         public string? Remarks { get; set; }                
         public string? PostedInTally { get; set; }          
         public string? Status { get; set; }                 
-        public List<FessList>? FeeDetailsInput { get; set; }  
+        public List<FessList>? feeDetails { get; set; }  
         public int? TotalAmt { get; set; }                  
     }
 

@@ -32,7 +32,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public int? OtherChargesAmt { get; set; }
         public int? DiscountAmt { get; set; }
         public int? DiscountCreditNoteAmt { get; set; }
-        public int? TotalAmount { get; set; }
+        //public int? TotalAmount { get; set; }
 
         // Tab 2
         public DateTime? PaymentDate { get; set; }
@@ -59,10 +59,11 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public int? EstimateNoGovtFee { get; set; }
         public string? Remarks { get; set; }
         public string? PostedInTally { get; set; }
-        public List<VendorInvoiceFeesEntity>? FeeDetails { get; set; }
-        public int? TotalAmt { get; set; }
 
+        [Column("TotalAmount")]
+        public int? TotalAmt { get; set; }
         public VendorEntity? VendorEntity { get; set; }
         public CustomerEntity? CustomerEntity { get; set; }
+        public ICollection<VendorInvoiceFeesEntity>? FeeDetails { get; set; }
     }
 }
