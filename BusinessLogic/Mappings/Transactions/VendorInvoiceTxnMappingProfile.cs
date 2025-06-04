@@ -12,13 +12,22 @@ namespace BusinessLogic.Mappings.VendorInvoiceTxns
         {
             CreateMap<VendorInvoiceTxnSearchRequestModel, VendorInvoiceTxnSearchRequestEntity>();
             CreateMap<VendorInvoiceTxnSearchResponseEntity, VendorInvoiceTxnSearchResponse>();
-            CreateMap<VendorInvoiceTxnRequestModel, VendorInvoiceTxnRequestEntity>();
+            
             CreateMap<VendorInvoiceTxnEntity, VendorInvoiceTxnSearchResponse>();
-            CreateMap<VendorInvoiceTxnRequestModel, VendorInvoiceTxnEntity>();
-            CreateMap<VendorInvoiceTxnEntity, VendorInvoiceTxnRequestModel>();
+            
             CreateMap<VendorInvoiceTxnUpdateRequestModel, VendorInvoiceTxnEntity>();
 
             CreateMap<VendorInvoiceTxnEntity, VendorInvoiceTxnReadResponseModel>();
+
+            CreateMap<VendorInvoiceTxnEntity, VendorInvoiceTxnRequestModel>();
+
+            CreateMap<VendorInvoiceTxnRequestModel, VendorInvoiceTxnEntity>()
+                .ForMember(dest => dest.FeeDetails, opt => opt.MapFrom(src => src.FeeDetailsInput));
+
+            //CreateMap<Models.RequestModels.Masters.VendorInvoiceTxn.VendorInvoiceFeesEntity, DataAccess.Domain.Transactions.VendorInvoiceTxn.VendorInvoiceFeesEntity>();
+
+            //CreateMap<Models.RequestModels.Masters.VendorInvoiceTxn.VendorInvoiceTxnRequestModel, DataAccess.Domain.Masters.VendorInvoiceTxn.VendorInvoiceTxnEntity>();
+
         }
     }
 }

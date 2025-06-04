@@ -60,18 +60,18 @@ namespace Models.RequestModels.Masters.VendorInvoiceTxn
         public string? Remarks { get; set; }                
         public string? PostedInTally { get; set; }          
         public string? Status { get; set; }                 
-        public List<VendorInvoiceFeesEntity>? FeeDetails { get; set; }  
+        public List<FessList>? FeeDetailsInput { get; set; }  
         public int? TotalAmt { get; set; }                  
     }
 
-    public class VendorInvoiceFeesEntity
+    public class FessList
     {
         public string? feeType { get; set; }
-        public int? subFeeValue { get; set; }
-        public int? country { get; set; }
+        public string? subFeeValue { get; set; }
+        public string? country { get; set; }
         public int? amount { get; set; }
-        public int? remarks { get; set; }
-        public int? language { get; set; }
+        public string? remarks { get; set; }
+        public string? language { get; set; }
     }
 
 

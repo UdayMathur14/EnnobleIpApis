@@ -18,7 +18,7 @@ namespace DataAccess.Configuration.Masters
            .WithMany(a => a.CustomerInvoiceTxns)
            .HasForeignKey(b => b.CustomerID);
 
-            builder.HasMany(e => e.Fees)
+            builder.HasMany(e => e.FeeDetails)
                .WithOne()  // no navigation back from Fee to Invoice
                .HasForeignKey(f => f.VendorInvoiceTxnID)
                .OnDelete(DeleteBehavior.Cascade);

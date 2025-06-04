@@ -10,6 +10,7 @@ using DataAccess.Domain.Masters.VendorInvoiceTxn;
 using DataAccess.Domain.Masters.Vendor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using DataAccess.Domain.Transactions.VendorInvoiceTxn;
 
 namespace DataAccess
 {
@@ -29,6 +30,8 @@ namespace DataAccess
         public virtual DbSet<BankEntity> BankEntity { get; set; }
         public virtual DbSet<CountryEntity> CountryEntity { get; set; }
         public virtual DbSet<StateEntity> StateEntity { get; set; }
+
+        public virtual DbSet<VendorInvoiceFeesEntity> FeesEntity { get; set; }
 
         //transactions
         public virtual DbSet<VendorInvoiceTxnEntity> VendorInvoiceTxnEntity { get; set; }

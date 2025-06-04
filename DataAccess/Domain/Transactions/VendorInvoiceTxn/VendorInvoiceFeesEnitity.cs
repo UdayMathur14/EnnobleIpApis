@@ -12,13 +12,12 @@ namespace DataAccess.Domain.Transactions.VendorInvoiceTxn
 
         [ForeignKey("VendorInvoiceTxnEntity")]
         public int VendorInvoiceTxnID { get; set; }
-
         public string? feeType { get; set; }
-        public int? subFeeValue { get; set; }
-        public int? country { get; set; }
+        public string? subFeeValue { get; set; }
+        public string? country { get; set; }
         public int? amount { get; set; }
-        public int? remarks { get; set; }
-        public int? language { get; set; }
+        public string? remarks { get; set; }
+        public string? language { get; set; }
 
         public VendorInvoiceTxnEntity? VendorInvoiceTxnEntity { get; set; }
     }
