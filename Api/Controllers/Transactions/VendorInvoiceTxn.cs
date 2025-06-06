@@ -22,7 +22,7 @@ namespace Api.Controllers.VendorInvoiceTxn
         }
 
         [HttpPost("search")]
-        public async Task<ActionResult> Search(VendorInvoiceTxnSearchRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string count = null)
+        public async Task<ActionResult> Search(VendorInvoiceTxnSearchRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
         {
             IResponseWrapper<VendorInvoiceTxnSearchResponse> result = await vendorInvoiceTxnService.SearchVendorInvoiceTxnAsync(requestModel, offset, count!);
             return HandleResponse(result);

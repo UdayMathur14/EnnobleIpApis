@@ -1,7 +1,6 @@
 ﻿using DataAccess.Domain.Masters.VendorInvoiceTxn;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
 
 namespace DataAccess.Configuration.Masters
 {
@@ -11,8 +10,8 @@ namespace DataAccess.Configuration.Masters
         {
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
 
-            builder.HasOne(b => b.VendorEntity)  
-            .WithMany(a => a.VendorInvoiceTxns)     
+            builder.HasOne(b => b.VendorEntity)
+            .WithMany(a => a.VendorInvoiceTxns)
             .HasForeignKey(b => b.VendorID);
 
             builder.HasOne(b => b.CustomerEntity)
@@ -20,10 +19,8 @@ namespace DataAccess.Configuration.Masters
            .HasForeignKey(b => b.CustomerID);
 
             builder.HasMany(v => v.FeeDetails)
-       .WithOne(f => f.VendorInvoiceTxnEntity)
-       .HasForeignKey(f => f.VendorInvoiceTxnID);
-
-
+           .WithOne(f => f.VendorInvoiceTxnEntity)
+           .HasForeignKey(f => f.VendorInvoiceTxnID);
 
         }
     }

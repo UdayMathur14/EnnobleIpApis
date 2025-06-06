@@ -28,7 +28,14 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
 
         public async Task<VendorInvoiceTxnEntity?> FindAsync(int id)
         {
-            return await _context.VendorInvoiceTxnEntity.FindAsync(id);
+            //return await _context.VendorInvoiceTxnEntity.FindAsync(id);
+
+            return await
+                _context.VendorInvoiceTxnEntity
+                .Include(x => x.FeeDetails)
+                .Include(x => x.VendorEntity)
+                .Include(x=>x.CustomerEntity)
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<VendorInvoiceTxnEntity?> IsExistsAsync(string? code)
@@ -64,10 +71,10 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                        .Distinct()
                        .ToListAsync();
 
-            //if (!string.IsNullOrWhiteSpace(request.Status))
-            //{
-            //    query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
-            //}
+            if (!string.IsNullOrWhiteSpace(request.Status))
+            {
+                query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
+            }
             //if (!string.IsNullOrWhiteSpace(request.VendorInvoiceTxnName))
             //{
             //    query = query.Where(t => t.VendorInvoiceTxnName!.ToLower().Contains(request.VendorInvoiceTxnName.ToLower()));
