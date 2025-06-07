@@ -57,7 +57,7 @@
         public string? iban { get; set; }
         public string? SortCode { get; set; }
         public string? routingNo { get; set; }
-        public string? fctcCharge { get; set; }
+        public string? fCTCCharges { get; set; }
         public string? complDocyear { get; set; }
         public string? Status { get; set; }
 

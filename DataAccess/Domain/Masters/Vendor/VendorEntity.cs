@@ -187,7 +187,7 @@ namespace DataAccess.Domain.Masters.Vendor
         public string? routingNo { get; set; }
 
         [Column("FC_TC_CHARGES")]
-        public string? fctcCharge { get; set; }
+        public string? fCTCCharges { get; set; }
 
         [Column("COMPL_DOC_YEAR")]
         public string? complDocyear { get; set; }
