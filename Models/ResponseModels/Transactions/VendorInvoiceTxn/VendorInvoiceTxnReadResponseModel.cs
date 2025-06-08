@@ -1,6 +1,7 @@
-﻿using DataAccess.Domain.Masters.Customer;
-using Models.RequestModels.Masters.Vendor;
-using Models.RequestModels.Masters.VendorInvoiceTxn;
+﻿using Models.RequestModels.Masters.VendorInvoiceTxn;
+using Models.ResponseModels.Masters.Bank;
+using Models.ResponseModels.Masters.Customer;
+using Models.ResponseModels.Masters.Vendor;
 
 namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
 {
@@ -59,8 +60,9 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public string? Status { get; set; }
         public List<FessList>? feeDetails { get; set; }
         public int? TotalAmt { get; set; }
-        //public VendorRequestModel? VendorEntity { get; set; }
-        //public CustomerRequestModel? CustomerEntity { get; set; }
+        public VendorReadResponseModel? VendorDetails { get; set; }
+        public CustomerReadResponseModel? CustomerDetials { get; set; }
+        public BankReadResponseModel? BankDetails { get; set; }
     }
 
 }

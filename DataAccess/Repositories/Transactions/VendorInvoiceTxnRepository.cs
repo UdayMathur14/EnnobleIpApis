@@ -31,6 +31,7 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                 .Include(x => x.FeeDetails)
                 .Include(x => x.VendorEntity)
                 .Include(x=>x.CustomerEntity)
+                .Include(x => x.BankEntity)
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
