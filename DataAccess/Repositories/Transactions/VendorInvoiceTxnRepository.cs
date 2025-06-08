@@ -8,19 +8,15 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
     {
         public async Task<int> AddAsync(VendorInvoiceTxnEntity entity)
         {
-            // Ensure FeeDetails have correct foreign key set (if not automatically set)
             if (entity.FeeDetails != null && entity.FeeDetails.Any())
             {
                 foreach (var fee in entity.FeeDetails)
                 {
-                    fee.VendorInvoiceTxnEntity = entity; // Optional: link back to parent
+                    fee.VendorInvoiceTxnEntity = entity; 
                 }
             }
-
-            // Add parent entity along with its FeeDetails
             _context.VendorInvoiceTxnEntity.Add(entity);
 
-            // EF Core will track FeeDetails as well (if navigation properties are configured)
             await _context.SaveChangesAsync();
 
             return entity.Id;

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DataAccess.Domain.Masters.VendorInvoiceTxn;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
@@ -37,6 +38,8 @@ namespace DataAccess.Domain.Masters.Bank
         public string? BankContactNo { get; set; }
         public string? BankEmailId { get; set; }
         public string? BankCode { get; set; }
+
+        public ICollection<VendorInvoiceTxnEntity> BankInvoiceTxns { get; set; } = new List<VendorInvoiceTxnEntity>();
 
     }
 }

@@ -5,6 +5,6 @@ namespace DataAccess.Interfaces.Masters
     public interface IVendorRepository : IRepository<VendorEntity>
     {
         Task<VendorSearchResponseEntity> SearchVendorAsync(VendorSearchRequestEntity request);
-        Task<VendorEntity?> IsExistsAsync(string? code);
+        Task<VendorEntity?> IsExistsAsync(string? vendorName);
     }
 }

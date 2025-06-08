@@ -42,5 +42,6 @@ namespace Api.Controllers.VendorInvoiceTxn
             IResponseWrapper<VendorInvoiceTxnCreateResponseModel> result = await vendorInvoiceTxnService.CreateVendorInvoiceTxnAsync(VendorInvoiceTxn);
             return HandleResponse(result, StatusCodes.Status201Created);
         }
-        }
     }
+
+}

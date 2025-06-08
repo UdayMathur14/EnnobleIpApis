@@ -1,4 +1,5 @@
-﻿using DataAccess.Domain.Masters.Customer;
+﻿using DataAccess.Domain.Masters.Bank;
+using DataAccess.Domain.Masters.Customer;
 using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Domain.Transactions.VendorInvoiceTxn;
 using System.ComponentModel.DataAnnotations;
@@ -64,6 +65,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public int? TotalAmt { get; set; }
         public VendorEntity? VendorEntity { get; set; }
         public CustomerEntity? CustomerEntity { get; set; }
+        public BankEntity? BankEntity { get; set; }
         public ICollection<VendorInvoiceFeesEntity>? FeeDetails { get; set; }
     }
 }

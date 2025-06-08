@@ -18,10 +18,10 @@ namespace DataAccess.Repositories.Masters
             return await _context.VendorEntity.FindAsync(id);
         }
 
-        public async Task<VendorEntity?> IsExistsAsync(string? code)
+        public async Task<VendorEntity?> IsExistsAsync(string? vendorName)
         {
-            //return await _context.VendorEntity.Where(c=>c.VendorCode==code).SingleOrDefaultAsync();
-            return null;
+            return await _context.VendorEntity.Where(c => c.VendorName == vendorName).SingleOrDefaultAsync();
+            //return null;
         }
 
         public async Task<VendorSearchResponseEntity> SearchVendorAsync(VendorSearchRequestEntity request)
