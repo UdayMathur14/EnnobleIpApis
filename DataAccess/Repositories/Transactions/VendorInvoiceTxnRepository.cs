@@ -45,7 +45,10 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
         {
             var response = new VendorInvoiceTxnSearchResponseEntity();
 
-            var query = _context.VendorInvoiceTxnEntity.AsQueryable();
+            var query = _context.VendorInvoiceTxnEntity
+                 .Include(x => x.VendorEntity)
+                .Include(x => x.CustomerEntity).
+                AsQueryable();
 
             //var VendorInvoiceTxnName = await _context.VendorInvoiceTxnEntity
             //           .Select(a => a.VendorInvoiceTxnName)
