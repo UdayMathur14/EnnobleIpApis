@@ -35,18 +35,18 @@ namespace DataAccess.Repositories.Masters
                        .Distinct()
                        .ToListAsync();
 
-            var VendorCode = await _context.VendorEntity
+            var VendorCode = await query
                        .Select(a => a.VendorCode)
                        .Distinct()
                        .ToListAsync();
 
-            var VendorType = await _context.VendorEntity
+            var VendorType = await query
                        .Select(a => a.VendorType)
                        .Distinct()
                        .ToListAsync();
 
 
-            var Status = await _context.VendorEntity
+            var Status = await query
                        .Select(a => a.Status)
                        .Distinct()
                        .ToListAsync();

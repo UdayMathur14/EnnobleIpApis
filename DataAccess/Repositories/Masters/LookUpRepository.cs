@@ -36,23 +36,23 @@ namespace DataAccess.Repositories.Masters
                         .ThenByDescending(t => t.LastUpdateDate)
                         .AsQueryable();
 
-            var LookUpType = await _context.LookUpEntity
+            var LookUpType = await query
                         .Where(t => t.LookUpType != null)
                         .Select(a => a.LookUpType!.Type)
                         .Distinct()
                         .ToListAsync();
 
-            var Code = await _context.LookUpEntity
+            var Code = await query
                         .Select(a => a.Code)
                         .Distinct()
                         .ToListAsync();
 
-            var Value = await _context.LookUpEntity
+            var Value = await query
                        .Select(a => a.Value)
                        .Distinct()
                        .ToListAsync();
 
-            var Status = await _context.LookUpEntity
+            var Status = await query
                         .Select(a => a.Status)
                         .Distinct()
                         .ToListAsync();

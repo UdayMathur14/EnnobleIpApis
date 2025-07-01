@@ -34,27 +34,25 @@ namespace DataAccess.Repositories.Masters
             var response = new BankSearchResponseEntity();
 
             var query = _context.BankEntity                     
-                        //.Where(tm => tm.Status == "Active"))
-                        //.OrderBy(t => t.Status == "Inactive")
-                        //.ThenByDescending(t => t.LastUpdateDate)
                         .AsQueryable();
 
 
-            var BankCode = await _context.BankEntity
+            var BankCode = await query
                         .Select(a => a.BankCode)
                         .Distinct()
                         .ToListAsync();
 
-            var BankName = await _context.BankEntity
+            var BankName = await query
                             .Select(a => a.BankName)
                             .Distinct()
                             .ToListAsync();
-            var BankType = await _context.BankEntity
+
+            var BankType = await query
                            .Select(a => a.AccountType)
                            .Distinct()
                            .ToListAsync();
 
-            var Status = await _context.BankEntity
+            var Status = await query
                         .Select(a => a.Status)
                         .Distinct()
                         .ToListAsync();

@@ -29,17 +29,17 @@ namespace DataAccess.Repositories.Masters
                         .ThenByDescending(t => t.LastUpdateDate)
                         .AsQueryable();
 
-            var CustomerCode = await _context.CustomerEntity
+            var CustomerCode = await query
                             .Select(a => a.CustomerCode)
                             .Distinct()
                             .ToListAsync();
 
-            var CustomerName = await _context.CustomerEntity
+            var CustomerName = await query
                             .Select(a => a.CustomerName)
                             .Distinct()
                             .ToListAsync();
 
-            var Status = await _context.CustomerEntity
+            var Status = await query
                         .Select(a => a.Status)
                         .Distinct()
                         .ToListAsync();

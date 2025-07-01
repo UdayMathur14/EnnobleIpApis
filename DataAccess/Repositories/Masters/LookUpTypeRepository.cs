@@ -40,12 +40,12 @@ namespace DataAccess.Repositories.Masters
                 query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
             }
 
-            var Status = await _context.LookUpTypeEntity
+            var Status = await query
                         .Select(a => a.Status)
                         .Distinct()
                         .ToListAsync();
 
-            var Type = await _context.LookUpTypeEntity
+            var Type = await query
                         .Select(a => a.Type)
                         .Distinct()
                         .ToListAsync();

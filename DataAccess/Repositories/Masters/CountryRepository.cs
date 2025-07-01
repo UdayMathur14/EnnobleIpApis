@@ -29,17 +29,17 @@ namespace DataAccess.Repositories.Masters
                                     .ThenByDescending(t => t.LastUpdateDate)
                                     .AsQueryable();
 
-            var CountryCode = await _context.CountryEntity
+            var CountryCode = await query
                             .Select(a => a.CountryCode)
                             .Distinct()
                             .ToListAsync();
 
-            var CountryName = await _context.CountryEntity
+            var CountryName = await query
                             .Select(a => a.CountryName)
                             .Distinct()
                             .ToListAsync();
 
-            var Status = await _context.CountryEntity
+            var Status = await query
                             .Select(a => a.Status)
                             .Distinct()
                             .ToListAsync();

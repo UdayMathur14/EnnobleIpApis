@@ -34,12 +34,12 @@ namespace DataAccess.Repositories.Masters
 
           
 
-            var StateName = await _context.StateEntity
+            var StateName = await query
                             .Select(a => a.StateName)
                             .Distinct()
                             .ToListAsync();
 
-            var Status = await _context.StateEntity
+            var Status = await query
                             .Select(a => a.Status)
                             .Distinct()
                             .ToListAsync();
