@@ -22,7 +22,7 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public string? OurRefNo { get; set; }
         public bool? OfficialFilingReceiptSupporting { get; set; }
         public DateTime? WorkDeliveryDateOrMonth { get; set; }
-        public string? CurrencyPID { get; set; }
+        public string? PurchaseCurrency { get; set; }
 
         // Totals (tab1 but calculated)
         public int? ProfessionalFeeAmt { get; set; }
@@ -37,7 +37,7 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public int? BankID { get; set; }
         public string? OWRMNo1 { get; set; }
         public string? OWRMNo2 { get; set; }
-        public string? Currency2 { get; set; }
+        public string? PaymentCurrency { get; set; }
         public int? PaymentAmount { get; set; }
 
         // Tab 4
@@ -45,7 +45,7 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public DateTime? PODate { get; set; }
         public int? POValueInclusiveTaxes { get; set; }
         public string? ProfessionalFeeInvoiceNo { get; set; }
-        public string? Currency3 { get; set; }
+        public string? SalesCurrency { get; set; }
         public int? ProfessionalFeeInvoiceAmount { get; set; }
         public string? GovtFeesInvoiceNo { get; set; }
         public string? OurInvoiceNo { get; set; }
@@ -58,10 +58,10 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public string? Remarks { get; set; }
         public string? PostedInTally { get; set; }
         public string? Status { get; set; }
-        public List<FessList>? feeDetails { get; set; }
+        public List<InvoiceFessDetailList>? feeDetails { get; set; }
         public int? TotalAmt { get; set; }
         public VendorReadResponseModel? VendorDetails { get; set; }
-        public CustomerReadResponseModel? CustomerDetials { get; set; }
+        public CustomerReadResponseModel? CustomerDetails { get; set; }
         public BankReadResponseModel? BankDetails { get; set; }
     }
 

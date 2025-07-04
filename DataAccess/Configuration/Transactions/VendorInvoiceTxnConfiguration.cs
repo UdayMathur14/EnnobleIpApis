@@ -22,6 +22,10 @@ namespace DataAccess.Configuration.Masters
            .WithOne(f => f.VendorInvoiceTxnEntity)
            .HasForeignKey(f => f.VendorInvoiceTxnID);
 
+            builder.HasMany(v => v.SalesInvoiceDetails)
+            .WithOne(f => f.VendorInvoiceEntity)
+            .HasForeignKey(f => f.VendorInvoiceTxnID);
+
             builder.HasOne(b => b.BankEntity)
            .WithMany(a => a.BankInvoiceTxns)
            .HasForeignKey(b => b.BankID);
