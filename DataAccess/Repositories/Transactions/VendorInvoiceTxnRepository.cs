@@ -29,6 +29,7 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             return await
                 _context.VendorInvoiceTxnEntity
                 .Include(x => x.FeeDetails)
+                .Include(x => x.SalesInvoiceDetails)
                 .Include(x => x.VendorEntity)
                 .Include(x=>x.CustomerEntity)
                 .Include(x => x.BankEntity)
@@ -50,21 +51,15 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                 .Include(x => x.CustomerEntity).
                 AsQueryable();
 
-            //var VendorInvoiceTxnName = await _context.VendorInvoiceTxnEntity
-            //           .Select(a => a.VendorInvoiceTxnName)
-            //           .Distinct()
-            //           .ToListAsync();
+            var ClientInvoiceNo = await _context.VendorInvoiceTxnEntity
+                       .Select(a => a.ClientInvoiceNo)
+                       .Distinct()
+                       .ToListAsync();
 
-            //var VendorInvoiceTxnCode = await _context.VendorInvoiceTxnEntity
-            //           .Select(a => a.VendorInvoiceTxnCode)
-            //           .Distinct()
-            //           .ToListAsync();
-
-            //var VendorInvoiceTxnType = await _context.VendorInvoiceTxnEntity
-            //           .Select(a => a.VendorInvoiceTxnType)
-            //           .Distinct()
-            //           .ToListAsync();
-
+            var ApplicationNumber = await _context.VendorInvoiceTxnEntity
+                       .Select(a => a.ApplicationNumber)
+                       .Distinct()
+                       .ToListAsync();
 
             var Status = await _context.VendorInvoiceTxnEntity
                        .Select(a => a.Status)
@@ -75,18 +70,15 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             {
                 query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
             }
-            //if (!string.IsNullOrWhiteSpace(request.VendorInvoiceTxnName))
-            //{
-            //    query = query.Where(t => t.VendorInvoiceTxnName!.ToLower().Contains(request.VendorInvoiceTxnName.ToLower()));
-            //}
-            //if (!string.IsNullOrWhiteSpace(request.VendorInvoiceTxnCode))
-            //{
-            //    query = query.Where(t => t.VendorInvoiceTxnCode!.ToLower().Contains(request.VendorInvoiceTxnCode.ToLower()));
-            //}
-            //if (!string.IsNullOrWhiteSpace(request.VendorInvoiceTxnType))
-            //{
-            //    query = query.Where(t => t.VendorInvoiceTxnType!.ToLower().Contains(request.VendorInvoiceTxnType.ToLower()));
-            //}
+            if (!string.IsNullOrWhiteSpace(request.ApplicationNumber))
+            {
+                query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
+            }
+            if (!string.IsNullOrWhiteSpace(request.ClientInvoiceNumber))
+            {
+                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvoiceNumber.ToLower()));
+            }
+
 
             if (request.Count == 0)
             {
@@ -116,10 +108,9 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             }
             response.Filters = new Dictionary<string, List<string>>
             {
-                //{ "VendorInvoiceTxnName", VendorInvoiceTxnName  },
-                //{ "VendorInvoiceTxnCode", VendorInvoiceTxnCode  },
-                //{ "VendorInvoiceTxnType",VendorInvoiceTxnType},
-                { "Status", Status }
+                { "Status", Status },
+                { "ApplicationNumber", ApplicationNumber },
+                { "ClientInvoiceNo", ClientInvoiceNo }
             };
 
             return response;

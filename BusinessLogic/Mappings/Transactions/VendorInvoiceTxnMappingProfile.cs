@@ -45,6 +45,7 @@ namespace BusinessLogic.Mappings.VendorInvoiceTxns
             // 📤 Entity → Read Response
             CreateMap<VendorInvoiceTxnEntity, VendorInvoiceTxnReadResponseModel>()
                 .ForMember(dest => dest.feeDetails, opt => opt.MapFrom(src => src.FeeDetails))
+                .ForMember(dest => dest.saleDetails, opt => opt.MapFrom(src => src.SalesInvoiceDetails))
                 .ForMember(dest => dest.VendorDetails, opt => opt.MapFrom(src => src.VendorEntity))
                 .ForMember(dest => dest.CustomerDetails, opt => opt.MapFrom(src => src.CustomerEntity)) // ✅ spelling fixed
                 .ForMember(dest => dest.BankDetails, opt => opt.MapFrom(src => src.BankEntity));

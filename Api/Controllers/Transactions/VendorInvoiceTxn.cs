@@ -35,7 +35,6 @@ namespace Api.Controllers.VendorInvoiceTxn
             return HandleResponse(result);
         }
 
-
         [HttpPost("create")]
         public async Task<IActionResult> Create(VendorInvoiceTxnRequestModel VendorInvoiceTxn)
         {

@@ -19,7 +19,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public string? Description { get; set; }
         public string? Title { get; set; }
         public string? ApplicationNumber { get; set; }
-        public DateTime? FillingDate { get; set; }
+        public DateTime? filingDate { get; set; }
         public string? ClientRefNo { get; set; }
         public string? OurRefNo { get; set; }
         public bool? OfficialFilingReceiptSupporting { get; set; }
@@ -46,7 +46,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public string? CustomerPONo { get; set; }
         public DateTime? PODate { get; set; }
         public int? POValueInclusiveTaxes { get; set; }
-        public string? SaleCurrency { get; set; }
+        public string? saleCurrency { get; set; }
 
     
         public VendorEntity? VendorEntity { get; set; }
