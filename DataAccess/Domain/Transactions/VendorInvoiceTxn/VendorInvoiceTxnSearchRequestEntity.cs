@@ -1,11 +1,5 @@
 ﻿using Models.ResponseModels.Masters.Customer;
 using Models.ResponseModels.Masters.Vendor;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Domain.Masters.VendorInvoiceTxn
 {

@@ -41,7 +41,8 @@
         public string? customerPONo { get; set; }           
         public DateTime? pODate { get; set; }               
         public int? pOValueInclusiveTaxes { get; set; }       
-        public string? saleCurrency { get; set; }    
+        public string? saleCurrency { get; set; }   
+        
         //public List<SaleInvoiceDetailList>? saleProfessionalInvoiceDetails { get; set; }
         //public List<SaleInvoiceDetailList>? govtSaleInvoiceDetails { get; set; }
         public List<SaleInvoiceDetailList>? salesInvoiceDetails { get; set; }
