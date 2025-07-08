@@ -15,6 +15,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public string? ClientInvoiceNo { get; set; }
         public DateTime? DueDateAsPerInvoice { get; set; }
         public int? CreditDaysAsPerContract { get; set; }
+        public DateTime? DueDateAsPerContract { get; set; }
         public int? CustomerID { get; set; }
         public string? Description { get; set; }
         public string? Title { get; set; }

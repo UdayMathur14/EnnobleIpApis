@@ -13,6 +13,7 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public string? clientInvoiceNo { get; set; }
         public DateTime? dueDateAsPerInvoice { get; set; }
         public int? creditDaysAsPerContract { get; set; }
+        public DateTime? DueDateAsPerContract { get; set; } 
         public int? customerID { get; set; }
         public string? description { get; set; }
         public string? title { get; set; }
