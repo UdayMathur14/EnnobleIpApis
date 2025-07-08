@@ -2,61 +2,46 @@
 {
     public class VendorInvoiceTxnUpdateRequestModel
     {
-        public string? ActionBy { get; set; }
+        public int? vendorID { get; set; }
+        public DateTime? invoiceDate { get; set; }
+        public string? FY { get; set; }
+        public string? clientInvoiceNo { get; set; }
+        public DateTime? dueDateAsPerInvoice { get; set; }
+        public int? creditDaysAsPerContract { get; set; }
+        public int? customerID { get; set; }
+        public string? description { get; set; }
+        public string? title { get; set; }
+        public string? applicationNumber { get; set; }
+        public DateTime? filingDate { get; set; }
+        public string? clientRefNo { get; set; }
+        public string? ourRefNo { get; set; }
+        public bool? officialFilingReceiptSupporting { get; set; }
+        public DateTime? workDeliveryDateOrMonth { get; set; }
+        public string? purchaseCurrency { get; set; }
 
-        public string? VendorInvoiceTxnType { get; set; }
-        public string? VendorInvoiceTxnCode { get; set; }
-        public string? VendorInvoiceTxnName { get; set; }
+        // Tab2
+        public List<InvoiceFessDetailList>? invoiceFeeDetails { get; set; }
+        public int? professionalFeeAmt { get; set; }
+        public int? govtOrOfficialFeeAmt { get; set; }
+        public int? otherChargesAmt { get; set; }
+        public int? discountAmt { get; set; }
+        public int? discountCreditNoteAmt { get; set; }
+        public int? totalAmount { get; set; }
 
-        public string? BillingAddressLine1 { get; set; }
-        public string? BillingAddressLine2 { get; set; }
-        public string? BillingCity { get; set; }
-        public string? BillingState { get; set; }
-        public string? BillingCountry { get; set; }
-        public string? BillingPinCode { get; set; }
+        // Tab 3
+        public DateTime? paymentDate { get; set; }
+        public int? bankID { get; set; }
+        public string? oWRMNo1 { get; set; }
+        public string? oWRMNo2 { get; set; }
+        public string? paymentCurrency { get; set; }
+        public int? paymentAmount { get; set; }
 
-        public string? ShippingAddressLine1 { get; set; }
-        public string? ShippingAddressLine2 { get; set; }
-        public string? ShippingCity { get; set; }
-        public string? ShippingState { get; set; }
-        public string? ShippingCountry { get; set; }
-        public string? ShippingPinCode { get; set; }
-
-        public string? PAN { get; set; }
-        public string? GST { get; set; }
-        public string? GSTTreatment { get; set; }
-
-        public bool? MSMERegistered { get; set; }
-        public string? MSMEType { get; set; }
-        public string? MSMENo { get; set; }
-
-        public string? ContactPersonName { get; set; }
-        public string? Designation { get; set; }
-        public string? Email1 { get; set; }
-        public string? Email2 { get; set; }
-        public string? PhoneMobileNo { get; set; }
-
-        public string? Currency { get; set; }
-        public string? PaymentTerms { get; set; }
-
-        public string? BankName { get; set; }
-        public string? AccountHolderName { get; set; }
-        public string? AccountNumber { get; set; }
-        public string? ConfirmAccountNumber { get; set; }
-        public string? IFSCCode { get; set; }
-        public string? SwiftCode { get; set; }
-        public string? BankAddressLine1 { get; set; }
-        public string? BankAddressLine2 { get; set; }
-        public string? Branch { get; set; }
-        public string? BankCity { get; set; }
-        public string? BankState { get; set; }
-        public string? BankPinCode { get; set; }
-        public string? iban { get; set; }
-        public string? SortCode { get; set; }
-        public string? routingNo { get; set; }
-        public string? bankCountry { get; set; }
-        public string? fctcCharge { get; set; }
-        public string? completionYear { get; set; }
-        public string? Status { get; set; }
+        // Tab 4
+        public string? customerPONo { get; set; }
+        public DateTime? pODate { get; set; }
+        public int? pOValueInclusiveTaxes { get; set; }
+        public string? saleCurrency { get; set; }
+        public List<SaleInvoiceDetailList>? salesInvoiceDetails { get; set; }
+        public string? status { get; set; }
     }
 }

@@ -59,7 +59,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
             else
             {
                 mapper.Map(requestModel, VendorInvoiceTxnEntity);
-                if (requestModel.Status == Status.Inactive.ToString() && VendorInvoiceTxnEntity.Status != Status.Active.ToString())
+                if (requestModel.status == Status.Inactive.ToString() && VendorInvoiceTxnEntity.Status != Status.Active.ToString())
                 {
                     VendorInvoiceTxnEntity.InactiveDate = DateTime.Now;
                 }
