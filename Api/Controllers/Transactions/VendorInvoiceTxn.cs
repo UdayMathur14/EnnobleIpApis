@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Models.RequestModels.Masters.VendorInvoiceTxn;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
+using Models.ResponseModels.Transaction.VendorInvoiceTxn;
 using Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn;
 using Utilities;
 

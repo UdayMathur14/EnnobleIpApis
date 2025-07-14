@@ -4,6 +4,7 @@ using DataAccess.Domain.Masters.VendorInvoiceTxn;
 using DataAccess.Interfaces.VendorInvoiceTxn;
 using Models.RequestModels.Masters.VendorInvoiceTxn;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
+using Models.ResponseModels.Transaction.VendorInvoiceTxn;
 using Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn;
 using Utilities;
 using Utilities.Constants;

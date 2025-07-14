@@ -1,6 +1,6 @@
 ﻿using Models.ResponseModels.BaseResponseSetup;
 
-namespace Models.ResponseModels.Masters.VendorInvoiceTxn
+namespace Models.ResponseModels.Transaction.VendorInvoiceTxn
 {
     public class VendorInvoiceTxnCreateResponseModel: ResponseMessage
     {
