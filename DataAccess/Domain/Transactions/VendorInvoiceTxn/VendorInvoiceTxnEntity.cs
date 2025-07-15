@@ -25,7 +25,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public DateTime? filingDate { get; set; }
         public string? ClientRefNo { get; set; }
         public string? OurRefNo { get; set; }
-        public bool? OfficialFilingReceiptSupporting { get; set; }
+        public string? OfficialFilingReceiptSupporting { get; set; }
         public DateTime? WorkDeliveryDateOrMonth { get; set; }
         public string? PurchaseCurrency { get; set; }
 
