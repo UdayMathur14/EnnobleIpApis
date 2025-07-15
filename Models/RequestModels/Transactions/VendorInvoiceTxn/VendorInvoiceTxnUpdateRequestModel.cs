@@ -15,7 +15,7 @@
         public DateTime? filingDate { get; set; }
         public string? clientRefNo { get; set; }
         public string? ourRefNo { get; set; }
-        public bool? officialFilingReceiptSupporting { get; set; }
+        public string? officialFilingReceiptSupporting { get; set; }
         public DateTime? workDeliveryDateOrMonth { get; set; }
         public string? purchaseCurrency { get; set; }
 
