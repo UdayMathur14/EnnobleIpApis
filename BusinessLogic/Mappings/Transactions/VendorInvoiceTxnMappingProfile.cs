@@ -34,7 +34,9 @@ namespace BusinessLogic.Mappings.VendorInvoiceTxns
                 .ForMember(dest => dest.SalesInvoiceDetails, opt => opt.MapFrom(src => src.salesInvoiceDetails));
 
 
-            CreateMap<VendorInvoiceTxnUpdateRequestModel, VendorInvoiceTxnEntity>();
+            CreateMap<VendorInvoiceTxnUpdateRequestModel, VendorInvoiceTxnEntity>()
+                 .ForMember(dest => dest.FeeDetails, opt => opt.MapFrom(src => src.invoiceFeeDetails))
+                .ForMember(dest => dest.SalesInvoiceDetails, opt => opt.MapFrom(src => src.salesInvoiceDetails));
 
             // 🔁 Reverse: Entity → RequestModel
             CreateMap<VendorInvoiceTxnEntity, VendorInvoiceTxnRequestModel>()
