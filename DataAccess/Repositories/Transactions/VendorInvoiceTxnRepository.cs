@@ -32,7 +32,7 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                 .Include(x => x.SalesInvoiceDetails)
                 .Include(x => x.VendorEntity)
                 .Include(x=>x.CustomerEntity)
-                .Include(x => x.BankEntity)
+                .Include(x => x.PaymentInvoiceDetails)
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 

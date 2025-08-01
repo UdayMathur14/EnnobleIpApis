@@ -31,10 +31,12 @@ namespace DataAccess
         public virtual DbSet<CountryEntity> CountryEntity { get; set; }
         public virtual DbSet<StateEntity> StateEntity { get; set; }
 
-        public virtual DbSet<VendorInvoiceFeesEntity> FeesEntity { get; set; }
+        
 
         //transactions
         public virtual DbSet<VendorInvoiceTxnEntity> VendorInvoiceTxnEntity { get; set; }
+        public virtual DbSet<VendorInvoiceFeesEntity> FeesEntity { get; set; }
+        public virtual DbSet<VendorPaymentInvoiceEntity> PaymentInvoiceEntity { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,6 +44,7 @@ namespace DataAccess
             modelBuilder.ApplyConfiguration(new LookUpTypeConfiguration());
 
             modelBuilder.ApplyConfiguration(new VendorInvoiceTxnMasterConfiguration());
+            modelBuilder.ApplyConfiguration(new VendorPaymentInvoiceTxnConfiguration());
         }
     }
 }

@@ -33,14 +33,15 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public int? discountAmt { get; set; }
         public int? discountCreditNoteAmt { get; set; }
         public int? totalAmount { get; set; }
+        public string? postedInTally { get; set; }
 
         // Tab 3
-        public DateTime? paymentDate { get; set; }
-        public int? bankID { get; set; }
-        public string? oWRMNo1 { get; set; }
-        public string? oWRMNo2 { get; set; }
-        public string? paymentCurrency { get; set; }
-        public int? paymentAmount { get; set; }
+        //public DateTime? paymentDate { get; set; }
+        //public int? bankID { get; set; }
+        //public string? oWRMNo1 { get; set; }
+        //public string? oWRMNo2 { get; set; }
+        //public string? paymentCurrency { get; set; }
+        //public int? paymentAmount { get; set; }
 
         // Tab 4
         public string? customerPONo { get; set; }
@@ -49,9 +50,9 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public string? saleCurrency { get; set; }
         public List<InvoiceFessDetailList>? feeDetails { get; set; }
         public List<SaleInvoiceDetailList>? saleDetails { get; set; }
+        public List<PaymentInvoiceDetailList>? paymentDetails { get; set; }
         public VendorReadResponseModel? VendorDetails { get; set; }
         public CustomerReadResponseModel? CustomerDetails { get; set; }
-        public BankReadResponseModel? BankDetails { get; set; }
     }
 
 }

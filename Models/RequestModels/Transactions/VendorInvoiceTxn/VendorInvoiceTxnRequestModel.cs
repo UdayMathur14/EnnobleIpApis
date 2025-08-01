@@ -27,15 +27,15 @@
         public int? otherChargesAmt { get; set; }           
         public int? discountAmt { get; set; }              
         public int? discountCreditNoteAmt { get; set; }
-        public int? totalAmount { get; set; }  
+        public int? totalAmount { get; set; }
 
         // Tab 3
-        public DateTime? paymentDate { get; set; }          
-        public int? bankID { get; set; }                    
-        public string? oWRMNo1 { get; set; }                 
-        public string? oWRMNo2 { get; set; }                
-        public string? paymentCurrency { get; set; }              
-        public int? paymentAmount { get; set; }             
+        //public DateTime? paymentDate { get; set; }
+        //public int? bankID { get; set; }
+        //public string? oWRMNo1 { get; set; }
+        //public string? oWRMNo2 { get; set; }
+        //public string? paymentCurrency { get; set; }
+        //public int? paymentAmount { get; set; }
 
         // Tab 4
         public string? customerPONo { get; set; }           
@@ -43,7 +43,9 @@
         public int? pOValueInclusiveTaxes { get; set; }       
         public string? saleCurrency { get; set; }   
         public List<SaleInvoiceDetailList>? salesInvoiceDetails { get; set; }
+        public List<PaymentInvoiceDetailList>? paymentFeeDetails { get; set; }
         public string? status { get; set; }                              
+        public string? postedInTally { get; set; }                              
     }
 
     public class InvoiceFessDetailList
@@ -66,5 +68,14 @@
         public string? postedInTally { get; set; }
     }
 
+    public class PaymentInvoiceDetailList
+    {
+        public DateTime? paymentDate { get; set; }
+        public int? bankID { get; set; }
+        public string? oWRMNo1 { get; set; }
+        public string? oWRMNo2 { get; set; }
+        public string? paymentCurrency { get; set; }
+        public decimal? paymentAmount { get; set; }
+    }
 
 }

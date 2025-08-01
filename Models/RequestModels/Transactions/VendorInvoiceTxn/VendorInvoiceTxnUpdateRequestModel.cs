@@ -42,6 +42,10 @@
         public int? pOValueInclusiveTaxes { get; set; }
         public string? saleCurrency { get; set; }
         public List<SaleInvoiceDetailList>? salesInvoiceDetails { get; set; }
+        public List<PaymentInvoiceDetailList>? paymentFeeDetails { get; set; }
         public string? status { get; set; }
+        public string? postedInTally { get; set; }
+
+
     }
 }

@@ -38,12 +38,12 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public int? TotalAmount { get; set; }
 
         // Tab 3
-        public DateTime? PaymentDate { get; set; }
-        public int? BankID { get; set; }
-        public string? OWRMNo1 { get; set; }
-        public string? OWRMNo2 { get; set; }
-        public string? PaymentCurrency { get; set; }
-        public int? PaymentAmount { get; set; }
+        //public DateTime? PaymentDate { get; set; }
+        //public int? BankID { get; set; }
+        //public string? OWRMNo1 { get; set; }
+        //public string? OWRMNo2 { get; set; }
+        //public string? PaymentCurrency { get; set; }
+        //public int? PaymentAmount { get; set; }
 
         // Tab 4
         public string? CustomerPONo { get; set; }
@@ -51,11 +51,14 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public int? POValueInclusiveTaxes { get; set; }
         public string? saleCurrency { get; set; }
 
+        [Column("PostedInTally")]
+        public string? postedInTally { get; set; }
+
     
         public VendorEntity? VendorEntity { get; set; }
         public CustomerEntity? CustomerEntity { get; set; }
-        public BankEntity? BankEntity { get; set; }
         public ICollection<VendorInvoiceFeesEntity>? FeeDetails { get; set; }
         public ICollection<VendorSalesInvoiceEntity>? SalesInvoiceDetails { get; set; }
+        public ICollection<VendorPaymentInvoiceEntity>? PaymentInvoiceDetails { get; set; }
     }
 }

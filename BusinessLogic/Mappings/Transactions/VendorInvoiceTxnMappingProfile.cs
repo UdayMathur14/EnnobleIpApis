@@ -19,6 +19,7 @@ namespace BusinessLogic.Mappings.VendorInvoiceTxns
         {
 
             CreateMap<VendorInvoiceFeesEntity, InvoiceFessDetailList>().ReverseMap();
+            CreateMap<VendorPaymentInvoiceEntity, PaymentInvoiceDetailList>().ReverseMap();
 
             // 🧾 Sales Invoice Detail Mapping
             CreateMap<VendorSalesInvoiceEntity, SaleInvoiceDetailList>().ReverseMap();
@@ -31,17 +32,20 @@ namespace BusinessLogic.Mappings.VendorInvoiceTxns
             // 📝 Create or Update Request → Entity
             CreateMap<VendorInvoiceTxnRequestModel, VendorInvoiceTxnEntity>()
                 .ForMember(dest => dest.FeeDetails, opt => opt.MapFrom(src => src.invoiceFeeDetails))
-                .ForMember(dest => dest.SalesInvoiceDetails, opt => opt.MapFrom(src => src.salesInvoiceDetails));
+                .ForMember(dest => dest.SalesInvoiceDetails, opt => opt.MapFrom(src => src.salesInvoiceDetails))
+                .ForMember(dest => dest.PaymentInvoiceDetails, opt => opt.MapFrom(src => src.paymentFeeDetails));
 
 
             CreateMap<VendorInvoiceTxnUpdateRequestModel, VendorInvoiceTxnEntity>()
                  .ForMember(dest => dest.FeeDetails, opt => opt.MapFrom(src => src.invoiceFeeDetails))
-                .ForMember(dest => dest.SalesInvoiceDetails, opt => opt.MapFrom(src => src.salesInvoiceDetails));
+                .ForMember(dest => dest.SalesInvoiceDetails, opt => opt.MapFrom(src => src.salesInvoiceDetails))
+                .ForMember(dest => dest.PaymentInvoiceDetails, opt => opt.MapFrom(src => src.paymentFeeDetails));
 
             // 🔁 Reverse: Entity → RequestModel
             CreateMap<VendorInvoiceTxnEntity, VendorInvoiceTxnRequestModel>()
                 .ForMember(dest => dest.invoiceFeeDetails, opt => opt.MapFrom(src => src.FeeDetails))
-                .ForMember(dest => dest.salesInvoiceDetails, opt => opt.MapFrom(src => src.SalesInvoiceDetails));
+                .ForMember(dest => dest.salesInvoiceDetails, opt => opt.MapFrom(src => src.SalesInvoiceDetails))
+                .ForMember(dest => dest.paymentFeeDetails, opt => opt.MapFrom(src => src.PaymentInvoiceDetails));
                 
 
             // 📤 Entity → Read Response
@@ -50,7 +54,7 @@ namespace BusinessLogic.Mappings.VendorInvoiceTxns
                 .ForMember(dest => dest.saleDetails, opt => opt.MapFrom(src => src.SalesInvoiceDetails))
                 .ForMember(dest => dest.VendorDetails, opt => opt.MapFrom(src => src.VendorEntity))
                 .ForMember(dest => dest.CustomerDetails, opt => opt.MapFrom(src => src.CustomerEntity)) // ✅ spelling fixed
-                .ForMember(dest => dest.BankDetails, opt => opt.MapFrom(src => src.BankEntity));
+                .ForMember(dest => dest.paymentDetails, opt => opt.MapFrom(src => src.PaymentInvoiceDetails));
 
             // 💸 Fee Details List Mapping
           

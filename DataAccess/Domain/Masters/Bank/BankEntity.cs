@@ -38,8 +38,5 @@ namespace DataAccess.Domain.Masters.Bank
         public string? BankContactNo { get; set; }
         public string? BankEmailId { get; set; }
         public string? BankCode { get; set; }
-
-        public ICollection<VendorInvoiceTxnEntity> BankInvoiceTxns { get; set; } = new List<VendorInvoiceTxnEntity>();
-
     }
 }
