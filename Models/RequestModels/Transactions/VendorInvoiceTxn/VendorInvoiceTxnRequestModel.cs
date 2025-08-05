@@ -50,6 +50,7 @@
 
     public class InvoiceFessDetailList
     {
+        public int id { get; set; }
         public string? feeType { get; set; }
         public string? subFeeValue { get; set; }
         public string? country { get; set; }
@@ -60,6 +61,7 @@
 
     public class SaleInvoiceDetailList
     {
+        public int id { get; set; }
         public string? type { get; set; }
         public string? invoiceNo { get; set; }
         public int? amount { get; set; }
@@ -70,6 +72,7 @@
 
     public class PaymentInvoiceDetailList
     {
+        public int id { get; set; }
         public DateTime? paymentDate { get; set; }
         public int? bankID { get; set; }
         public string? oWRMNo1 { get; set; }
