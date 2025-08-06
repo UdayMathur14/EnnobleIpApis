@@ -29,7 +29,6 @@ namespace BusinessLogic.Services.Masters
             {
                 BankEntity entity = mapper.Map<BankEntity>(requestModel);
 
-
                 entity.Status = Status.Active.ToString();
 
                 int id = await bankRepository.AddAsync(entity);
@@ -115,8 +114,6 @@ namespace BusinessLogic.Services.Masters
                 {
                     bankEntity.InactiveDate = DateTime.Now;
                 }
-
-                bankEntity.BankCode = requestModel.BankCode;
                 bankEntity.BankName = requestModel.BankName;
                 bankEntity.BankAddress1 = requestModel.BankAddress1;
                 bankEntity.BankAddress2 = requestModel.BankAddress2;

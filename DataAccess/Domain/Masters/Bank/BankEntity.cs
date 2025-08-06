@@ -37,6 +37,5 @@ namespace DataAccess.Domain.Masters.Bank
         public string? Country { get; set; }
         public string? BankContactNo { get; set; }
         public string? BankEmailId { get; set; }
-        public string? BankCode { get; set; }
     }
 }

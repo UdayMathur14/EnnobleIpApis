@@ -3,7 +3,6 @@
     public class BankReadBaseModel
     {
         public int Id { get; set; }
-        public string? BankCode { get; set; }
         public string? BankName { get; set; }
         public string? BankAddress1 { get; set; }
         public string? BankAddress2 { get; set; }

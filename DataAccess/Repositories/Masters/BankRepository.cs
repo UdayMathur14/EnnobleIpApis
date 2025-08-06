@@ -37,11 +37,6 @@ namespace DataAccess.Repositories.Masters
                         .AsQueryable();
 
 
-            var BankCode = await query
-                        .Select(a => a.BankCode)
-                        .Distinct()
-                        .ToListAsync();
-
             var BankName = await query
                             .Select(a => a.BankName)
                             .Distinct()
@@ -56,13 +51,6 @@ namespace DataAccess.Repositories.Masters
                         .Select(a => a.Status)
                         .Distinct()
                         .ToListAsync();
-
-        
-
-            if (!string.IsNullOrWhiteSpace(request.BankCode))
-            {
-                query = query.Where(t => t.BankCode!.ToLower().Contains(request.BankCode.ToLower()));
-            }
 
             if (!string.IsNullOrWhiteSpace(request.BankName))
             {
@@ -107,7 +95,6 @@ namespace DataAccess.Repositories.Masters
 
             response.Filters = new Dictionary<string, List<string>>
             {
-                { "BankCode", BankCode },
                 { "BankName", BankName },
                  { "BankType",BankType  },
                 { "Status", Status },
