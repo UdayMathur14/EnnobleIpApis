@@ -36,6 +36,7 @@ namespace DataAccess
         //transactions
         public virtual DbSet<VendorInvoiceTxnEntity> VendorInvoiceTxnEntity { get; set; }
         public virtual DbSet<VendorInvoiceFeesEntity> FeesEntity { get; set; }
+        public virtual DbSet<VendorApplicantNamesEntity> VendorNameEntity { get; set; }
         public virtual DbSet<VendorPaymentInvoiceEntity> PaymentInvoiceEntity { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

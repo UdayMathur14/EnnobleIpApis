@@ -53,6 +53,7 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public List<PaymentInvoiceDetailList>? paymentDetails { get; set; }
         public VendorReadResponseModel? VendorDetails { get; set; }
         public CustomerReadResponseModel? CustomerDetails { get; set; }
+        public List<VendorApplicantNameList>? NameDetails { get; set; }
     }
 
 }

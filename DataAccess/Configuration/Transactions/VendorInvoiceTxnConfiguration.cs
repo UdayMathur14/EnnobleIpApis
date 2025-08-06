@@ -30,6 +30,10 @@ namespace DataAccess.Configuration.Masters
            .WithOne(f => f.VendorPaymentEntity)
            .HasForeignKey(f => f.VendorInvoiceTxnID);
 
+            builder.HasMany(v => v.VendorApplicantNames)
+           .WithOne(f => f.VendorApplicationEntity)
+           .HasForeignKey(f => f.VendorInvoiceTxnID);
+
         }
     }
 }

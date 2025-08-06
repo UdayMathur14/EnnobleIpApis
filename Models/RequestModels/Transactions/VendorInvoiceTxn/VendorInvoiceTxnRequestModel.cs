@@ -44,6 +44,7 @@
         public string? saleCurrency { get; set; }   
         public List<SaleInvoiceDetailList>? salesInvoiceDetails { get; set; }
         public List<PaymentInvoiceDetailList>? paymentFeeDetails { get; set; }
+        public List<VendorApplicantNameList>? VendorApplicantNames { get; set; }
         public string? status { get; set; }                              
         public string? postedInTally { get; set; }                              
     }
@@ -80,5 +81,9 @@
         public string? paymentCurrency { get; set; }
         public decimal? paymentAmount { get; set; }
     }
-
+    public class VendorApplicantNameList
+    {
+        public int id { get; set; }
+        public string? applicantName { get; set; }
+    }
 }

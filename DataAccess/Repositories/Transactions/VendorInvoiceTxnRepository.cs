@@ -29,6 +29,7 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             return await
                 _context.VendorInvoiceTxnEntity
                 .Include(x => x.FeeDetails)
+                .Include(x => x.VendorApplicantNames)
                 .Include(x => x.SalesInvoiceDetails)
                 .Include(x => x.VendorEntity)
                 .Include(x=>x.CustomerEntity)
