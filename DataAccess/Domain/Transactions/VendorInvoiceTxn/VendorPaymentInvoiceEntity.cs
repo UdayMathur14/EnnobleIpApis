@@ -17,6 +17,10 @@ namespace DataAccess.Domain.Transactions.VendorInvoiceTxn
         public int? bankID { get; set; }
         public string? oWRMNo1 { get; set; }
         public string? oWRMNo2 { get; set; }
+        public int? rate { get; set; }
+        public int? quantity { get; set; }
+        public int? bankcharges { get; set; }
+        public int? totalAmountInr { get; set; }
         public string? paymentCurrency { get; set; }
         public decimal? paymentAmount { get; set; }
         public VendorInvoiceTxnEntity? VendorPaymentEntity { get; set; }

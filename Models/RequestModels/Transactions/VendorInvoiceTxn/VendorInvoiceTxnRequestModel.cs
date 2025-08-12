@@ -47,6 +47,10 @@
         public List<VendorApplicantNameList>? VendorApplicantNames { get; set; }
         public string? status { get; set; }                              
         public string? postedInTally { get; set; }                              
+        public string? patentNo { get; set; }                              
+        public string? creditNoteNo { get; set; }                              
+        public DateTime? creditNoteDate { get; set; }                              
+        public string? creditNoteRefNo { get; set; }                              
     }
 
     public class InvoiceFessDetailList
@@ -78,6 +82,10 @@
         public int? bankID { get; set; }
         public string? oWRMNo1 { get; set; }
         public string? oWRMNo2 { get; set; }
+        public int? rate { get; set; }
+        public int? quantity { get; set; }
+        public int? bankcharges { get; set; }
+        public int? totalAmountInr { get; set; }
         public string? paymentCurrency { get; set; }
         public decimal? paymentAmount { get; set; }
     }

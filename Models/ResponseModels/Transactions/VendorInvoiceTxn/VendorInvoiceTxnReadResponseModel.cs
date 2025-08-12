@@ -34,6 +34,10 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public int? discountCreditNoteAmt { get; set; }
         public int? totalAmount { get; set; }
         public string? postedInTally { get; set; }
+        public string? patentNo { get; set; }
+        public string? creditNoteNo { get; set; }
+        public DateTime? creditNoteDate { get; set; }
+        public string? creditNoteRefNo { get; set; }
 
         // Tab 3
         //public DateTime? paymentDate { get; set; }

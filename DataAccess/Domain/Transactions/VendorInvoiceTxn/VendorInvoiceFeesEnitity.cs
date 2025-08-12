@@ -18,7 +18,6 @@ namespace DataAccess.Domain.Transactions.VendorInvoiceTxn
         public int? amount { get; set; }
         public string? remarks { get; set; }
         public string? language { get; set; }
-
         public VendorInvoiceTxnEntity? VendorInvoiceTxnEntity { get; set; }
     }
 

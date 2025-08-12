@@ -53,7 +53,20 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         [Column("PostedInTally")]
         public string? postedInTally { get; set; }
 
-    
+        [Column("PATENT_NO")]
+        public string? PatentNo { get; set; }
+
+        [Column("Credit_NOTE_NO")]
+        public string? CreditNoteNo { get; set; }
+
+        [Column("Credit_NOTE_DATE")]
+        public DateTime? CreditNoteDate { get; set; }
+
+        [Column("Credit_NOTE_REF_NO")]
+        public string? CreditNoteRefNO { get; set; }
+
+
+
         public VendorEntity? VendorEntity { get; set; }
         public CustomerEntity? CustomerEntity { get; set; }
         public ICollection<VendorInvoiceFeesEntity>? FeeDetails { get; set; }

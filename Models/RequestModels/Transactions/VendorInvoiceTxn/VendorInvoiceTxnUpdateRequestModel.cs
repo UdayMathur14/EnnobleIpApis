@@ -46,7 +46,9 @@
         public List<VendorApplicantNameList>? VendorApplicantNames { get; set; }
         public string? status { get; set; }
         public string? postedInTally { get; set; }
-
-
+        public string? patentNo { get; set; }
+        public string? creditNoteNo { get; set; }
+        public DateTime? creditNoteDate { get; set; }
+        public string? creditNoteRefNo { get; set; }
     }
 }
