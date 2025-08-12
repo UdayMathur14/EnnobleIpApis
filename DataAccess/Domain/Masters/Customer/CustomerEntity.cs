@@ -12,11 +12,6 @@ namespace DataAccess.Domain.Masters.Customer
         [StringLength(50)]
         public string? CustomerType { get; set; }
 
-        [Column("CUSTOMER_CODE")]
-        [Required]
-        [StringLength(50)]
-        public string CustomerCode { get; set; }
-
         [Column("CUSTOMER_NAME")]
         [Required]
         [StringLength(255)]
@@ -113,13 +108,13 @@ namespace DataAccess.Domain.Masters.Customer
         [StringLength(50)]
         public string? PhoneMobileNo { get; set; }
 
-        [Column("Country_Code")]
+        [Column("COUNTRY_CODE")]
         [StringLength(5)]
         public string? CountryCode { get; set; }
 
-        [Column("CURRENCY")]
+        [Column("CURRENCY_SYMBOL")]
         [StringLength(10)]
-        public string? Currency { get; set; }
+        public string? CurrencySymbol { get; set; }
 
         [Column("PAYMENT_TERMS")]
         [StringLength(255)]

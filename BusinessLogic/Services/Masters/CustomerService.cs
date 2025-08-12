@@ -127,12 +127,10 @@ namespace BusinessLogic.Services.Masters
                 customerEntity.Email1 = requestModel.Email1;
                 customerEntity.PhoneMobileNo = requestModel.PhoneMobileNo;
 
-                customerEntity.Currency = requestModel.Currency;
+                customerEntity.CurrencySymbol = requestModel.CurrencySymbol;
                 customerEntity.PaymentTerms = requestModel.PaymentTerms;
 
                 customerEntity.Status = requestModel.Status;
-                //customerEntity.LastUpdatedBy = requestModel.ActionBy; // from BaseRequestModel
-
 
                 var customerResponse = await customerRepository.UpdateAsync(customerEntity);
 

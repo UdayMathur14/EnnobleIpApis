@@ -29,11 +29,6 @@ namespace DataAccess.Repositories.Masters
                         .ThenByDescending(t => t.LastUpdateDate)
                         .AsQueryable();
 
-            var CustomerCode = await query
-                            .Select(a => a.CustomerCode)
-                            .Distinct()
-                            .ToListAsync();
-
             var CustomerName = await query
                             .Select(a => a.CustomerName)
                             .Distinct()
@@ -44,10 +39,6 @@ namespace DataAccess.Repositories.Masters
                         .Distinct()
                         .ToListAsync();
 
-            if (!string.IsNullOrWhiteSpace(request.CustomerCode))
-            {
-                query = query.Where(t => t.CustomerCode!.ToLower().Contains(request.CustomerCode.ToLower()));
-            }
 
             if (!string.IsNullOrWhiteSpace(request.CustomerName))
             {
@@ -87,7 +78,6 @@ namespace DataAccess.Repositories.Masters
             }
             response.Filters = new Dictionary<string, List<string>>
             {
-                { "CustomerCode", CustomerCode },
                 { "CustomerName", CustomerName },
                 { "Status", Status },
             };
@@ -104,9 +94,7 @@ namespace DataAccess.Repositories.Masters
             return customerEntity;
         }
 
-        public async Task<CustomerEntity> GetByCustomerAsync(string customerCode) => await _context.CustomerEntity
-                .Where(d => d.Status != Status.Inactive.ToString())
-                .FirstOrDefaultAsync(f => f.CustomerCode == customerCode);
+       
 
         public async Task<int> AddAsync(CustomerEntity entity)
         {
@@ -114,6 +102,11 @@ namespace DataAccess.Repositories.Masters
             await _context.SaveChangesAsync();
 
             return entity.Id;
+        }
+
+        public Task<CustomerEntity> GetByCustomerAsync(string customerCode)
+        {
+            throw new NotImplementedException();
         }
     }
 }
