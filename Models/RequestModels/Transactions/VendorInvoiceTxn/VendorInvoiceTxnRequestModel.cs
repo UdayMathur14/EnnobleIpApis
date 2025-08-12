@@ -82,10 +82,10 @@
         public int? bankID { get; set; }
         public string? oWRMNo1 { get; set; }
         public string? oWRMNo2 { get; set; }
-        public int? rate { get; set; }
-        public int? quantity { get; set; }
-        public int? bankcharges { get; set; }
-        public int? totalAmountInr { get; set; }
+        public decimal? rate { get; set; }
+        public decimal? quantity { get; set; }
+        public decimal? bankcharges { get; set; }
+        public decimal? totalAmountInr { get; set; }
         public string? paymentCurrency { get; set; }
         public decimal? paymentAmount { get; set; }
     }

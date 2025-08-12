@@ -8,18 +8,17 @@ namespace DataAccess.Domain.Masters.Customer
     [Table("CUSTOMER_MST_TB")]
     public class CustomerEntity : EntityBase
     {
-        [Required]
         [Column("CUSTOMER_TYPE")]
         [StringLength(50)]
-        public string CustomerType { get; set; }
+        public string? CustomerType { get; set; }
 
-        [Required]
         [Column("CUSTOMER_CODE")]
+        [Required]
         [StringLength(50)]
         public string CustomerCode { get; set; }
 
-        [Required]
         [Column("CUSTOMER_NAME")]
+        [Required]
         [StringLength(255)]
         public string CustomerName { get; set; }
 
@@ -71,6 +70,29 @@ namespace DataAccess.Domain.Masters.Customer
         [StringLength(20)]
         public string? ShippingPinCode { get; set; }
 
+        [Column("PAN")]
+        [StringLength(20)]
+        public string? PAN { get; set; }
+
+        [Column("GST")]
+        [StringLength(20)]
+        public string? GST { get; set; }
+
+        [Column("GST_TREATMENT")]
+        [StringLength(100)]
+        public string? GSTTreatment { get; set; }
+
+        [Column("MSME_REGISTERED")]
+        public bool? MSMERegistered { get; set; }
+
+        [Column("MSME_TYPE")]
+        [StringLength(50)]
+        public string? MSMEType { get; set; }
+
+        [Column("MSME_NO")]
+        [StringLength(50)]
+        public string? MSMENo { get; set; }
+
         [Column("CONTACT_PERSON_NAME")]
         [StringLength(255)]
         public string? ContactPersonName { get; set; }
@@ -79,16 +101,24 @@ namespace DataAccess.Domain.Masters.Customer
         [StringLength(100)]
         public string? Designation { get; set; }
 
-        [Column("EMAIL")]
+        [Column("EMAIL_1")]
         [StringLength(255)]
-        public string? Email { get; set; }
+        public string? Email1 { get; set; }
 
-        [Column("MOBILE_NO")]
-        [StringLength(20)]
-        public string? MobileNumber { get; set; }
+        [Column("EMAIL_2")]
+        [StringLength(255)]
+        public string? Email2 { get; set; }
+
+        [Column("PHONE_MOBILE_NO")]
+        [StringLength(50)]
+        public string? PhoneMobileNo { get; set; }
+
+        [Column("Country_Code")]
+        [StringLength(5)]
+        public string? CountryCode { get; set; }
 
         [Column("CURRENCY")]
-        [StringLength(50)]
+        [StringLength(10)]
         public string? Currency { get; set; }
 
         [Column("PAYMENT_TERMS")]

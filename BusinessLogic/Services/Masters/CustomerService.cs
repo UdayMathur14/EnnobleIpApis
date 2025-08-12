@@ -19,11 +19,11 @@ namespace BusinessLogic.Services.Masters
         {
             var wrapper = new ResponseWrapper<CustomerCreateResponseModel>();
 
-            CustomerEntity? CustomerEntity = await customerRepository.IsExistsAsync(requestModel.CustomerCode, requestModel.CustomerName);
+            CustomerEntity? CustomerEntity = await customerRepository.IsExistsAsync( requestModel.CustomerName);
 
             if (CustomerEntity != null)
             {
-                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.CustomerCode.ToString()));
+                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.CustomerName.ToString()));
             }
             else
             {
@@ -106,8 +106,6 @@ namespace BusinessLogic.Services.Masters
             }
             else
             {
-                customerEntity.CustomerType = requestModel.CustomerType;
-                customerEntity.CustomerCode = requestModel.CustomerCode;
                 customerEntity.CustomerName = requestModel.CustomerName;
 
                 customerEntity.BillingAddressLine1 = requestModel.BillingAddressLine1;
@@ -126,8 +124,8 @@ namespace BusinessLogic.Services.Masters
 
                 customerEntity.ContactPersonName = requestModel.ContactPersonName;
                 customerEntity.Designation = requestModel.Designation;
-                customerEntity.Email = requestModel.Email;
-                customerEntity.MobileNumber = requestModel.MobileNumber;
+                customerEntity.Email1 = requestModel.Email1;
+                customerEntity.PhoneMobileNo = requestModel.PhoneMobileNo;
 
                 customerEntity.Currency = requestModel.Currency;
                 customerEntity.PaymentTerms = requestModel.PaymentTerms;

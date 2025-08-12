@@ -16,9 +16,9 @@ namespace DataAccess.Repositories.Masters
                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<CustomerEntity?> IsExistsAsync(string? code, string? name)
+        public async Task<CustomerEntity?> IsExistsAsync( string? name)
         {
-            return await _context.CustomerEntity.Where(x => x.CustomerCode == code && x.CustomerName == name ).SingleOrDefaultAsync();
+            return await _context.CustomerEntity.Where(x => x.CustomerName == name ).SingleOrDefaultAsync();
         }
 
         public async Task<CustomerSearchResponseEntity> SearchCustomerAsync(CustomerSearchRequestEntity request)
