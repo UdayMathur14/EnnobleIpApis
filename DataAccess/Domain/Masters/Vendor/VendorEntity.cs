@@ -120,6 +120,10 @@ namespace DataAccess.Domain.Masters.Vendor
         [StringLength(10)]
         public string? Currency { get; set; }
 
+        [Column("CURRENCY_SYMBOL")]
+        [StringLength(10)]
+        public string? CurrencySymbol { get; set; }
+
         [Column("PAYMENT_TERMS")]
         [StringLength(255)]
         public string? PaymentTerms { get; set; }

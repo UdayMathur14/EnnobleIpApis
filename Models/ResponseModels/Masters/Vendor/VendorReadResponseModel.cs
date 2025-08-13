@@ -45,6 +45,7 @@ namespace Models.ResponseModels.Masters.Vendor
         public string? CountryCode { get; set; }
 
         public string? Currency { get; set; }
+        public string? CurrencySymbol { get; set; }
         public string? PaymentTerms { get; set; }
 
         public string? BankName { get; set; }
