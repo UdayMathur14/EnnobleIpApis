@@ -20,12 +20,10 @@ namespace BusinessLogic.Mappings.Masters
         {
             CreateMap<CustomerSearchRequestModel, CustomerSearchRequestEntity>();
             CreateMap<CustomerEntity, CustomerReadResponseModel>();
-
             CreateMap<CustomerSearchResponseEntity, CustomerSearchResponse>();
             CreateMap<CustomerRequestModel, CustomerRequestEntity>();
             CreateMap<CustomerEntity, CustomerSearchResponse>();
-            CreateMap<CustomerRequestModel, CustomerEntity>();
-
+            CreateMap<CustomerRequestModel, CustomerEntity>();  
         }
     }
 }

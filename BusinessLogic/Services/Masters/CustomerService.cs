@@ -106,31 +106,7 @@ namespace BusinessLogic.Services.Masters
             }
             else
             {
-                customerEntity.CustomerName = requestModel.CustomerName;
-
-                customerEntity.BillingAddressLine1 = requestModel.BillingAddressLine1;
-                customerEntity.BillingAddressLine2 = requestModel.BillingAddressLine2;
-                customerEntity.BillingCity = requestModel.BillingCity;
-                customerEntity.BillingState = requestModel.BillingState;
-                customerEntity.BillingCountry = requestModel.BillingCountry;
-                customerEntity.BillingPinCode = requestModel.BillingPinCode;
-
-                customerEntity.ShippingAddressLine1 = requestModel.ShippingAddressLine1;
-                customerEntity.ShippingAddressLine2 = requestModel.ShippingAddressLine2;
-                customerEntity.ShippingCity = requestModel.ShippingCity;
-                customerEntity.ShippingState = requestModel.ShippingState;
-                customerEntity.ShippingCountry = requestModel.ShippingCountry;
-                customerEntity.ShippingPinCode = requestModel.ShippingPinCode;
-
-                customerEntity.ContactPersonName = requestModel.ContactPersonName;
-                customerEntity.Designation = requestModel.Designation;
-                customerEntity.Email1 = requestModel.Email1;
-                customerEntity.PhoneMobileNo = requestModel.PhoneMobileNo;
-
-                customerEntity.CurrencySymbol = requestModel.CurrencySymbol;
-                customerEntity.PaymentTerms = requestModel.PaymentTerms;
-
-                customerEntity.Status = requestModel.Status;
+                mapper.Map(requestModel, customerEntity);
 
                 var customerResponse = await customerRepository.UpdateAsync(customerEntity);
 
