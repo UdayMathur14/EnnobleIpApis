@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.Domain.Masters.Customer
 {
-
     [Table("CUSTOMER_MST_TB")]
     public class CustomerEntity : EntityBase
     {

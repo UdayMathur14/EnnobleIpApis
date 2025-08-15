@@ -4,8 +4,6 @@ namespace DataAccess.Domain.Masters.Customer
 {
     public class CustomerRequestModel : BaseRequestModel
     {
-        public string? ActionBy { get; set; }
-
         public string? CustomerType { get; set; }
         public string? CustomerName { get; set; }
 
@@ -23,19 +21,18 @@ namespace DataAccess.Domain.Masters.Customer
         public string? ShippingCountry { get; set; }
         public string? ShippingPinCode { get; set; }
 
-        public string? PAN { get; set; }
-        public string? GST { get; set; }
-        public string? GSTTreatment { get; set; }
-
-        public bool? MSMERegistered { get; set; }
-        public string? MSMEType { get; set; }
-        public string? MSMENo { get; set; }
-
+        public string? Pan { get; set; }
+        public string? Gst { get; set; }
+        public string? GstTreatment { get; set; }
+        public bool? MsmeRegistered { get; set; }
+        public string? MsmeType { get; set; }
+        public string? MsmeNo { get; set; }
         public string? ContactPersonName { get; set; }
         public string? Designation { get; set; }
         public string? Email1 { get; set; }
         public string? Email2 { get; set; }
         public string? PhoneMobileNo { get; set; }
+        public string? CountryCode { get; set; }
 
         public string? Currency { get; set; }
         public string? CurrencySymbol { get; set; }

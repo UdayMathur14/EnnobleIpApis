@@ -6,19 +6,15 @@ namespace DataAccess.Domain.Masters.Country
     [Table("COUNTRY_MST_TB")]
     public class CountryEntity : EntityBase
     {
-
-        
         [StringLength(255)]
         public string? CountryName { get; set; }
 
-        
+        [Column("PhoneCode")]
         [StringLength(50)]
         public string? CountryCode { get; set; }
 
-        
         [StringLength(255)]
         public string? CurrencyName { get; set; }
-
         
         [StringLength(50)]
         public string? CurrencyCode { get; set; }
