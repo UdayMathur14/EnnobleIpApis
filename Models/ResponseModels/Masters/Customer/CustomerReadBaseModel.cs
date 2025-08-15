@@ -3,7 +3,6 @@
     public class CustomerReadBaseModel
     {
         public string CustomerType { get; set; }
-        public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
         public string BillingAddressLine1 { get; set; }
         public string BillingAddressLine2 { get; set; }
