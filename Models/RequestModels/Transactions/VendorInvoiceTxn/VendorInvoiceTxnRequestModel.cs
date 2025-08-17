@@ -59,7 +59,7 @@
         public string? feeType { get; set; }
         public string? subFeeValue { get; set; }
         public string? country { get; set; }
-        public int? amount { get; set; }
+        public decimal? amount { get; set; }
         public string? remarks { get; set; }
         public string? language { get; set; }
     }
@@ -69,7 +69,7 @@
         public int id { get; set; }
         public string? type { get; set; }
         public string? invoiceNo { get; set; }
-        public int? amount { get; set; }
+        public decimal? amount { get; set; }
         public string? estimateNo { get; set; }
         public string? remarks { get; set; }
         public string? postedInTally { get; set; }

@@ -29,12 +29,12 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public string? PurchaseCurrency { get; set; }
 
         // tab 2
-        public int? ProfessionalFeeAmt { get; set; }
-        public int? GovtOrOfficialFeeAmt { get; set; }
-        public int? OtherChargesAmt { get; set; }
-        public int? DiscountAmt { get; set; }
-        public int? DiscountCreditNoteAmt { get; set; }
-        public int? TotalAmount { get; set; }
+        public decimal? ProfessionalFeeAmt { get; set; }
+        public decimal? GovtOrOfficialFeeAmt { get; set; }
+        public decimal? OtherChargesAmt { get; set; }
+        public decimal? DiscountAmt { get; set; }
+        public decimal? DiscountCreditNoteAmt { get; set; }
+        public decimal? TotalAmount { get; set; }
 
         // Tab 3
         //public DateTime? PaymentDate { get; set; }
@@ -47,7 +47,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         // Tab 4
         public string? CustomerPONo { get; set; }
         public DateTime? PODate { get; set; }
-        public int? POValueInclusiveTaxes { get; set; }
+        public decimal? POValueInclusiveTaxes { get; set; }
         public string? saleCurrency { get; set; }
 
         [Column("PostedInTally")]
@@ -64,8 +64,6 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
 
         [Column("Credit_NOTE_REF_NO")]
         public string? CreditNoteRefNO { get; set; }
-
-
 
         public VendorEntity? VendorEntity { get; set; }
         public CustomerEntity? CustomerEntity { get; set; }

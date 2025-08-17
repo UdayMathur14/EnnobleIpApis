@@ -15,7 +15,7 @@ namespace DataAccess.Domain.Transactions.VendorInvoiceTxn
         public string? feeType { get; set; }
         public string? subFeeValue { get; set; }
         public string? country { get; set; }
-        public int? amount { get; set; }
+        public decimal? amount { get; set; }
         public string? remarks { get; set; }
         public string? language { get; set; }
         public VendorInvoiceTxnEntity? VendorInvoiceTxnEntity { get; set; }
