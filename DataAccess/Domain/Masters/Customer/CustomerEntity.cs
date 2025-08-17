@@ -11,11 +11,6 @@ namespace DataAccess.Domain.Masters.Customer
         [StringLength(50)]
         public string? CustomerType { get; set; }
 
-        [Column("CUSTOMER_CODE")]
-        [Required]
-        [StringLength(50)]
-        public string CustomerCode { get; set; }
-
         [Column("CUSTOMER_NAME")]
         [Required]
         [StringLength(255)]
