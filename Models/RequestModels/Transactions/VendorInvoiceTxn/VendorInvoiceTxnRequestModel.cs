@@ -22,12 +22,12 @@
 
         // Tab2
         public List<InvoiceFessDetailList>? invoiceFeeDetails { get; set; }
-        public int? professionalFeeAmt { get; set; }        
-        public int? govtOrOfficialFeeAmt { get; set; }      
-        public int? otherChargesAmt { get; set; }           
-        public int? discountAmt { get; set; }              
-        public int? discountCreditNoteAmt { get; set; }
-        public int? totalAmount { get; set; }
+        public decimal? professionalFeeAmt { get; set; }        
+        public decimal? govtOrOfficialFeeAmt { get; set; }      
+        public decimal? otherChargesAmt { get; set; }           
+        public decimal? discountAmt { get; set; }              
+        public decimal? discountCreditNoteAmt { get; set; }
+        public decimal? totalAmount { get; set; }
 
         // Tab 3
         //public DateTime? paymentDate { get; set; }
