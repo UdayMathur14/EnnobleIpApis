@@ -40,7 +40,7 @@
         // Tab 4
         public string? customerPONo { get; set; }           
         public DateTime? pODate { get; set; }               
-        public int? pOValueInclusiveTaxes { get; set; }       
+        public decimal? pOValueInclusiveTaxes { get; set; }       
         public string? saleCurrency { get; set; }   
         public List<SaleInvoiceDetailList>? salesInvoiceDetails { get; set; }
         public List<PaymentInvoiceDetailList>? paymentFeeDetails { get; set; }
