@@ -30,16 +30,19 @@ namespace DataAccess.Repositories.Masters
                                     .AsQueryable();
 
             var CountryCode = await query
+                             .Where(a => a.CountryCode != null)   // null hatao
                             .Select(a => a.CountryCode)
                             .Distinct()
                             .ToListAsync();
 
             var CountryName = await query
+                            .Where(a => a.CountryName != null)
                             .Select(a => a.CountryName)
                             .Distinct()
                             .ToListAsync();
 
             var Status = await query
+                .Where(a => a.Status != null)
                             .Select(a => a.Status)
                             .Distinct()
                             .ToListAsync();
