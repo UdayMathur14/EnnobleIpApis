@@ -29,14 +29,6 @@
         public decimal? discountCreditNoteAmt { get; set; }
         public decimal? totalAmount { get; set; }
 
-        // Tab 3
-        //public DateTime? paymentDate { get; set; }
-        //public int? bankID { get; set; }
-        //public string? oWRMNo1 { get; set; }
-        //public string? oWRMNo2 { get; set; }
-        //public string? paymentCurrency { get; set; }
-        //public int? paymentAmount { get; set; }
-
         // Tab 4
         public string? customerPONo { get; set; }           
         public DateTime? pODate { get; set; }               
@@ -71,6 +63,7 @@
         public string? invoiceNo { get; set; }
         public decimal? amount { get; set; }
         public string? estimateNo { get; set; }
+        public DateTime? invoiceDate { get; set; }
         public string? remarks { get; set; }
         public string? postedInTally { get; set; }
     }

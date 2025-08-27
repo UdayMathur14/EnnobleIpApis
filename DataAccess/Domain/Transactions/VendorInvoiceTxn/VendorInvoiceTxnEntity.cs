@@ -36,14 +36,6 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public decimal? DiscountCreditNoteAmt { get; set; }
         public decimal? TotalAmount { get; set; }
 
-        // Tab 3
-        //public DateTime? PaymentDate { get; set; }
-        //public int? BankID { get; set; }
-        //public string? OWRMNo1 { get; set; }
-        //public string? OWRMNo2 { get; set; }
-        //public string? PaymentCurrency { get; set; }
-        //public int? PaymentAmount { get; set; }
-
         // Tab 4
         public string? CustomerPONo { get; set; }
         public DateTime? PODate { get; set; }

@@ -16,6 +16,7 @@ namespace DataAccess.Domain.Transactions.VendorInvoiceTxn
         public string? invoiceNo { get; set; }
         public decimal? amount { get; set; }
         public string? estimateNo { get; set; }
+        public DateTime? invoiceDate { get; set; }
         public string? remarks { get; set; }
         public string? postedInTally { get; set; }
         public VendorInvoiceTxnEntity? VendorInvoiceEntity { get; set; }

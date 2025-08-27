@@ -9,7 +9,7 @@ using Models.RequestModels.Masters.Bank;
 using Models.RequestModels.Masters.Country;
 using Models.RequestModels.Masters.LookUpType;
 
-namespace ServiceFreight.Models.Extensions
+namespace EnnobleApis.Models.Extensions
 {
 
     public static class IServiceCollectionExtensions
