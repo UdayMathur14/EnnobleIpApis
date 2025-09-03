@@ -41,6 +41,10 @@ namespace ServiceFreight.BusinessLogic.Extensions
             services.AddScoped<IVendorInvoiceTxnService, VendorInvoiceTxnService>();
             services.AddAutoMapper(typeof(VendorInvoiceTxnMappingProfile).Assembly);
 
+
+            services.AddScoped<IVendorInvoiceReportService, VendorInvoiceReportService>();
+            services.AddAutoMapper(typeof(VendorInvoiceReportMappingProfile).Assembly);
+
             return services;
         }
     }

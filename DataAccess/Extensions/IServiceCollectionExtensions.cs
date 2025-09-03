@@ -23,6 +23,7 @@ namespace ServiceFreight.DataAccess.Extensions
 
             //transactions
             services.AddScoped<IVendorInvoiceTxnRepository, VendorInvoiceTxnRepository>();
+            services.AddScoped<IVendorInvoiceReportRepository, VendorInvoiceReportRepository>();
             return services;
         }
     }
