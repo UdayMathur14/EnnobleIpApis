@@ -24,8 +24,6 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
 
         public async Task<VendorInvoiceTxnEntity?> FindAsync(int id)
         {
-            //return await _context.VendorInvoiceTxnEntity.FindAsync(id);
-
             return await
                 _context.VendorInvoiceTxnEntity
                 .Include(x => x.FeeDetails)
@@ -39,7 +37,6 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
 
         public async Task<VendorInvoiceTxnEntity?> IsExistsAsync(string? code)
         {
-            //return await _context.VendorInvoiceTxnEntity.Where(c=>c.VendorInvoiceTxnCode==code).SingleOrDefaultAsync();
             return null;
         }
 

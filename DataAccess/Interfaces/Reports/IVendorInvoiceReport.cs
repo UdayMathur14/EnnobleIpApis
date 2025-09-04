@@ -1,15 +1,10 @@
 ﻿using DataAccess.Domain.Masters.VendorInvoiceReport;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DataAccess.Domain.Masters.VendorInvoiceTxn;
 
 namespace DataAccess.Interfaces.VendorInvoiceReport
 {
-    public interface IVendorInvoiceReportRepository : IRepository<VendorInvoiceReportEntity>
+    public interface IVendorInvoiceReportRepository : IRepository<VendorInvoiceTxnEntity>
     {
         Task<VendorInvoiceReportSearchResponseEntity> SearchVendorInvoiceReportAsync(VendorInvoiceReportSearchRequestEntity request);
-        Task<VendorInvoiceReportEntity?> IsExistsAsync(string? code);
     }
 }

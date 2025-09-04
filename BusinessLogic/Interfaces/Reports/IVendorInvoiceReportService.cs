@@ -6,7 +6,7 @@ namespace BusinessLogic.Interfaces.VendorInvoiceReports
 {
     public interface IVendorInvoiceReportService
     {
-        Task<IResponseWrapper<VendorInvoiceReportSearchResponse>> SearchVendorInvoiceReportAsync(VendorInvoiceReportSearchRequestModel requestModel, string? offset, string count);
+        Task<IResponseWrapper<VendorInvoiceReportSearchResponse>> SearchVendorInvoiceReportAsync(VendorInvoiceReportRequestModel requestModel, string? offset, string count);
 
     }
 }

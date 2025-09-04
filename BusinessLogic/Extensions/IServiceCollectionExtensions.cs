@@ -1,8 +1,11 @@
 ﻿using BusinessLogic.Interfaces.Masters;
+using BusinessLogic.Interfaces.VendorInvoiceReports;
 using BusinessLogic.Interfaces.VendorInvoiceTxns;
 using BusinessLogic.Mappings.Masters;
+using BusinessLogic.Mappings.VendorInvoiceReports;
 using BusinessLogic.Mappings.VendorInvoiceTxns;
 using BusinessLogic.Services.Masters;
+using BusinessLogic.Services.VendorInvoiceReports;
 using BusinessLogic.Services.VendorInvoiceTxns;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

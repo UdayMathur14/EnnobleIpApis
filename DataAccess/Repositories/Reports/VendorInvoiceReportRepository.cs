@@ -1,31 +1,42 @@
-﻿using DataAccess.Interfaces.VendorInvoiceReport;
+﻿using DataAccess.Domain.Masters.VendorInvoiceReport;
+using DataAccess.Domain.Masters.VendorInvoiceTxn;
+using DataAccess.Interfaces.VendorInvoiceReport;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories.VendorInvoiceReports
 {
     internal class VendorInvoiceReportRepository(ApplicationDbContext _context) : IVendorInvoiceReportRepository
     {
-      
+        public Task<int> AddAsync(VendorInvoiceTxnEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<VendorInvoiceTxnEntity?> FindAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<VendorInvoiceReportSearchResponseEntity> SearchVendorInvoiceReportAsync(VendorInvoiceReportSearchRequestEntity request)
         {
             var response = new VendorInvoiceReportSearchResponseEntity();
 
-            var query = _context.VendorInvoiceReportEntity
+            var query = _context.VendorInvoiceTxnEntity
                  .Include(x => x.VendorEntity)
                 .Include(x => x.CustomerEntity).
                 AsQueryable();
 
-            var ClientInvoiceNo = await _context.VendorInvoiceReportEntity
+            var ClientInvoiceNo = await _context.VendorInvoiceTxnEntity
                        .Select(a => a.ClientInvoiceNo)
                        .Distinct()
                        .ToListAsync();
 
-            var ApplicationNumber = await _context.VendorInvoiceReportEntity
+            var ApplicationNumber = await _context.VendorInvoiceTxnEntity
                        .Select(a => a.ApplicationNumber)
                        .Distinct()
                        .ToListAsync();
 
-            var Status = await _context.VendorInvoiceReportEntity
+            var Status = await _context.VendorInvoiceTxnEntity
                        .Select(a => a.Status)
                        .Distinct()
                        .ToListAsync();
@@ -38,11 +49,10 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             {
                 query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
             }
-            if (!string.IsNullOrWhiteSpace(request.ClientInvoiceNumber))
+            if (!string.IsNullOrWhiteSpace(request.ClientRefNumber))
             {
-                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvoiceNumber.ToLower()));
+                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientRefNumber.ToLower()));
             }
-
 
             if (request.Count == 0)
             {
@@ -80,5 +90,9 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             return response;
         }
 
+        public Task<VendorInvoiceTxnEntity> UpdateAsync(VendorInvoiceTxnEntity entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
