@@ -19,7 +19,7 @@ namespace BusinessLogic.Services.Masters
         {
             var wrapper = new ResponseWrapper<CustomerCreateResponseModel>();
 
-            CustomerEntity? CustomerEntity = await customerRepository.IsExistsAsync( requestModel.CustomerName);
+            CustomerEntity? CustomerEntity = await customerRepository.IsExistsAsync(requestModel.CustomerName);
 
             if (CustomerEntity != null)
             {
@@ -28,7 +28,6 @@ namespace BusinessLogic.Services.Masters
             else
             {
                 CustomerEntity entity = mapper.Map<CustomerEntity>(requestModel);
-
 
                 entity.Status = Status.Active.ToString();
 

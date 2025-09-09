@@ -69,11 +69,11 @@ namespace DataAccess.Domain.Masters.Vendor
         [StringLength(20)]
         public string? ShippingPinCode { get; set; }
 
-        [Column("PAN")]
+        [Column("PAN_NO")]
         [StringLength(20)]
         public string? PAN { get; set; }
 
-        [Column("GST")]
+        [Column("GST_NO")]
         [StringLength(20)]
         public string? GST { get; set; }
 
