@@ -5,7 +5,6 @@
         public string? ActionBy { get; set; }
 
         public string? VendorType { get; set; }
-        public string? VendorCode { get; set; }
         public string? VendorName { get; set; }
 
         public string? BillingAddressLine1 { get; set; }

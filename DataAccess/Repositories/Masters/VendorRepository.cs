@@ -35,11 +35,6 @@ namespace DataAccess.Repositories.Masters
                        .Distinct()
                        .ToListAsync();
 
-            var VendorCode = await query
-                       .Select(a => a.VendorCode)
-                       .Distinct()
-                       .ToListAsync();
-
             var VendorType = await query
                        .Select(a => a.VendorType)
                        .Distinct()
@@ -58,10 +53,6 @@ namespace DataAccess.Repositories.Masters
             if (!string.IsNullOrWhiteSpace(request.VendorName))
             {
                 query = query.Where(t => t.VendorName!.ToLower().Contains(request.VendorName.ToLower()));
-            }
-            if (!string.IsNullOrWhiteSpace(request.VendorCode))
-            {
-                query = query.Where(t => t.VendorCode!.ToLower().Contains(request.VendorCode.ToLower()));
             }
             if (!string.IsNullOrWhiteSpace(request.VendorType))
             {
@@ -97,7 +88,6 @@ namespace DataAccess.Repositories.Masters
             response.Filters = new Dictionary<string, List<string>>
             {
                 { "VendorName", VendorName  },
-                { "VendorCode", VendorCode  },
                 { "VendorType",VendorType},
                 { "Status", Status }
             };

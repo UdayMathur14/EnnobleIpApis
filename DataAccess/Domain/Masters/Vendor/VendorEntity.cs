@@ -11,11 +11,6 @@ namespace DataAccess.Domain.Masters.Vendor
         [StringLength(50)]
         public string? VendorType { get; set; }
 
-        [Column("VENDOR_CODE")]
-        [Required]
-        [StringLength(50)]
-        public string VendorCode { get; set; }
-
         [Column("VENDOR_NAME")]
         [Required]
         [StringLength(255)]

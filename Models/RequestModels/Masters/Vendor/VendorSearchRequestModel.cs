@@ -9,7 +9,6 @@ namespace Models.RequestModels.Masters.Vendor
     public class VendorSearchRequestModel
     {
         public string? VendorName { get; set; }  
-        public string? VendorCode { get; set; }
         public string? VendorType { get; set; }
         public string? Status { get; set; }
     }
