@@ -47,7 +47,7 @@ namespace DataAccess.Repositories.Masters
 
             if (!string.IsNullOrEmpty(request.Status))
             {
-                query = query.Where(t => t.Status != null && t.Status!.ToLower().Contains(request.Status.ToLower()));
+                query = query.Where(t => t.Status != null && t.Status!.ToLower().Equals(request.Status.ToLower()));
             }
 
             if (request.Count == 0)

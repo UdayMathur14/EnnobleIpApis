@@ -67,7 +67,7 @@ namespace DataAccess.Repositories.Masters
             }
             if (!string.IsNullOrWhiteSpace(request.Status))
             {
-                query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
+                query = query.Where(t => t.Status!.ToLower().Equals(request.Status.ToLower()));
             }
 
             if (request.Count == 0)
