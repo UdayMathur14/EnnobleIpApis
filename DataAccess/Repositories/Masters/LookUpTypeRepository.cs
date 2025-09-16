@@ -29,7 +29,8 @@ namespace DataAccess.Repositories.Masters
         {
             var response = new LookUpTypeSearchResponseEntity();
 
-            var query = _context.LookUpTypeEntity.AsQueryable();
+            var query = _context.LookUpTypeEntity
+                .OrderBy(x=>x.Type).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request.Type))
             {
