@@ -122,7 +122,7 @@ namespace DataAccess.Repositories.Masters
             return await _context.LookUpEntity
                 .Include(l => l.LookUpType)
                 .OrderBy(t => t.Value )
-                .Where(l => l.LookUpType != null && l.LookUpType.Type != null && l.LookUpType.Type.ToLower() == type.ToLower())
+                .Where(l => l.LookUpType != null  && l.LookUpType.Type.ToLower() == type.ToLower()).Where(l=>l.Status=="Active")
                 .ToListAsync();
         }
 
