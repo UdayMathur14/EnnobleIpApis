@@ -56,6 +56,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
 
         [Column("Credit_NOTE_REF_NO")]
         public string? CreditNoteRefNO { get; set; }
+        public string? Status { get; set; }
 
         public VendorEntity? VendorEntity { get; set; }
         public CustomerEntity? CustomerEntity { get; set; }

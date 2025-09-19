@@ -49,6 +49,13 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                 .Include(x => x.CustomerEntity).
                 AsQueryable();
 
+            var Vendors = await _context.VendorInvoiceTxnEntity
+                    .Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null) 
+                    .Select(a => a.VendorEntity.VendorName) 
+                    .Distinct()
+                    .OrderBy(x => x)
+                    .ToListAsync();
+
             var ClientInvoiceNo = await _context.VendorInvoiceTxnEntity
                        .Select(a => a.ClientInvoiceNo)
                        .Distinct()
@@ -66,7 +73,7 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
 
             if (!string.IsNullOrWhiteSpace(request.Status))
             {
-                query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
+                query = query.Where(t => t.Status!.ToLower().Equals(request.Status.ToLower()));
             }
             if (!string.IsNullOrWhiteSpace(request.ApplicationNumber))
             {
@@ -108,7 +115,8 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             {
                 { "Status", Status },
                 { "ApplicationNumber", ApplicationNumber },
-                { "ClientInvoiceNo", ClientInvoiceNo }
+                { "ClientInvoiceNo", ClientInvoiceNo },
+                { "Vendors", Vendors }
             };
 
             return response;
