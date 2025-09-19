@@ -107,7 +107,7 @@ namespace DataAccess.Domain.Masters.Customer
         [StringLength(50)]
         public string? PhoneMobileNo { get; set; }
 
-        [Column("Country_Code")]
+        [Column("PHONE_CODE")]
         [StringLength(5)]
         public string? CountryCode { get; set; }
 
