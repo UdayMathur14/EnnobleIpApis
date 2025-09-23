@@ -1,6 +1,9 @@
 ﻿using DataAccess.Domain.Masters.VendorInvoiceTxn;
+using DataAccess.Domain.Transactions.VendorInvoiceTxn;
 using DataAccess.Interfaces.VendorInvoiceTxn;
 using Microsoft.EntityFrameworkCore;
+using Models.RequestModels.Transactions.VendorInvoiceTxn;
+using Models.ResponseModels.Masters.VendorInvoiceTxn;
 
 namespace DataAccess.Repositories.VendorInvoiceTxns
 {
@@ -129,5 +132,56 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
 
             return VendorInvoiceTxnEntity;
         }
+
+        public async Task<List<VendorInvoiceTxnEntity>> GetInvoicesByIdsAsync(List<int> invoiceIds)
+        {
+            return await _context.VendorInvoiceTxnEntity
+                                 .Where(x => invoiceIds.Contains(x.Id))
+                                 .ToListAsync();
+        }
+
+        public async Task SaveVendorPaymentsAsync(List<VendorPaymentInvoiceEntity> payments)
+        {
+            await _context.PaymentInvoiceEntity.AddRangeAsync(payments);
+            await _context.SaveChangesAsync();
+        }
+
+        //public async Task<List<VendorPaymentSearchResponse>> GetPendingInvoicesAsync(VendorInvoicePaymentSearchRequest request)
+        //{
+        //    var query = _context.VendorInvoiceTxnEntity
+        //        .Include(v => v.PaymentInvoiceDetails)
+        //        .Include(v => v.VendorEntity)
+        //        .AsQueryable();
+
+        //    // ✅ Filter by Vendor ID
+        //    if (request.VendorId.HasValue && request.VendorId.Value > 0)
+        //    {
+        //        query = query.Where(x => x.VendorID == request.VendorId.Value);
+        //    }
+
+        //    // ✅ Filter by Vendor Name
+        //    if (!string.IsNullOrWhiteSpace(request.VendorName))
+        //    {
+        //        query = query.Where(x => x.VendorEntity.VendorName.Contains(request.VendorName));
+        //    }
+
+        //    // ✅ Core Logic: Show only invoices with pending balance
+        //    var result = await query
+        //        .Select(invoice => new VendorInvoiceSearchResponse
+        //        {
+        //            InvoiceId = invoice.Id,
+        //            ClientInvoiceNo = invoice.ClientInvoiceNo,
+        //            TotalAmount = invoice.TotalAmount ?? 0,
+        //            TotalPaid = invoice.PaymentInvoiceDetails.Sum(p => p.paymentAmount ?? 0),
+        //            BalanceAmount = (invoice.TotalAmount ?? 0) - invoice.PaymentInvoiceDetails.Sum(p => p.paymentAmount ?? 0),
+        //            VendorName = invoice.VendorEntity.VendorName
+        //        })
+        //        .Where(x => x.TotalPaid < x.TotalAmount) // only pending invoices
+        //        .ToListAsync();
+
+        //    return result;
+        //}
+
+
     }
 }

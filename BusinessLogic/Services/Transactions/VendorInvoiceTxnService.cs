@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using BusinessLogic.Interfaces.VendorInvoiceTxns;
 using DataAccess.Domain.Masters.VendorInvoiceTxn;
+using DataAccess.Domain.Transactions.VendorInvoiceTxn;
 using DataAccess.Interfaces.VendorInvoiceTxn;
 using Models.RequestModels.Masters.VendorInvoiceTxn;
+using Models.RequestModels.Transactions.VendorInvoiceTxn;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
 using Models.ResponseModels.Transaction.VendorInvoiceTxn;
 using Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn;
@@ -102,6 +105,59 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
             return wrapper;
         }
 
+        public async Task<IResponseWrapper<VendorInvoiceTxnCreateResponseModel>> AddPaymentDetailsTxnAsync(VendorInvoicePaymentRequest requestModel)
+        {
+            var wrapper = new ResponseWrapper<VendorInvoiceTxnCreateResponseModel>();
 
+            var invoices = await VendorInvoiceTxnRepository.GetInvoicesByIdsAsync(requestModel.VendorInvoiceIds);
+
+            if (invoices == null || !invoices.Any())
+            {
+                return wrapper;
+            }
+
+            List<VendorPaymentInvoiceEntity> paymentEntities = null;
+
+            foreach (var invoice in invoices)
+            {
+                foreach (var paymentDetail in requestModel.PaymentDetails)
+                {
+                    paymentEntities.Add(new VendorPaymentInvoiceEntity
+                    {
+                        VendorInvoiceTxnID = invoice.Id,
+                        bankID = paymentDetail.BankId,
+                        rate = paymentDetail.RateOfExchange,
+                        paymentDate = paymentDetail.PaymentDate,
+                        oWRMNo1 = paymentDetail.PaymentMode, // PaymentMode ko OWRM ke liye store kar rahe hain
+                        paymentAmount = paymentDetail.Amount,
+                        totalAmountInr = paymentDetail.Amount * paymentDetail.RateOfExchange
+                    });
+                }
+            }
+
+            await VendorInvoiceTxnRepository.SaveVendorPaymentsAsync(paymentEntities);
+
+            wrapper.Response = new VendorInvoiceTxnCreateResponseModel()
+            {
+                Id = 1
+            };
+            return wrapper;
+
+
+        }
+
+        //public async Task<IResponseWrapper<VendorPaymentSearchResponse>> SearchPaymentInvoiceTxnAsync(VendorInvoicePaymentSearchRequest requestModel, string? offset, string count)
+        //{
+        //    var wrapper = new ResponseWrapper<VendorPaymentSearchResponse>();
+
+        //    //VendorInvoiceTxnSearchRequestEntity? request = mapper.Map<VendorInvoiceTxnSearchRequestEntity>(requestModel);
+
+        //    VendorPaymentSearchResponse entityResponse = await VendorInvoiceTxnRepository.SearchPaymentInvoiceTxnAsync(requestModel);
+        //    VendorInvoiceTxnSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceTxnSearchResponse>(entityResponse);
+
+        //    wrapper.Response = lookUpReadResponse;
+
+        //    return wrapper;
+        //}
     }
 }
