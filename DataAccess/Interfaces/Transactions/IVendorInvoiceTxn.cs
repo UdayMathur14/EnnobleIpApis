@@ -16,6 +16,6 @@ namespace DataAccess.Interfaces.VendorInvoiceTxn
         Task<VendorInvoiceTxnEntity?> IsExistsAsync(string? code);
         Task<List<VendorInvoiceTxnEntity>> GetInvoicesByIdsAsync(List<int> invoiceIds);
         Task SaveVendorPaymentsAsync(List<VendorPaymentInvoiceEntity> payments);
-        //Task<List<VendorPaymentSearchResponse>> SearchPaymentInvoiceTxnAsync(VendorInvoicePaymentSearchRequest request);
+        Task<List<VendorInvoiceTxnSearchResponseEntity>> SearchPaymentInvoiceTxnAsync(VendorInvoicePaymentSearchRequest request);
     }
 }

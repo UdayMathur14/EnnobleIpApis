@@ -116,7 +116,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
                 return wrapper;
             }
 
-            List<VendorPaymentInvoiceEntity> paymentEntities = null;
+            List<VendorPaymentInvoiceEntity> paymentEntities = new List<VendorPaymentInvoiceEntity>();
 
             foreach (var invoice in invoices)
             {
@@ -125,12 +125,15 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
                     paymentEntities.Add(new VendorPaymentInvoiceEntity
                     {
                         VendorInvoiceTxnID = invoice.Id,
-                        bankID = paymentDetail.BankId,
-                        rate = paymentDetail.RateOfExchange,
-                        paymentDate = paymentDetail.PaymentDate,
-                        oWRMNo1 = paymentDetail.PaymentMode, // PaymentMode ko OWRM ke liye store kar rahe hain
-                        paymentAmount = paymentDetail.Amount,
-                        totalAmountInr = paymentDetail.Amount * paymentDetail.RateOfExchange
+                        paymentDate = paymentDetail.paymentDate,
+                        bankID = paymentDetail.bankID,
+                        paymentCurrency = paymentDetail.paymentCurrency,
+                        rate = invoice.TotalAmount,
+                        quantity = paymentDetail.quantity,
+                        oWRMNo1 = paymentDetail.oWRMNo1, 
+                        paymentAmount = invoice.TotalAmount * paymentDetail.quantity,
+                        bankcharges = (invoice.TotalAmount / paymentDetail.rate) * paymentDetail.bankcharges,
+                        totalAmountInr = (invoice.TotalAmount * paymentDetail.quantity) + ((invoice.TotalAmount / paymentDetail.rate)) * (paymentDetail.bankcharges),
                     });
                 }
             }
@@ -146,18 +149,16 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
 
         }
 
-        //public async Task<IResponseWrapper<VendorPaymentSearchResponse>> SearchPaymentInvoiceTxnAsync(VendorInvoicePaymentSearchRequest requestModel, string? offset, string count)
-        //{
-        //    var wrapper = new ResponseWrapper<VendorPaymentSearchResponse>();
+        public async Task<IResponseWrapper<VendorPaymentSearchResponse>> SearchPaymentInvoiceTxnAsync(VendorInvoicePaymentSearchRequest requestModel, string? offset, string count)
+        {
+            var wrapper = new ResponseWrapper<VendorPaymentSearchResponse>();
 
-        //    //VendorInvoiceTxnSearchRequestEntity? request = mapper.Map<VendorInvoiceTxnSearchRequestEntity>(requestModel);
+            VendorInvoiceTxnSearchResponseEntity entityResponse = await VendorInvoiceTxnRepository.SearchPaymentInvoiceTxnAsync(requestModel);
+            VendorInvoiceTxnSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceTxnSearchResponse>(entityResponse);
 
-        //    VendorPaymentSearchResponse entityResponse = await VendorInvoiceTxnRepository.SearchPaymentInvoiceTxnAsync(requestModel);
-        //    VendorInvoiceTxnSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceTxnSearchResponse>(entityResponse);
+            wrapper.Response = lookUpReadResponse;
 
-        //    wrapper.Response = lookUpReadResponse;
-
-        //    return wrapper;
-        //}
+            return wrapper;
+        }
     }
 }
