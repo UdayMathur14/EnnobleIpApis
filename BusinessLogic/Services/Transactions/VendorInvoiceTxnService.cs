@@ -154,7 +154,8 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
             var wrapper = new ResponseWrapper<VendorPaymentSearchResponse>();
 
             VendorInvoiceTxnSearchResponseEntity entityResponse = await VendorInvoiceTxnRepository.SearchPaymentInvoiceTxnAsync(requestModel);
-            VendorPaymentSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceTxnSearchResponseEntity>(entityResponse);
+            VendorPaymentSearchResponse lookUpReadResponse = mapper.Map<VendorPaymentSearchResponse>(entityResponse);
+
 
             wrapper.Response = lookUpReadResponse;
 
