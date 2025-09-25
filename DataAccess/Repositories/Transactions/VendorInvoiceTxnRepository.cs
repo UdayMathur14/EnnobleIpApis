@@ -4,6 +4,7 @@ using DataAccess.Interfaces.VendorInvoiceTxn;
 using Microsoft.EntityFrameworkCore;
 using Models.RequestModels.Transactions.VendorInvoiceTxn;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
+using Utilities;
 
 namespace DataAccess.Repositories.VendorInvoiceTxns
 {
@@ -146,18 +147,21 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<VendorPaymentSearchResponse>> GetPendingInvoicesAsync(VendorInvoicePaymentSearchRequest request)
+        public async Task<VendorInvoiceTxnSearchResponseEntity> SearchPaymentInvoiceTxnAsync(VendorInvoicePaymentSearchRequest request)
         {
+            var response = new VendorInvoiceTxnSearchResponseEntity();
+
             var query = _context.VendorInvoiceTxnEntity
                 .Include(v => v.PaymentInvoiceDetails)
                 .Include(v => v.VendorEntity)
                 .AsQueryable();
 
-            // ✅ Filter by Vendor ID
-            if (request.VendorId.HasValue && request.VendorId.Value > 0)
-            {
-                query = query.Where(x => x.VendorID == request.VendorId.Value);
-            }
+            var Vendors = await _context.VendorInvoiceTxnEntity
+                .Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null)
+                .Select(a => a.VendorEntity.VendorName)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToListAsync();
 
             // ✅ Filter by Vendor Name
             if (!string.IsNullOrWhiteSpace(request.VendorName))
@@ -166,22 +170,38 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             }
 
             // ✅ Core Logic: Show only invoices with pending balance
-            var result = await query
-                .Select(invoice => new VendorInvoiceSearchResponse
-                {
-                    InvoiceId = invoice.Id,
-                    ClientInvoiceNo = invoice.ClientInvoiceNo,
-                    TotalAmount = invoice.TotalAmount ?? 0,
-                    TotalPaid = invoice.PaymentInvoiceDetails.Sum(p => p.paymentAmount ?? 0),
-                    BalanceAmount = (invoice.TotalAmount ?? 0) - invoice.PaymentInvoiceDetails.Sum(p => p.paymentAmount ?? 0),
-                    VendorName = invoice.VendorEntity.VendorName
-                })
-                .Where(x => x.TotalPaid < x.TotalAmount) // only pending invoices
-                .ToListAsync();
+            if (request.Count == 0)
+            {
+                response.VendorInvoiceTxn = await query.ToListAsync();
+                // If Count is 0, we should return an empty result set and set paging values appropriately
+                response.Paging.TotalPages = 0;
+                response.Paging.CurrentPage = 0;
+                response.Paging.Results = 0;
+                response.Paging.NextOffset = null;
+                response.Paging.NextPage = null;
+                response.Paging.PrevPage = null;
+            }
+            else
+            {
+                response.Paging.Total = query.AsNoTracking().Count();
+                response.VendorInvoiceTxn = await query.Skip(request.Offset).Take(request.Count).ToListAsync();
+                response.Paging.TotalPages = (int)Math.Ceiling((double)response.Paging.Total / request.Count);
+                response.Paging.CurrentPage = (request.Offset / request.Count) + 1;
+                response.Paging.Results = response.VendorInvoiceTxn.Count();
+                response.Paging.NextOffset = response.Paging.Total < request.Offset + request.Count ?
+                    null :
+                    (request.Offset + request.Count).ToString();
 
-            return result;
+                response.Paging.NextPage = response.Paging.NextOffset != null ? $"?offset={(response.Paging.CurrentPage * request.Count)}&count={request.Count}" : null;
+                response.Paging.PrevPage = response.Paging.CurrentPage > 1 ? $"?offset={(request.Offset - request.Count)}&count={request.Count}" : null;
+
+            }
+            response.Filters = new Dictionary<string, List<string>>
+            {
+                { "Vendors", Vendors }
+            };
+
+            return response;
         }
-
-
     }
 }

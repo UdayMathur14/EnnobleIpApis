@@ -6,7 +6,7 @@ using Utilities;
 
 namespace Api.Controllers.Reports
 {
-    [Route("api/[controller]")]
+    [Route("api/report")]
     [ApiController]
     public class VendorInvoiceReportController(IVendorInvoiceReportService vendorInvoiceReportService) : CssControllerBase
     {

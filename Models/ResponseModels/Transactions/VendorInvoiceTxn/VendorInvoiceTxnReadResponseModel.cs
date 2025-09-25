@@ -38,16 +38,6 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public string? creditNoteNo { get; set; }
         public DateTime? creditNoteDate { get; set; }
         public string? creditNoteRefNo { get; set; }
-
-        // Tab 3
-        //public DateTime? paymentDate { get; set; }
-        //public int? bankID { get; set; }
-        //public string? oWRMNo1 { get; set; }
-        //public string? oWRMNo2 { get; set; }
-        //public string? paymentCurrency { get; set; }
-        //public int? paymentAmount { get; set; }
-
-        // Tab 4
         public string? customerPONo { get; set; }
         public DateTime? pODate { get; set; }
         public decimal? pOValueInclusiveTaxes { get; set; }
