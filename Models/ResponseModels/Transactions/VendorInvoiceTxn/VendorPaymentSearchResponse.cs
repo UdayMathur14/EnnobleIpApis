@@ -5,6 +5,6 @@ namespace Models.ResponseModels.Masters.VendorInvoiceTxn
 {
     public class VendorPaymentSearchResponse : SearchResponseBase<VendorInvoicePaymentSearchResponse>
     {
-        public List<VendorInvoicePaymentSearchResponse> VendorPaymentTxn => base.Results;
+        public List<VendorInvoicePaymentSearchResponse> VendorInvoiceTxns => base.Results;
     }
 }

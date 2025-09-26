@@ -5,6 +5,7 @@ using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Domain.Masters.VendorInvoiceTxn;
 using DataAccess.Domain.Transactions.VendorInvoiceTxn;
 using Models.RequestModels.Masters.VendorInvoiceTxn;
+using Models.RequestModels.Transactions.VendorInvoiceTxn;
 using Models.ResponseModels.Masters.Bank;
 using Models.ResponseModels.Masters.Customer;
 using Models.ResponseModels.Masters.Vendor;
@@ -64,11 +65,21 @@ namespace BusinessLogic.Mappings.VendorInvoiceTxns
 
             // 💸 Fee Details List Mapping
 
-
+            CreateMap<VendorInvoiceTxnEntity, VendorInvoicePaymentSearchResponse>()
+                  .ForMember(dest => dest.feeDetails, opt => opt.MapFrom(src => src.FeeDetails))
+                .ForMember(dest => dest.saleDetails, opt => opt.MapFrom(src => src.SalesInvoiceDetails))
+                .ForMember(dest => dest.VendorDetails, opt => opt.MapFrom(src => src.VendorEntity))
+                .ForMember(dest => dest.CustomerDetails, opt => opt.MapFrom(src => src.CustomerEntity)) // ✅ spelling fixed
+                .ForMember(dest => dest.paymentDetails, opt => opt.MapFrom(src => src.PaymentInvoiceDetails));
+            ;
             // 👥 Master Entities to Read Models
             CreateMap<VendorEntity, VendorReadResponseModel>();
             CreateMap<CustomerEntity, CustomerReadResponseModel>();
             CreateMap<BankEntity, BankReadResponseModel>();
+
+            CreateMap<VendorInvoiceTxnEntity, VendorInvoicePaymentSearchResponse>();
+
+
 
             // 🧹 Removed Redundant Mapping: VendorInvoiceTxnEntity → VendorInvoiceTxnSearchResponse (Not needed)
 

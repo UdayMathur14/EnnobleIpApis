@@ -50,6 +50,19 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
         }
 
 
+        public async Task<IResponseWrapper<VendorPaymentSearchResponse>> SearchPaymentInvoiceTxnAsync(VendorInvoicePaymentSearchRequest requestModel, string? offset, string count)
+        {
+            var wrapper = new ResponseWrapper<VendorPaymentSearchResponse>();
+
+            VendorInvoiceTxnSearchResponseEntity entityResponse = await VendorInvoiceTxnRepository.SearchPaymentInvoiceTxnAsync(requestModel);
+            VendorPaymentSearchResponse lookUpReadResponse = mapper.Map<VendorPaymentSearchResponse>(entityResponse);
+
+            wrapper.Response = lookUpReadResponse;
+
+            return wrapper;
+        }
+
+
         public async Task<IResponseWrapper<VendorInvoiceTxnReadResponseModel>> UpdateVendorInvoiceTxnAsync(VendorInvoiceTxnUpdateRequestModel requestModel, int id)
         {
             var wrapper = new ResponseWrapper<VendorInvoiceTxnReadResponseModel>();
@@ -149,17 +162,5 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
 
         }
 
-        public async Task<IResponseWrapper<VendorPaymentSearchResponse>> SearchPaymentInvoiceTxnAsync(VendorInvoicePaymentSearchRequest requestModel, string? offset, string count)
-        {
-            var wrapper = new ResponseWrapper<VendorPaymentSearchResponse>();
-
-            VendorInvoiceTxnSearchResponseEntity entityResponse = await VendorInvoiceTxnRepository.SearchPaymentInvoiceTxnAsync(requestModel);
-            VendorPaymentSearchResponse lookUpReadResponse = mapper.Map<VendorPaymentSearchResponse>(entityResponse);
-
-
-            wrapper.Response = lookUpReadResponse;
-
-            return wrapper;
-        }
     }
 }
