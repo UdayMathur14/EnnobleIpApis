@@ -2,6 +2,7 @@
 {
     public class VendorInvoiceTxnSearchRequestModel
     {
+        public string? vendorName { get; set; }
         public string? ApplicationNumber { get; set; }
         public string? ClientInvoiceNumber { get; set; }
         public string? Status { get; set; }

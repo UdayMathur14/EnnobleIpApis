@@ -87,7 +87,10 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             {
                 query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvoiceNumber.ToLower()));
             }
-
+            if (!string.IsNullOrWhiteSpace(request.VendorName))
+            {
+                query = query.Where(t => t.VendorEntity.VendorName!.ToLower().Contains(request.VendorName.ToLower()));
+            }
 
             if (request.Count == 0)
             {
