@@ -147,6 +147,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
                         paymentAmount = invoice.TotalAmount * paymentDetail.quantity,
                         bankcharges = (invoice.TotalAmount / paymentDetail.rate) * paymentDetail.bankcharges,
                         totalAmountInr = (invoice.TotalAmount * paymentDetail.quantity) + ((invoice.TotalAmount / paymentDetail.rate)) * (paymentDetail.bankcharges),
+                        PaymentStatus = "completed"
                     });
                 }
             }
