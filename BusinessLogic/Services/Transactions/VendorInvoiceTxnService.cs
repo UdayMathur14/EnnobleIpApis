@@ -122,45 +122,104 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
         {
             var wrapper = new ResponseWrapper<VendorInvoiceTxnCreateResponseModel>();
 
-            var invoices = await VendorInvoiceTxnRepository.GetInvoicesByIdsAsync(requestModel.VendorInvoiceIds);
+            // 1. Fetch all selected invoices from DB
+            var invoices = (await VendorInvoiceTxnRepository.GetInvoicesByIdsAsync(requestModel.VendorInvoiceIds))?.ToList();
 
-            if (invoices == null || !invoices.Any())
+            if (invoices == null || !invoices.Any() || requestModel.PaymentDetails == null || !requestModel.PaymentDetails.Any())
             {
+                // Handle invalid request or no invoices
                 return wrapper;
             }
 
+            // Determine the payment type (assuming all details have the same isPartial flag)
+            var isPartialPayment = requestModel.PaymentDetails.First().isPartial;
             List<VendorPaymentInvoiceEntity> paymentEntities = new List<VendorPaymentInvoiceEntity>();
 
-            foreach (var invoice in invoices)
+            if (!isPartialPayment)
             {
-                foreach (var paymentDetail in requestModel.PaymentDetails)
+                // --- SCENARIO 1: FULL PAYMENT ---
+                // Expecting only ONE payment detail entry in the list
+                var masterPaymentDetail = requestModel.PaymentDetails.First();
+                var totalSelectedAmount = invoices.Sum(i => i.TotalAmount); // Use DB value for security/accuracy
+
+                foreach (var invoice in invoices)
                 {
+                    // Distributed Bank Charges Calculation: (Invoice Total / Total Selected) * Total Bank Charges
+                    decimal? proportion = totalSelectedAmount > 0 ? invoice.TotalAmount / totalSelectedAmount : 0;
+                    decimal? distributedBankCharges = (masterPaymentDetail.bankcharges ?? 0) * proportion;
+
+                    // Final INR Amount Calculation
+                    decimal? finalInrAmount = (invoice.TotalAmount * (masterPaymentDetail.quantity ?? 0)) + distributedBankCharges;
+
                     paymentEntities.Add(new VendorPaymentInvoiceEntity
                     {
                         VendorInvoiceTxnID = invoice.Id,
-                        paymentDate = paymentDetail.paymentDate,
-                        bankID = paymentDetail.bankID,
-                        paymentCurrency = paymentDetail.paymentCurrency,
-                        rate = invoice.TotalAmount,
-                        quantity = paymentDetail.quantity,
-                        oWRMNo1 = paymentDetail.oWRMNo1, 
-                        paymentAmount = invoice.TotalAmount * paymentDetail.quantity,
-                        bankcharges = (invoice.TotalAmount / paymentDetail.rate) * paymentDetail.bankcharges,
-                        totalAmountInr = (invoice.TotalAmount * paymentDetail.quantity) + ((invoice.TotalAmount / paymentDetail.rate)) * (paymentDetail.bankcharges),
+                        paymentDate = masterPaymentDetail.paymentDate,
+                        bankID = masterPaymentDetail.bankID,
+                        paymentCurrency = masterPaymentDetail.paymentCurrency,
+                        oWRMNo1 = masterPaymentDetail.oWRMNo1,
+
+                        // Fields specific to Full Payment
+                        rate = masterPaymentDetail.rate,           // Total Forex Amount
+                        quantity = masterPaymentDetail.quantity,   // ROE
+
+                        // Per-invoice calculated values
+                        bankcharges = distributedBankCharges,
+                        paymentAmount = invoice.TotalAmount,       // Full Invoice Amount is being paid
+                        totalAmountInr = finalInrAmount,
                         PaymentStatus = "completed"
                     });
                 }
             }
+            else // isPartialPayment == true
+            {
+                // --- SCENARIO 2: PARTIAL PAYMENT ---
+                // Expecting multiple payment details, one per invoice.
 
+                foreach (var paymentDetail in requestModel.PaymentDetails)
+                {
+                    var invoice = invoices.FirstOrDefault(i => i.Id == paymentDetail.VendorInvoiceId);
+
+                    if (invoice != null)
+                    {
+                        // Validation: Though done on frontend, good practice to re-validate here
+                        if ((paymentDetail.rate ?? 0) > invoice.TotalAmount)
+                        {
+                            // Log error or set error wrapper, do not process
+                            continue;
+                        }
+
+                        // Final INR Calculation (Partial Amount * ROE + Individual Bank Charges)
+                        decimal finalInrAmount = (paymentDetail.rate ?? 0) * (paymentDetail.quantity ?? 0) + (paymentDetail.bankcharges ?? 0);
+
+                        paymentEntities.Add(new VendorPaymentInvoiceEntity
+                        {
+                            VendorInvoiceTxnID = invoice.Id,
+                            paymentDate = paymentDetail.paymentDate,
+                            bankID = paymentDetail.bankID,
+                            paymentCurrency = paymentDetail.paymentCurrency,
+                            oWRMNo1 = paymentDetail.oWRMNo1,
+
+                            // Fields specific to Partial Payment
+                            rate = paymentDetail.rate,        // Partial Amount entered by user (used as 'rate' field in frontend)
+                            quantity = paymentDetail.quantity, // ROE
+                            bankcharges = paymentDetail.bankcharges, // Individual Bank Charges
+                            paymentAmount = paymentDetail.rate,      // Partial Amount is the payment amount
+                            totalAmountInr = finalInrAmount,
+                            PaymentStatus = "partial" // Set status to "partial"
+                        });
+                    }
+                }
+            }
+
+            // 3. Save the prepared entities
             await VendorInvoiceTxnRepository.SaveVendorPaymentsAsync(paymentEntities);
 
             wrapper.Response = new VendorInvoiceTxnCreateResponseModel()
             {
-                Id = 1
+                Id = 1 // Or return the ID of the main transaction record if you create one
             };
             return wrapper;
-
-
         }
 
     }
