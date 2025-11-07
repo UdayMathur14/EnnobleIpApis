@@ -2,6 +2,7 @@
 using Models.ResponseModels.Masters.Bank;
 using Models.ResponseModels.Masters.Customer;
 using Models.ResponseModels.Masters.Vendor;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
 {
@@ -48,6 +49,8 @@ namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
         public VendorReadResponseModel? VendorDetails { get; set; }
         public CustomerReadResponseModel? CustomerDetails { get; set; }
         public List<VendorApplicantNameList>? NameDetails { get; set; }
+        public decimal? TotalPaidAmount { get; set; }
+        public decimal? RemainingBalance { get; set; }
     }
 
 }

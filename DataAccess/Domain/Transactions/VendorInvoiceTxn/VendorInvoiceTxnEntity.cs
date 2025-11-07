@@ -64,5 +64,11 @@ namespace DataAccess.Domain.Masters.VendorInvoiceTxn
         public ICollection<VendorSalesInvoiceEntity>? SalesInvoiceDetails { get; set; }
         public ICollection<VendorPaymentInvoiceEntity>? PaymentInvoiceDetails { get; set; }
         public ICollection<VendorApplicantNamesEntity>? VendorApplicantNames { get; set; }
-    }
+
+        [NotMapped]
+        public decimal? TotalPaidAmount { get; set; }
+
+        [NotMapped]
+        public decimal? RemainingBalance { get; set; }
+        }
 }

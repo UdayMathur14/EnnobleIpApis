@@ -57,5 +57,13 @@ namespace Api.Controllers.VendorInvoiceTxn
             IResponseWrapper<VendorPaymentSearchResponse> result = await vendorInvoiceTxnService.SearchPaymentInvoiceTxnAsync(requestModel, offset, count!);
             return HandleResponse(result);
         }
+
+
+        [HttpPost("search1")]
+        public async Task<ActionResult> Search1(VendorInvoiceTxnSearchRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
+        {
+            IResponseWrapper<VendorInvoiceTxnSearchResponse> result = await vendorInvoiceTxnService.SearchVendorInvoiceTxnAsync1(requestModel, offset, count!);
+            return HandleResponse(result);
+        }
     }
 }

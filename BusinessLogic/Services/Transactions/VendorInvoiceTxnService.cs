@@ -222,5 +222,19 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
             return wrapper;
         }
 
+        public async Task<IResponseWrapper<VendorInvoiceTxnSearchResponse>> SearchVendorInvoiceTxnAsync1(VendorInvoiceTxnSearchRequestModel requestModel, string? offset, string count)
+        {
+            var wrapper = new ResponseWrapper<VendorInvoiceTxnSearchResponse>();
+
+            VendorInvoiceTxnSearchRequestEntity? request = mapper.Map<VendorInvoiceTxnSearchRequestEntity>(requestModel);
+
+            VendorInvoiceTxnSearchResponseEntity entityResponse = await VendorInvoiceTxnRepository.SearchVendorInvoiceTxnAsync1(request);
+            VendorInvoiceTxnSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceTxnSearchResponse>(entityResponse);
+
+            wrapper.Response = lookUpReadResponse;
+
+            return wrapper;
+        }
+
     }
 }
