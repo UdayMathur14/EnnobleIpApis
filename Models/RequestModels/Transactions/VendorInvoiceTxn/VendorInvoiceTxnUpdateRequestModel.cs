@@ -32,7 +32,6 @@
         public DateTime? paymentDate { get; set; }
         public int? bankID { get; set; }
         public string? oWRMNo1 { get; set; }
-        public string? oWRMNo2 { get; set; }
         public string? paymentCurrency { get; set; }
         public decimal? paymentAmount { get; set; }
 

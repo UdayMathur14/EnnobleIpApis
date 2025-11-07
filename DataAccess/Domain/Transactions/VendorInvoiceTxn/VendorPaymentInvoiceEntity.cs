@@ -16,7 +16,6 @@ namespace DataAccess.Domain.Transactions.VendorInvoiceTxn
         public DateTime? paymentDate { get; set; }
         public int? bankID { get; set; }
         public string? oWRMNo1 { get; set; }
-        public string? oWRMNo2 { get; set; }
         public decimal? rate { get; set; } // Changed to decimal?
         public decimal? quantity { get; set; } // Changed to decimal?
         public decimal? bankcharges { get; set; } // Changed to decimal?

@@ -32,7 +32,6 @@ namespace Models.RequestModels.Transactions.VendorInvoiceTxn
         public DateTime? paymentDate { get; set; }
         public int? bankID { get; set; }
         public string? oWRMNo1 { get; set; }
-        public string? oWRMNo2 { get; set; }
         public string? paymentCurrency { get; set; }
 
         // Full Payment fields (used for distribution calculation)
