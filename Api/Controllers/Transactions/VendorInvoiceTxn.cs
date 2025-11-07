@@ -51,14 +51,6 @@ namespace Api.Controllers.VendorInvoiceTxn
             return HandleResponse(result, StatusCodes.Status201Created);
         }
 
-        [HttpPost("searchPendingInvoices")]
-        public async Task<ActionResult> SearchPendingPayments(VendorInvoicePaymentSearchRequest requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
-        {
-            IResponseWrapper<VendorPaymentSearchResponse> result = await vendorInvoiceTxnService.SearchPaymentInvoiceTxnAsync(requestModel, offset, count!);
-            return HandleResponse(result);
-        }
-
-
         [HttpPost("search1")]
         public async Task<ActionResult> Search1(VendorInvoiceTxnSearchRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
         {

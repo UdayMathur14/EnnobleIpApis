@@ -49,19 +49,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
             return wrapper;
         }
 
-
-        public async Task<IResponseWrapper<VendorPaymentSearchResponse>> SearchPaymentInvoiceTxnAsync(VendorInvoicePaymentSearchRequest requestModel, string? offset, string count)
-        {
-            var wrapper = new ResponseWrapper<VendorPaymentSearchResponse>();
-
-            VendorInvoiceTxnSearchResponseEntity entityResponse = await VendorInvoiceTxnRepository.SearchPaymentInvoiceTxnAsync(requestModel);
-            VendorPaymentSearchResponse lookUpReadResponse = mapper.Map<VendorPaymentSearchResponse>(entityResponse);
-
-            wrapper.Response = lookUpReadResponse;
-
-            return wrapper;
-        }
-
+ 
 
         public async Task<IResponseWrapper<VendorInvoiceTxnReadResponseModel>> UpdateVendorInvoiceTxnAsync(VendorInvoiceTxnUpdateRequestModel requestModel, int id)
         {
@@ -167,7 +155,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
                         bankcharges = distributedBankCharges,
                         paymentAmount = invoice.TotalAmount,       // Full Invoice Amount is being paid
                         totalAmountInr = finalInrAmount,
-                        PaymentStatus = "completed"
+                        paymentstatus = "completed"
                     });
                 }
             }
@@ -206,7 +194,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
                             bankcharges = paymentDetail.bankcharges, // Individual Bank Charges
                             paymentAmount = paymentDetail.rate,      // Partial Amount is the payment amount
                             totalAmountInr = finalInrAmount,
-                            PaymentStatus = "partial" // Set status to "partial"
+                            paymentstatus = "partial" // Set status to "partial"
                         });
                     }
                 }

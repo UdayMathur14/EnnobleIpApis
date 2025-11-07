@@ -47,6 +47,7 @@ namespace Models.RequestModels.Transactions.VendorInvoiceTxn
 
         // **CRITICAL FLAG**: Simplifies backend logic based on frontend choice
         public bool isPartial { get; set; }
+        public bool paymentstatus { get; set; }
     }
 
 }

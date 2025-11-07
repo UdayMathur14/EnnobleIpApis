@@ -23,8 +23,9 @@ namespace DataAccess.Domain.Transactions.VendorInvoiceTxn
         public decimal? totalAmountInr { get; set; } // Changed to decimal?
         public string? paymentCurrency { get; set; }
         public decimal? paymentAmount { get; set; }
-        public string? paymentMode { get; set; }
-        public string? PaymentStatus { get; set; }
+
+        [Column("paymentstatus")]
+        public string paymentstatus { get; set; }
         public VendorInvoiceTxnEntity? VendorPaymentEntity { get; set; }
     }
 

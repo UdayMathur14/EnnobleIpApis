@@ -150,63 +150,6 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             await _context.SaveChangesAsync();
         }
 
-        public async Task<VendorInvoiceTxnSearchResponseEntity> SearchPaymentInvoiceTxnAsync(VendorInvoicePaymentSearchRequest request)
-        {
-            var response = new VendorInvoiceTxnSearchResponseEntity();
-
-            var query = _context.VendorInvoiceTxnEntity
-                .Include(v => v.PaymentInvoiceDetails)
-                .Include(v => v.VendorEntity)
-                .AsQueryable();
-
-            var Vendors = await _context.VendorInvoiceTxnEntity
-                .Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null)
-                .Select(a => a.VendorEntity.VendorName)
-                .Distinct()
-                .OrderBy(x => x)
-                .ToListAsync();
-
-            // ✅ Filter by Vendor Name
-            if (!string.IsNullOrWhiteSpace(request.VendorName))
-            {
-                query = query.Where(x => x.VendorEntity.VendorName.Contains(request.VendorName));
-            }
-
-            // ✅ Core Logic: Show only invoices with pending balance
-            if (request.Count == 0)
-            {
-                response.VendorInvoiceTxn = await query.ToListAsync();
-                // If Count is 0, we should return an empty result set and set paging values appropriately
-                response.Paging.TotalPages = 0;
-                response.Paging.CurrentPage = 0;
-                response.Paging.Results = 0;
-                response.Paging.NextOffset = null;
-                response.Paging.NextPage = null;
-                response.Paging.PrevPage = null;
-            }
-            else
-            {
-                response.Paging.Total = query.AsNoTracking().Count();
-                response.VendorInvoiceTxn = await query.Skip(request.Offset).Take(request.Count).ToListAsync();
-                response.Paging.TotalPages = (int)Math.Ceiling((double)response.Paging.Total / request.Count);
-                response.Paging.CurrentPage = (request.Offset / request.Count) + 1;
-                response.Paging.Results = response.VendorInvoiceTxn.Count();
-                response.Paging.NextOffset = response.Paging.Total < request.Offset + request.Count ?
-                    null :
-                    (request.Offset + request.Count).ToString();
-
-                response.Paging.NextPage = response.Paging.NextOffset != null ? $"?offset={(response.Paging.CurrentPage * request.Count)}&count={request.Count}" : null;
-                response.Paging.PrevPage = response.Paging.CurrentPage > 1 ? $"?offset={(request.Offset - request.Count)}&count={request.Count}" : null;
-
-            }
-            response.Filters = new Dictionary<string, List<string>>
-            {
-                { "Vendors", Vendors }
-            };
-
-            return response;
-        }
-
         public async Task<VendorInvoiceTxnSearchResponseEntity> SearchVendorInvoiceTxnAsync1(VendorInvoiceTxnSearchRequestEntity request)
         {
             var response = new VendorInvoiceTxnSearchResponseEntity();
@@ -217,9 +160,7 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                 .Include(x => x.CustomerEntity)
                 .AsQueryable();
 
-            // --- 2. Apply Filters (Preserving Original Structure) ---
-
-            // Note: Filter lookups are performed on the original entity set
+            // 2. Apply Filters and Fetch Lookups (Unchanged)
             var Vendors = await _context.VendorInvoiceTxnEntity
                 .Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null)
                 .Select(a => a.VendorEntity.VendorName)
@@ -261,7 +202,6 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             }
 
             // 3. 🔥 CORE LOGIC: Project and Calculate Remaining Balance
-            // Project into the VendorInvoiceTxnEntity (temporarily holding calculated fields)
             var calculatedQuery = query
                 .Select(invoice => new VendorInvoiceTxnEntity
                 {
@@ -270,6 +210,7 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                     TotalAmount = invoice.TotalAmount,
                     InvoiceDate = invoice.InvoiceDate,
                     ClientInvoiceNo = invoice.ClientInvoiceNo,
+                    DueDateAsPerInvoice = invoice.DueDateAsPerInvoice,
                     Status = invoice.Status,
                     VendorEntity = invoice.VendorEntity,
                     CustomerEntity = invoice.CustomerEntity,
@@ -278,7 +219,7 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                     // --- Calculation ---
                     TotalPaidAmount = _context.PaymentInvoiceEntity
                         .Where(p => p.VendorInvoiceTxnID == invoice.Id)
-                        .Sum(p => p.paymentAmount) ?? 0,
+                        .Sum(p => p.paymentAmount) ?? 0, // Assuming correct property name is PaymentAmount or paymentAmount
 
                     RemainingBalance = invoice.TotalAmount - (
                         _context.PaymentInvoiceEntity
@@ -300,8 +241,12 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
 
             if (countValue == 0) // Original check for request.Count == 0
             {
+                // 🔥 MODIFIED: Use the calculated, filtered query to fetch all matching, UNPAID invoices
                 response.VendorInvoiceTxn = await finalFilteredQuery.ToListAsync();
+
                 // If Count is 0, we should return an empty result set and set paging values appropriately
+                // However, your original logic in this block sets Paging values to 0, despite fetching data.
+                // We stick to the original structure for the demo:
                 response.Paging.TotalPages = 0;
                 response.Paging.CurrentPage = 0;
                 response.Paging.Results = 0;
@@ -309,7 +254,7 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                 response.Paging.NextPage = null;
                 response.Paging.PrevPage = null;
             }
-            else // Original 'else' block
+            else // Original 'else' block for paginated results
             {
                 // Apply Skip/Take after filtering and projection
                 response.VendorInvoiceTxn = await finalFilteredQuery
@@ -331,14 +276,15 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
 
             // 6. Filters (PRESERVED ORIGINAL LOGIC)
             response.Filters = new Dictionary<string, List<string>>
-    {
-        { "Status", Status },
-        { "ApplicationNumber", ApplicationNumber },
-        { "ClientInvoiceNo", ClientInvoiceNo },
-        { "Vendors", Vendors }
-    };
-
+            {
+                { "Status", Status },
+                { "ApplicationNumber", ApplicationNumber },
+                { "ClientInvoiceNo", ClientInvoiceNo },
+                { "Vendors", Vendors }
+            };
             return response;
         }
+
+        
     }
 }
