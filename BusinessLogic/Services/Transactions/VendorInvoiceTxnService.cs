@@ -154,8 +154,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
                         // Per-invoice calculated values
                         bankcharges = distributedBankCharges,
                         paymentAmount = invoice.TotalAmount,       // Full Invoice Amount is being paid
-                        totalAmountInr = finalInrAmount,
-                        paymentstatus = "completed"
+                        totalAmountInr = finalInrAmount
                     });
                 }
             }
@@ -193,8 +192,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
                             quantity = paymentDetail.quantity, // ROE
                             bankcharges = paymentDetail.bankcharges, // Individual Bank Charges
                             paymentAmount = paymentDetail.rate,      // Partial Amount is the payment amount
-                            totalAmountInr = finalInrAmount,
-                            paymentstatus = "partial" // Set status to "partial"
+                            totalAmountInr = finalInrAmount
                         });
                     }
                 }
