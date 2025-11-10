@@ -219,12 +219,12 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                     // --- Calculation ---
                     TotalPaidAmount = _context.PaymentInvoiceEntity
                         .Where(p => p.VendorInvoiceTxnID == invoice.Id)
-                        .Sum(p => p.paymentAmount) ?? 0, // Assuming correct property name is PaymentAmount or paymentAmount
+                        .Sum(p => p.rate) ?? 0, // Assuming correct property name is PaymentAmount or paymentAmount
 
                     RemainingBalance = invoice.TotalAmount - (
                         _context.PaymentInvoiceEntity
                             .Where(p => p.VendorInvoiceTxnID == invoice.Id)
-                            .Sum(p => p.paymentAmount) ?? 0
+                            .Sum(p => p.rate) ?? 0
                     )
                 });
 
