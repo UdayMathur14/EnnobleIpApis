@@ -4,6 +4,7 @@ using DataAccess.Interfaces.VendorInvoiceTxn;
 using Microsoft.EntityFrameworkCore;
 using Models.RequestModels.Transactions.VendorInvoiceTxn;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
+using System.Linq;
 using Utilities;
 
 namespace DataAccess.Repositories.VendorInvoiceTxns
@@ -285,6 +286,58 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             return response;
         }
 
-        
+        public async Task<List<int>> CheckAndGetFullyPaidInvoicesAsync(List<int> vendorInvoiceIds)
+        {
+            if (vendorInvoiceIds == null || !vendorInvoiceIds.Any())
+            {
+                return new List<int>();
+            }
+
+            // 1. Invoices ko Group karo aur har ek ke liye Total Paid Amount nikaalo.
+            var result = await _context.VendorInvoiceTxnEntity
+                // Sirf unn Master Invoices ko select karo jo abhi process ho rahe hain.
+                .Where(masterInvoice => vendorInvoiceIds.Contains(masterInvoice.Id))
+                .Select(masterInvoice => new
+                {
+                    InvoiceId = masterInvoice.Id,
+                    // Master Invoice ki original total amount (Forex amount).
+                    OriginalTotalAmount = masterInvoice.TotalAmount,
+
+                    // Sub-Query (SUM): Is InvoiceId se jude saare payment transactions (VendorPaymentInvoiceTable) se 
+                    // 'rate' field (jo payment amount/Forex hai) ka total sum nikaalo.
+                    TotalPaidAmount = _context.PaymentInvoiceEntity
+                        .Where(payment => payment.VendorInvoiceTxnID == masterInvoice.Id)
+                        .Sum(payment => payment.rate)
+                })
+                // 2. Filter: Jinka total paid amount, original amount se barabar ya zyada hai.
+                .Where(x => x.TotalPaidAmount >= x.OriginalTotalAmount)
+                // 3. Output: Sirf Invoice ID return karo.
+                .Select(x => x.InvoiceId)
+                .ToListAsync();
+
+            return result;
+        }
+        public async Task UpdateInvoiceStatusToCloseAsync(List<int> vendorInvoiceIds)
+        {
+            if (vendorInvoiceIds == null || !vendorInvoiceIds.Any())
+            {
+                return;
+            }
+
+            // 🔥 FIX: vendorInvoiceIds.Contains(invoice.VendorInvoiceTxnID) hona chahiye
+            var invoicesToUpdate = await _context.VendorInvoiceTxnEntity // Entity ya DbSet ka naam
+                .Where(invoice => vendorInvoiceIds.Contains(invoice.Id) &&
+                                  invoice.Status != "Close")
+                .ToListAsync();
+
+            if (invoicesToUpdate.Any())
+            {
+                foreach (var invoice in invoicesToUpdate)
+                {
+                    invoice.Status = "Closed";
+                }
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

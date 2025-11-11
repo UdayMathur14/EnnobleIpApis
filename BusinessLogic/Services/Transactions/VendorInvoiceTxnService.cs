@@ -4,6 +4,7 @@ using BusinessLogic.Interfaces.VendorInvoiceTxns;
 using DataAccess.Domain.Masters.VendorInvoiceTxn;
 using DataAccess.Domain.Transactions.VendorInvoiceTxn;
 using DataAccess.Interfaces.VendorInvoiceTxn;
+using Microsoft.EntityFrameworkCore;
 using Models.RequestModels.Masters.VendorInvoiceTxn;
 using Models.RequestModels.Transactions.VendorInvoiceTxn;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
@@ -106,10 +107,6 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
             return wrapper;
         }
 
-        // VendorInvoiceTxnService.cs: AddPaymentDetailsTxnAsync (FINAL & SIMPLIFIED)
-
-        // VendorInvoiceTxnService.cs: AddPaymentDetailsTxnAsync (FINAL & SIMPLIFIED)
-
         public async Task<IResponseWrapper<VendorInvoiceTxnCreateResponseModel>> AddPaymentDetailsTxnAsync(VendorInvoicePaymentRequest requestModel)
         {
             var wrapper = new ResponseWrapper<VendorInvoiceTxnCreateResponseModel>();
@@ -121,14 +118,16 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
 
             List<VendorPaymentInvoiceEntity> paymentEntities = new List<VendorPaymentInvoiceEntity>();
 
-            // Loop over the FINAL, calculated transactions sent by the frontend.
+            List<int> invoicesToProcess = new List<int>();
+
             foreach (var paymentDetail in requestModel.PaymentDetails)
             {
                 if (paymentDetail.VendorInvoiceId == null) continue;
+                int vendorInvoiceId = paymentDetail.VendorInvoiceId.Value;
 
+                // --- EXISTING CODE: NO CHANGE ---
                 // 1. Read the calculated values directly from the frontend payload:
-                // 'rate' holds the exact Forex amount being paid (Remaining/Partial).
-                decimal forexAmountPaid = paymentDetail.rate ?? 0;
+                decimal forexAmountPaid = paymentDetail.rate ?? 0; // Yeh rate/paymentAmount ka kaam karega
                 decimal roe = paymentDetail.quantity ?? 0;
                 decimal bankCharges = paymentDetail.bankcharges ?? 0;
 
@@ -137,7 +136,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
 
                 paymentEntities.Add(new VendorPaymentInvoiceEntity
                 {
-                    VendorInvoiceTxnID = paymentDetail.VendorInvoiceId.Value,
+                    VendorInvoiceTxnID = vendorInvoiceId,
                     paymentDate = paymentDetail.paymentDate,
                     bankID = paymentDetail.bankID,
                     paymentCurrency = paymentDetail.paymentCurrency,
@@ -148,13 +147,33 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
                     bankcharges = bankCharges,
                     totalAmountInr = totalAmountInr
                 });
+
+                if (!invoicesToProcess.Contains(vendorInvoiceId))
+                {
+                    invoicesToProcess.Add(vendorInvoiceId);
+                }
             }
 
-             await VendorInvoiceTxnRepository.SaveVendorPaymentsAsync(paymentEntities);
+            await VendorInvoiceTxnRepository.SaveVendorPaymentsAsync(paymentEntities);
 
+            if (invoicesToProcess.Any())
+            {
+                // Step 1: Repository se poochho ki in mein se kaunse invoices ka Remaining Balance zero ho gaya hai.
+                // Yeh assume karta hai ki SaveVendorPaymentsAsync ke baad DB mein Remaining Balance update ho chuka hai.
+                List<int> fullyPaidInvoiceIds = await VendorInvoiceTxnRepository.CheckAndGetFullyPaidInvoicesAsync(invoicesToProcess);
+
+                if (fullyPaidInvoiceIds.Any())
+                {
+                    // Step 2: Un invoices ka status 'Close' kar do.
+                    await VendorInvoiceTxnRepository.UpdateInvoiceStatusToCloseAsync(fullyPaidInvoiceIds);
+                }
+            }
+
+            // --- EXISTING CODE: NO CHANGE ---
             wrapper.Response = new VendorInvoiceTxnCreateResponseModel() { Id = 1 };
             return wrapper;
         }
+       
 
         public async Task<IResponseWrapper<VendorInvoiceTxnSearchResponse>> SearchVendorInvoiceTxnAsync1(VendorInvoiceTxnSearchRequestModel requestModel, string? offset, string count)
         {
