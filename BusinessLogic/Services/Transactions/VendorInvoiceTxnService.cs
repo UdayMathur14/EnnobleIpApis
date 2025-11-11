@@ -64,7 +64,13 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
             }
             else
             {
+                if (VendorInvoiceTxnEntity.PaymentInvoiceDetails.Count() != requestModel.paymentFeeDetails.Count())
+                {
+                    requestModel.status = "Open";
+                }
+
                 mapper.Map(requestModel, VendorInvoiceTxnEntity);
+                
                 if (requestModel.status == Status.Inactive.ToString() && VendorInvoiceTxnEntity.Status != Status.Active.ToString())
                 {
                     VendorInvoiceTxnEntity.InactiveDate = DateTime.Now;
