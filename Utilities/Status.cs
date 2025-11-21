@@ -9,6 +9,8 @@ namespace Utilities
     public enum Status
     {
         Active,
-        Inactive
+        Inactive,
+        Open, 
+        Closed
     }
 }

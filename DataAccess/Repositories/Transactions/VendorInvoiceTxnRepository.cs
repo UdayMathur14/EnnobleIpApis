@@ -51,7 +51,7 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
 
             var query = _context.VendorInvoiceTxnEntity
                  .Include(x => x.VendorEntity)
-                .Include(x => x.CustomerEntity).
+                .Include(x => x.CustomerEntity).OrderBy(x=>x.CreationDate).
                 AsQueryable();
 
             var Vendors = await _context.VendorInvoiceTxnEntity

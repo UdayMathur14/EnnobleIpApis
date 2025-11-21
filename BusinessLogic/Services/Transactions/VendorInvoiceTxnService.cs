@@ -98,7 +98,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
             {
                 VendorInvoiceTxnEntity entity = mapper.Map<VendorInvoiceTxnEntity>(requestModel);
 
-                entity.Status = Status.Active.ToString();
+                entity.Status = Status.Open.ToString();
                 entity.CreationDate = DateTime.Now;
                 entity.LastUpdateDate = DateTime.Now;
 
