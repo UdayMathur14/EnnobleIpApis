@@ -158,7 +158,7 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
             // 1. Setup the base query and Eager Loading
             var query = _context.VendorInvoiceTxnEntity
                 .Include(x => x.VendorEntity)
-                .Include(x => x.CustomerEntity)
+                .Include(x => x.CustomerEntity).OrderBy(x=>x.CreationDate)
                 .AsQueryable();
 
             // 2. Apply Filters and Fetch Lookups (Unchanged)
