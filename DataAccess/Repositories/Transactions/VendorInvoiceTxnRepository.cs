@@ -40,10 +40,10 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<VendorInvoiceTxnEntity?> IsExistsAsync(string? code)
-        {
-            return null;
-        }
+        //public async Task<VendorInvoiceTxnEntity?> IsExistsAsync(string? ve)
+        //{
+        //    return null;
+        //}
 
         public async Task<VendorInvoiceTxnSearchResponseEntity> SearchVendorInvoiceTxnAsync(VendorInvoiceTxnSearchRequestEntity request)
         {
@@ -338,6 +338,11 @@ namespace DataAccess.Repositories.VendorInvoiceTxns
                 }
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<VendorInvoiceTxnEntity?> IsExistsAsync(decimal? vendorID, string? clientInvoiceNo)
+        {
+            return await _context.VendorInvoiceTxnEntity.Where(c => c.VendorID == vendorID && c.ClientInvoiceNo == clientInvoiceNo ).FirstOrDefaultAsync();
         }
     }
 }

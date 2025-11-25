@@ -14,7 +14,7 @@ namespace DataAccess.Interfaces.VendorInvoiceTxn
     {
         Task<VendorInvoiceTxnSearchResponseEntity> SearchVendorInvoiceTxnAsync(VendorInvoiceTxnSearchRequestEntity request);
         Task<VendorInvoiceTxnSearchResponseEntity> SearchVendorInvoiceTxnAsync1(VendorInvoiceTxnSearchRequestEntity request);
-        Task<VendorInvoiceTxnEntity?> IsExistsAsync(string? code);
+        Task<VendorInvoiceTxnEntity?> IsExistsAsync(decimal? vendorID, string? clientInvoiceNo);
         Task<List<VendorInvoiceTxnEntity>> GetInvoicesByIdsAsync(List<int> invoiceIds);
         Task SaveVendorPaymentsAsync(List<VendorPaymentInvoiceEntity> payments);
         Task<List<int>> CheckAndGetFullyPaidInvoicesAsync(List<int> invoiceIds);

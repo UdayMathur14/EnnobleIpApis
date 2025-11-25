@@ -88,7 +88,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
         {
             var wrapper = new ResponseWrapper<VendorInvoiceTxnCreateResponseModel>();
 
-            VendorInvoiceTxnEntity? VendorInvoiceTxnEntity = await VendorInvoiceTxnRepository.IsExistsAsync(requestModel.description);
+            VendorInvoiceTxnEntity? VendorInvoiceTxnEntity = await VendorInvoiceTxnRepository.IsExistsAsync(requestModel.vendorID,requestModel.clientInvoiceNo);
 
             if (VendorInvoiceTxnEntity != null)
             {
