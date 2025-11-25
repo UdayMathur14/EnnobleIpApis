@@ -92,7 +92,7 @@ namespace BusinessLogic.Services.VendorInvoiceTxns
 
             if (VendorInvoiceTxnEntity != null)
             {
-                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.description.ToString()));
+                wrapper.Messages.Add(Messages.AlreadyExists.ToDetailModel(requestModel.clientInvoiceNo.ToString()));
             }
             else
             {
