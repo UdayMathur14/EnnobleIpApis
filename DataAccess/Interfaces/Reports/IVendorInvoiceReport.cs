@@ -6,5 +6,7 @@ namespace DataAccess.Interfaces.VendorInvoiceReport
     public interface IVendorInvoiceReportRepository : IRepository<VendorInvoiceTxnEntity>
     {
         Task<VendorInvoiceReportSearchResponseEntity> SearchVendorInvoiceReportAsync(VendorInvoiceReportSearchRequestEntity request);
+        Task<VendorInvoiceTxnSearchResponseEntity> SearchVendorInvoiceTxnAsync1(VendorInvoiceTxnSearchRequestEntity request);
+        Task<VendorInvoiceReportSearchResponseEntity> SearchSaleInvoiceReportAsync(VendorInvoiceReportSearchRequestEntity request);
     }
 }
