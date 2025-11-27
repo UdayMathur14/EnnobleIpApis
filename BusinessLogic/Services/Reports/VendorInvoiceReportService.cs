@@ -57,5 +57,20 @@ namespace BusinessLogic.Services.VendorInvoiceReports
         }
 
 
+        public async Task<IResponseWrapper<VendorInvoiceReportSearchResponse>> SearchCustomerInvoiceTotalReportAsync(VendorInvoiceReportRequestModel requestModel, string? offset, string count)
+        {
+            var wrapper = new ResponseWrapper<VendorInvoiceReportSearchResponse>();
+
+            VendorInvoiceReportSearchRequestEntity? request = mapper.Map<VendorInvoiceReportSearchRequestEntity>(requestModel);
+
+            VendorInvoiceReportSearchResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchCustomerInvoiceTotalReportAsync(request);
+            VendorInvoiceReportSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceReportSearchResponse>(entityResponse);
+
+            wrapper.Response = lookUpReadResponse;
+
+            return wrapper;
+        }
+
+
     }
 }

@@ -34,6 +34,12 @@ namespace Api.Controllers.Reports
             return HandleResponse(result);
         }
 
+        [HttpPost("customerinvoicetotal")]
+        public async Task<ActionResult> CustomerInvoiceTotal(VendorInvoiceReportRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
+        {
+            IResponseWrapper<VendorInvoiceReportSearchResponse> result = await vendorInvoiceReportService.SearchCustomerInvoiceTotalReportAsync(requestModel, offset, count!);
+            return HandleResponse(result);
+        }
 
     }
 }

@@ -9,6 +9,6 @@
         public string? Customer { get; set; }
         public string ReportType { get; set; }
 
-        }
+    }
 
 }
