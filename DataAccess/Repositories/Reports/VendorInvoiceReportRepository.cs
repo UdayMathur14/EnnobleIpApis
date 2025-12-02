@@ -461,43 +461,47 @@ namespace DataAccess.Repositories.VendorInvoiceReports
                 .Include(x => x.VendorEntity)
                 .AsQueryable();
 
+            // Apply Filters
             if (!string.IsNullOrWhiteSpace(request.Status))
             {
-                query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
+                query = query.Where(t => t.Status != null && t.Status.ToLower().Contains(request.Status.ToLower()));
             }
 
-            // Load the filtered data
-            var data = await query.ToListAsync();
-
-            // Filters
-            var Vendors = data
-                .Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null)
-                .Select(a => a.VendorEntity!.VendorName)
-                .Distinct()
-                .OrderBy(x => x)
-                .ToList();
-
-            var Status = data
-                .Select(a => a.Status)
-                .Distinct()
-                .ToList();
-
-            // Group & Map to Response Model
-            var groupedData = data
-                .GroupBy(x => new { x.VendorEntity!.VendorName, x.Status })
+            // Group at SQL Level
+            var groupedQuery = query
+                .SelectMany(t => t.FeeDetails.DefaultIfEmpty(), (t, f) => new
+                {
+                    VendorName = t.VendorEntity!.VendorName,
+                    Status = t.Status,
+                    Amount = f.amount
+                })
+                .GroupBy(x => new { x.VendorName, x.Status })
                 .Select(g => new VendorPurchaseAmountReadResponseModel
                 {
                     VendorName = g.Key.VendorName,
                     Status = g.Key.Status,
-                    TotalAmount = g.Sum(x => x.FeeDetails.Sum(f => f.amount)) ?? 0
+                    TotalAmount = g.Sum(x => x.Amount)
                 })
                 .OrderBy(x => x.VendorName)
-                .ToList();
+                .AsQueryable();
+
+            // Filters (efficient way)
+            var Vendors = await groupedQuery.Select(a => a.VendorName)
+                                            .Distinct()
+                                            .OrderBy(x => x)
+                                            .ToListAsync();
+
+            var StatusList = await groupedQuery.Select(a => a.Status)
+                                               .Distinct()
+                                               .ToListAsync();
+
 
             // Paging
+            response.Paging.Total = await groupedQuery.CountAsync();
+
             if (request.Count == 0)
             {
-                response.VendorPurchaseReports = groupedData;
+                response.VendorPurchaseReports = await groupedQuery.ToListAsync();
                 response.Paging.TotalPages = 0;
                 response.Paging.CurrentPage = 0;
                 response.Paging.Results = 0;
@@ -507,12 +511,10 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             }
             else
             {
-                response.Paging.Total = groupedData.Count;
-
-                response.VendorPurchaseReports = groupedData
+                response.VendorPurchaseReports = await groupedQuery
                     .Skip(request.Offset)
                     .Take(request.Count)
-                    .ToList();
+                    .ToListAsync();
 
                 response.Paging.TotalPages = (int)Math.Ceiling((double)response.Paging.Total / request.Count);
                 response.Paging.CurrentPage = (request.Offset / request.Count) + 1;
@@ -530,15 +532,16 @@ namespace DataAccess.Repositories.VendorInvoiceReports
                     : null;
             }
 
-            // Filter dictionary
+            // Populate Filters
             response.Filters = new Dictionary<string, List<string>>
     {
-        { "Status", Status },
-        { "Vendors", Vendors }
+        { "Vendors", Vendors },
+        { "Status", StatusList }
     };
 
             return response;
         }
+
 
 
 
