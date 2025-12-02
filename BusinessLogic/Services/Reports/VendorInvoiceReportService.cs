@@ -4,9 +4,7 @@ using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Domain.Masters.VendorInvoiceReport;
 using DataAccess.Domain.Masters.VendorInvoiceTxn;
 using DataAccess.Domain.Reports.VendorInvoiceReport;
-using DataAccess.Interfaces.Masters;
 using DataAccess.Interfaces.VendorInvoiceReport;
-using DataAccess.Interfaces.VendorInvoiceTxn;
 using Models.RequestModels.Masters.Vendor;
 using Models.RequestModels.Masters.VendorInvoiceTxn;
 using Models.RequestModels.Reports.VendorInvoiceReport;
@@ -43,6 +41,20 @@ namespace BusinessLogic.Services.VendorInvoiceReports
 
             VendorInvoiceTxnSearchResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchVendorInvoiceTxnAsync1(request);
             VendorInvoiceTxnSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceTxnSearchResponse>(entityResponse);
+
+            wrapper.Response = lookUpReadResponse;
+
+            return wrapper;
+        }
+
+        public async Task<IResponseWrapper<VendorPurchaseReportSearchResponse>> SearchVendorInvoiceTxnAsync3(VendorInvoiceTxnSearchRequestModel requestModel, string? offset, string count)
+        {
+            var wrapper = new ResponseWrapper<VendorPurchaseReportSearchResponse>();
+
+            VendorInvoiceTxnSearchRequestEntity? request = mapper.Map<VendorInvoiceTxnSearchRequestEntity>(requestModel);
+
+            PurchaseVendorHistoryResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchVendorInvoiceTxnAsync3(request);
+            VendorPurchaseReportSearchResponse lookUpReadResponse = mapper.Map<VendorPurchaseReportSearchResponse>(entityResponse);
 
             wrapper.Response = lookUpReadResponse;
 
@@ -105,6 +117,10 @@ namespace BusinessLogic.Services.VendorInvoiceReports
 
             return wrapper;
         }
-        
+
+        public Task<IResponseWrapper<VendorInvoiceTxnSearchResponse>> SearchVendorInvoiceTxnAsync(VendorInvoiceTxnSearchRequestModel requestModel, string? offset, string count)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

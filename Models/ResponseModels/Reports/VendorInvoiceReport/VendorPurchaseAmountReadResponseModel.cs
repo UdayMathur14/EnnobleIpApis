@@ -9,6 +9,7 @@ namespace Models.ResponseModels.Reports.VendorInvoiceReport
 {
     public class VendorPurchaseAmountReadResponseModel : BaseResponseModel
     {
+        public decimal? VendorId { get; set; }
         public string VendorName { get; set; } 
         public decimal? TotalAmount { get; set; }
         public string Status { get; set; }

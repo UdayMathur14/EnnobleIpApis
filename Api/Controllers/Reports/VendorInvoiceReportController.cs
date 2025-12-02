@@ -25,10 +25,17 @@ namespace Api.Controllers.Reports
         }
 
         //outstanding Amount or not 
-        [HttpPost("outstandingVendorPayment")]
+        [HttpPost("outstandingVendorPaymentSingle")]
         public async Task<ActionResult> Search1(VendorInvoiceTxnSearchRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
         {
-            IResponseWrapper<VendorInvoiceTxnSearchResponse> result = await vendorInvoiceReportService.SearchVendorInvoiceTxnAsync1(requestModel, offset, count!);
+            IResponseWrapper<VendorInvoiceTxnSearchResponse> result = await vendorInvoiceReportService.SearchVendorInvoiceTxnAsync(requestModel, offset, count!);
+            return HandleResponse(result);
+        }
+
+        [HttpPost("outstandingVendorPaymentgroup")]
+        public async Task<ActionResult> Search3(VendorInvoiceTxnSearchRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
+        {
+            IResponseWrapper<VendorPurchaseReportSearchResponse> result = await vendorInvoiceReportService.SearchVendorInvoiceTxnAsync3(requestModel, offset, count!);
             return HandleResponse(result);
         }
 

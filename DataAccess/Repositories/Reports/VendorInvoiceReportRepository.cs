@@ -203,6 +203,99 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             return response;
         }
 
+        public async Task<PurchaseVendorHistoryResponseEntity> SearchVendorInvoiceTxnAsync3(VendorInvoiceTxnSearchRequestEntity request)
+        {
+            var response = new PurchaseVendorHistoryResponseEntity();
+
+            // Base query
+            var query = _context.VendorInvoiceTxnEntity
+                .Include(x => x.VendorEntity)
+                .Include(x => x.PaymentInvoiceDetails)
+                .AsQueryable();
+
+            // Filters (same as earlier)
+            if (!string.IsNullOrWhiteSpace(request.Status))
+                query = query.Where(t => t.Status!.ToLower().Equals(request.Status.ToLower()));
+
+            if (!string.IsNullOrWhiteSpace(request.ApplicationNumber))
+                query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
+
+            if (!string.IsNullOrWhiteSpace(request.ClientInvoiceNumber))
+                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvoiceNumber.ToLower()));
+
+            if (!string.IsNullOrWhiteSpace(request.VendorName))
+                query = query.Where(t => t.VendorEntity.VendorName!.ToLower().Contains(request.VendorName.ToLower()));
+
+            // Calculate RemainingBalance per invoice
+            var calculatedQuery = query.Select(invoice => new
+            {
+                VendorId = invoice.VendorID,
+                VendorName = invoice.VendorEntity.VendorName,
+                RemainingBalance = invoice.TotalAmount - (invoice.PaymentInvoiceDetails.Sum(p => p.paymentAmount) ?? 0)
+            })
+            .Where(x => x.RemainingBalance > 0); // All outstanding
+
+            // Grouping by vendor with sum
+            var groupedQuery = calculatedQuery
+                .GroupBy(x => new { x.VendorId, x.VendorName })
+                .Select(g => new VendorPurchaseAmountReadResponseModel
+                {
+                    VendorId = g.Key.VendorId,
+                    VendorName = g.Key.VendorName,
+                    TotalAmount = g.Sum(x => x.RemainingBalance)
+                })
+                .OrderBy(x => x.VendorName)
+                .AsQueryable();
+
+            // Pagination Counts
+            response.Paging.Total = await groupedQuery.CountAsync();
+            int offsetValue = request.Offset;
+            int countValue = request.Count;
+
+            if (countValue == 0)
+            {
+                response.VendorPurchaseReports = await groupedQuery.ToListAsync(); // convert to list of object
+                response.Paging.TotalPages = 0;
+                response.Paging.CurrentPage = 0;
+                response.Paging.Results = response.VendorPurchaseReports.Count();
+                response.Paging.NextOffset = null;
+                response.Paging.NextPage = null;
+                response.Paging.PrevPage = null;
+            }
+            else
+            {
+                response.VendorPurchaseReports = await groupedQuery
+                    .Skip(request.Offset)
+                    .Take(request.Count)
+                    .ToListAsync();
+
+
+                response.Paging.TotalPages = (int)Math.Ceiling((double)response.Paging.Total / countValue);
+                response.Paging.CurrentPage = (offsetValue / countValue) + 1;
+                response.Paging.Results = response.VendorPurchaseReports.Count();
+                response.Paging.NextOffset = response.Paging.Total < offsetValue + countValue
+                    ? null
+                    : (offsetValue + countValue).ToString();
+
+                response.Paging.NextPage = response.Paging.NextOffset != null ?
+                    $"?offset={(response.Paging.CurrentPage * countValue)}&count={countValue}" : null;
+
+                response.Paging.PrevPage = response.Paging.CurrentPage > 1 ?
+                    $"?offset={(offsetValue - countValue)}&count={countValue}" : null;
+            }
+
+            // Filters (same as existing)
+            response.Filters = new Dictionary<string, List<string>>
+    {
+        { "Status", await _context.VendorInvoiceTxnEntity.Select(a => a.Status).Distinct().ToListAsync() },
+        { "ApplicationNumber", await _context.VendorInvoiceTxnEntity.Select(a => a.ApplicationNumber).Distinct().ToListAsync() },
+        { "ClientInvoiceNo", await _context.VendorInvoiceTxnEntity.Select(a => a.ClientInvoiceNo).Distinct().ToListAsync() },
+        { "Vendors", await _context.VendorInvoiceTxnEntity.Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null)
+                     .Select(a => a.VendorEntity.VendorName).Distinct().OrderBy(x => x).ToListAsync() }
+    };
+
+            return response;
+        }
 
 
         public async Task<VendorInvoiceReportSearchResponseEntity> SearchSaleInvoiceReportAsync(VendorInvoiceReportSearchRequestEntity request)
