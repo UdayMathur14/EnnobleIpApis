@@ -397,6 +397,11 @@ namespace DataAccess.Repositories.VendorInvoiceReports
                        .Distinct()
                        .ToListAsync();
 
+            var Country = await query
+                      .Select(a => a.BillingCountry)
+                      .Distinct()
+                      .ToListAsync();
+
 
             var Status = await query
                        .Select(a => a.Status)
@@ -446,7 +451,9 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             {
                 { "VendorName", VendorName  },
                 { "VendorType",VendorType},
-                { "Status", Status }
+                { "Status", Status },
+                { "Country", Country },
+                
             };
 
             return response;
