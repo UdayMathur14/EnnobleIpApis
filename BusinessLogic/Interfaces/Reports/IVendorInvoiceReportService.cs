@@ -4,6 +4,7 @@ using Models.RequestModels.Reports.VendorInvoiceReport;
 using Models.ResponseModels.Masters.Vendor;
 using Models.ResponseModels.Masters.VendorInvoiceReport;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
+using Models.ResponseModels.Reports.VendorInvoiceReport;
 using Utilities;
 
 namespace BusinessLogic.Interfaces.VendorInvoiceReports
@@ -18,7 +19,7 @@ namespace BusinessLogic.Interfaces.VendorInvoiceReports
         Task<IResponseWrapper<VendorInvoiceReportSearchResponse>> SearchCustomerInvoiceTotalReportAsync(VendorInvoiceReportRequestModel requestModel, string? offset, string count);
         Task<IResponseWrapper<VendorSearchResponse>> SearchVendorAsync(VendorSearchRequestModel requestModel, string? offset, string count);
 
-        Task<IResponseWrapper<VendorInvoiceReportSearchResponse>> SearchVendorPurchaseAsync(VendorPurchaseRequestModel requestModel, string? offset, string count);
+        Task<IResponseWrapper<VendorPurchaseReportSearchResponse>> SearchVendorPurchaseAsync(VendorPurchaseRequestModel requestModel, string? offset, string count);
 
     }
 }

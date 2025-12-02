@@ -1,6 +1,7 @@
 ﻿using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Domain.Masters.VendorInvoiceReport;
 using DataAccess.Domain.Masters.VendorInvoiceTxn;
+using DataAccess.Domain.Reports.VendorInvoiceReport;
 
 namespace DataAccess.Interfaces.VendorInvoiceReport
 {
@@ -10,7 +11,7 @@ namespace DataAccess.Interfaces.VendorInvoiceReport
         Task<VendorInvoiceTxnSearchResponseEntity> SearchVendorInvoiceTxnAsync1(VendorInvoiceTxnSearchRequestEntity request);
         Task<VendorInvoiceReportSearchResponseEntity> SearchSaleInvoiceReportAsync(VendorInvoiceReportSearchRequestEntity request);
         Task<VendorInvoiceReportSearchResponseEntity> SearchCustomerInvoiceTotalReportAsync(VendorInvoiceReportSearchRequestEntity request);
-        Task<VendorInvoiceReportSearchResponseEntity> SearchVendorPurchaseAsync(VendorInvoiceReportSearchRequestEntity request);
+        Task<PurchaseVendorHistoryResponseEntity> SearchVendorPurchaseAsync(VendorInvoiceReportSearchRequestEntity request);
         Task<VendorSearchResponseEntity> SearchVendorAsync(VendorSearchRequestEntity request);
     }
 }

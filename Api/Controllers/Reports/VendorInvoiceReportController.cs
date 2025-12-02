@@ -8,6 +8,7 @@ using Models.RequestModels.Reports.VendorInvoiceReport;
 using Models.ResponseModels.Masters.Vendor;
 using Models.ResponseModels.Masters.VendorInvoiceReport;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
+using Models.ResponseModels.Reports.VendorInvoiceReport;
 using Utilities;
 
 namespace Api.Controllers.Reports
@@ -56,7 +57,7 @@ namespace Api.Controllers.Reports
         [HttpPost("vendorpurchase")]
         public async Task<ActionResult> Search2(VendorPurchaseRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
         {
-            IResponseWrapper<VendorInvoiceReportSearchResponse> result = await vendorInvoiceReportService.SearchVendorPurchaseAsync(requestModel, offset, count!);
+            IResponseWrapper<VendorPurchaseReportSearchResponse> result = await vendorInvoiceReportService.SearchVendorPurchaseAsync(requestModel, offset, count!);
             return HandleResponse(result);
         }
 

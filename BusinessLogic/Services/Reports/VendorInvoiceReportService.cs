@@ -3,6 +3,7 @@ using BusinessLogic.Interfaces.VendorInvoiceReports;
 using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Domain.Masters.VendorInvoiceReport;
 using DataAccess.Domain.Masters.VendorInvoiceTxn;
+using DataAccess.Domain.Reports.VendorInvoiceReport;
 using DataAccess.Interfaces.Masters;
 using DataAccess.Interfaces.VendorInvoiceReport;
 using DataAccess.Interfaces.VendorInvoiceTxn;
@@ -12,6 +13,7 @@ using Models.RequestModels.Reports.VendorInvoiceReport;
 using Models.ResponseModels.Masters.Vendor;
 using Models.ResponseModels.Masters.VendorInvoiceReport;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
+using Models.ResponseModels.Reports.VendorInvoiceReport;
 using Utilities;
 using Utilities.Implementation;
 
@@ -90,14 +92,14 @@ namespace BusinessLogic.Services.VendorInvoiceReports
             return wrapper;
         }
 
-        public async Task<IResponseWrapper<VendorInvoiceReportSearchResponse>> SearchVendorPurchaseAsync(VendorPurchaseRequestModel requestModel, string? offset, string count)
+        public async Task<IResponseWrapper<VendorPurchaseReportSearchResponse>> SearchVendorPurchaseAsync(VendorPurchaseRequestModel requestModel, string? offset, string count)
         {
-            var wrapper = new ResponseWrapper<VendorInvoiceReportSearchResponse>();
+            var wrapper = new ResponseWrapper<VendorPurchaseReportSearchResponse>();
 
             VendorInvoiceReportSearchRequestEntity? request = mapper.Map<VendorInvoiceReportSearchRequestEntity>(requestModel);
 
-            VendorInvoiceReportSearchResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchVendorPurchaseAsync(request);
-            VendorInvoiceReportSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceReportSearchResponse>(entityResponse);
+            PurchaseVendorHistoryResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchVendorPurchaseAsync(request);
+            VendorPurchaseReportSearchResponse lookUpReadResponse = mapper.Map<VendorPurchaseReportSearchResponse>(entityResponse);
 
             wrapper.Response = lookUpReadResponse;
 

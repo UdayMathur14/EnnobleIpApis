@@ -1,8 +1,11 @@
 ﻿using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Domain.Masters.VendorInvoiceReport;
 using DataAccess.Domain.Masters.VendorInvoiceTxn;
+using DataAccess.Domain.Reports.VendorInvoiceReport;
 using DataAccess.Interfaces.VendorInvoiceReport;
 using Microsoft.EntityFrameworkCore;
+using Models.ResponseModels.Reports.VendorInvoiceReport;
+using System.Linq;
 
 namespace DataAccess.Repositories.VendorInvoiceReports
 {
@@ -449,36 +452,52 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             return response;
         }
 
-        public async Task<VendorInvoiceReportSearchResponseEntity> SearchVendorPurchaseAsync(VendorInvoiceReportSearchRequestEntity request)
+        public async Task<PurchaseVendorHistoryResponseEntity> SearchVendorPurchaseAsync(VendorInvoiceReportSearchRequestEntity request)
         {
-            var response = new VendorInvoiceReportSearchResponseEntity();
+            var response = new PurchaseVendorHistoryResponseEntity();
 
             var query = _context.VendorInvoiceTxnEntity
-                 .Include(x => x.FeeDetails)
-                .Include(x => x.VendorEntity).
-                AsQueryable();
-
-            var Vendors = await _context.VendorInvoiceTxnEntity
-                .Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null)
-                .Select(a => a.VendorEntity.VendorName)
-                .Distinct()
-                .OrderBy(x => x)
-                .ToListAsync();
-
-            var Status = await _context.VendorInvoiceTxnEntity
-                       .Select(a => a.Status)
-                       .Distinct()
-                       .ToListAsync();
+                .Include(x => x.FeeDetails)
+                .Include(x => x.VendorEntity)
+                .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request.Status))
             {
                 query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
             }
 
+            // Load the filtered data
+            var data = await query.ToListAsync();
+
+            // Filters
+            var Vendors = data
+                .Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null)
+                .Select(a => a.VendorEntity!.VendorName)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
+
+            var Status = data
+                .Select(a => a.Status)
+                .Distinct()
+                .ToList();
+
+            // Group & Map to Response Model
+            var groupedData = data
+                .GroupBy(x => new { x.VendorEntity!.VendorName, x.Status })
+                .Select(g => new VendorPurchaseAmountReadResponseModel
+                {
+                    VendorName = g.Key.VendorName,
+                    Status = g.Key.Status,
+                    TotalAmount = g.Sum(x => x.FeeDetails.Sum(f => f.amount)) ?? 0
+                })
+                .OrderBy(x => x.VendorName)
+                .ToList();
+
+            // Paging
             if (request.Count == 0)
             {
-                response.VendorInvoiceReport = await query.ToListAsync();
-                // If Count is 0, we should return an empty result set and set paging values appropriately
+                response.VendorPurchaseReports = groupedData;
                 response.Paging.TotalPages = 0;
                 response.Paging.CurrentPage = 0;
                 response.Paging.Results = 0;
@@ -488,26 +507,40 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             }
             else
             {
-                response.Paging.Total = query.AsNoTracking().Count();
-                response.VendorInvoiceReport = await query.Skip(request.Offset).Take(request.Count).ToListAsync();
+                response.Paging.Total = groupedData.Count;
+
+                response.VendorPurchaseReports = groupedData
+                    .Skip(request.Offset)
+                    .Take(request.Count)
+                    .ToList();
+
                 response.Paging.TotalPages = (int)Math.Ceiling((double)response.Paging.Total / request.Count);
                 response.Paging.CurrentPage = (request.Offset / request.Count) + 1;
-                response.Paging.Results = response.VendorInvoiceReport.Count();
-                response.Paging.NextOffset = response.Paging.Total < request.Offset + request.Count ?
-                    null :
-                    (request.Offset + request.Count).ToString();
+                response.Paging.Results = response.VendorPurchaseReports.Count();
+                response.Paging.NextOffset = response.Paging.Total < request.Offset + request.Count
+                    ? null
+                    : (request.Offset + request.Count).ToString();
 
-                response.Paging.NextPage = response.Paging.NextOffset != null ? $"?offset={(response.Paging.CurrentPage * request.Count)}&count={request.Count}" : null;
-                response.Paging.PrevPage = response.Paging.CurrentPage > 1 ? $"?offset={(request.Offset - request.Count)}&count={request.Count}" : null;
+                response.Paging.NextPage = response.Paging.NextOffset != null
+                    ? $"?offset={(response.Paging.CurrentPage * request.Count)}&count={request.Count}"
+                    : null;
 
+                response.Paging.PrevPage = response.Paging.CurrentPage > 1
+                    ? $"?offset={(request.Offset - request.Count)}&count={request.Count}"
+                    : null;
             }
+
+            // Filter dictionary
             response.Filters = new Dictionary<string, List<string>>
-            {
-                { "Status", Status },
-                { "Vendors", Vendors }
-            };
+    {
+        { "Status", Status },
+        { "Vendors", Vendors }
+    };
 
             return response;
         }
+
+
+
     }
 }

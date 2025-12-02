@@ -3,10 +3,13 @@ using DataAccess.Domain.Masters.Bank;
 using DataAccess.Domain.Masters.Customer;
 using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Domain.Masters.VendorInvoiceReport;
+using DataAccess.Domain.Reports.VendorInvoiceReport;
 using Models.RequestModels.Masters.VendorInvoiceTxn;
+using Models.RequestModels.Reports.VendorInvoiceReport;
 using Models.ResponseModels.Masters.Bank;
 using Models.ResponseModels.Masters.Customer;
 using Models.ResponseModels.Masters.Vendor;
+using Models.ResponseModels.Reports.VendorInvoiceReport;
 
 namespace BusinessLogic.Mappings.VendorInvoiceReports
 {
@@ -19,6 +22,12 @@ namespace BusinessLogic.Mappings.VendorInvoiceReports
             CreateMap<VendorEntity, VendorReadResponseModel>();
             CreateMap<CustomerEntity, CustomerReadResponseModel>();
             CreateMap<BankEntity, BankReadResponseModel>();
+
+
+            CreateMap<VendorPurchaseRequestModel, VendorInvoiceReportSearchRequestEntity>();
+            CreateMap<PurchaseVendorHistoryResponseEntity, VendorPurchaseReportSearchResponse>();
+
+
 
         }
 
