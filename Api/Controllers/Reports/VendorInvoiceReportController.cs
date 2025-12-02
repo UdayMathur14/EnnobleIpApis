@@ -1,7 +1,10 @@
-﻿using BusinessLogic.Interfaces.VendorInvoiceReports;
+﻿using BusinessLogic.Interfaces.Masters;
+using BusinessLogic.Interfaces.VendorInvoiceReports;
 using BusinessLogic.Interfaces.VendorInvoiceTxns;
 using Microsoft.AspNetCore.Mvc;
+using Models.RequestModels.Masters.Vendor;
 using Models.RequestModels.Masters.VendorInvoiceTxn;
+using Models.ResponseModels.Masters.Vendor;
 using Models.ResponseModels.Masters.VendorInvoiceReport;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
 using Utilities;
@@ -38,6 +41,13 @@ namespace Api.Controllers.Reports
         public async Task<ActionResult> CustomerInvoiceTotal(VendorInvoiceReportRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
         {
             IResponseWrapper<VendorInvoiceReportSearchResponse> result = await vendorInvoiceReportService.SearchCustomerInvoiceTotalReportAsync(requestModel, offset, count!);
+            return HandleResponse(result);
+        }
+
+        [HttpPost("searchvendor")]
+        public async Task<ActionResult> Search(VendorSearchRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
+        {
+            IResponseWrapper<VendorSearchResponse> result = await vendorInvoiceReportService.SearchVendorAsync(requestModel, offset, count!);
             return HandleResponse(result);
         }
 

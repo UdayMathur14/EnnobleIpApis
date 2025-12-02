@@ -10,5 +10,4 @@
         public string ReportType { get; set; }
 
     }
-
 }
