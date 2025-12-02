@@ -454,19 +454,16 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             var response = new VendorInvoiceReportSearchResponseEntity();
 
             var query = _context.VendorInvoiceTxnEntity
-                 .Include(x => x.VendorEntity)
-                .Include(x => x.CustomerEntity).
+                 .Include(x => x.FeeDetails)
+                .Include(x => x.VendorEntity).
                 AsQueryable();
 
-            var ClientInvoiceNo = await _context.VendorInvoiceTxnEntity
-                       .Select(a => a.ClientInvoiceNo)
-                       .Distinct()
-                       .ToListAsync();
-
-            var ApplicationNumber = await _context.VendorInvoiceTxnEntity
-                       .Select(a => a.ApplicationNumber)
-                       .Distinct()
-                       .ToListAsync();
+            var Vendors = await _context.VendorInvoiceTxnEntity
+                .Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null)
+                .Select(a => a.VendorEntity.VendorName)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToListAsync();
 
             var Status = await _context.VendorInvoiceTxnEntity
                        .Select(a => a.Status)
@@ -476,14 +473,6 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             if (!string.IsNullOrWhiteSpace(request.Status))
             {
                 query = query.Where(t => t.Status!.ToLower().Contains(request.Status.ToLower()));
-            }
-            if (!string.IsNullOrWhiteSpace(request.ApplicationNumber))
-            {
-                query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
-            }
-            if (!string.IsNullOrWhiteSpace(request.ClientRefNumber))
-            {
-                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientRefNumber.ToLower()));
             }
 
             if (request.Count == 0)
@@ -515,8 +504,7 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             response.Filters = new Dictionary<string, List<string>>
             {
                 { "Status", Status },
-                { "ApplicationNumber", ApplicationNumber },
-                { "ClientInvoiceNo", ClientInvoiceNo }
+                { "Vendors", Vendors }
             };
 
             return response;
