@@ -4,6 +4,7 @@ using BusinessLogic.Interfaces.VendorInvoiceTxns;
 using Microsoft.AspNetCore.Mvc;
 using Models.RequestModels.Masters.Vendor;
 using Models.RequestModels.Masters.VendorInvoiceTxn;
+using Models.RequestModels.Reports.VendorInvoiceReport;
 using Models.ResponseModels.Masters.Vendor;
 using Models.ResponseModels.Masters.VendorInvoiceReport;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
@@ -48,6 +49,14 @@ namespace Api.Controllers.Reports
         public async Task<ActionResult> Search(VendorSearchRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
         {
             IResponseWrapper<VendorSearchResponse> result = await vendorInvoiceReportService.SearchVendorAsync(requestModel, offset, count!);
+            return HandleResponse(result);
+        }
+
+
+        [HttpPost("vendorpurchase")]
+        public async Task<ActionResult> Search2(VendorPurchaseRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
+        {
+            IResponseWrapper<VendorInvoiceReportSearchResponse> result = await vendorInvoiceReportService.SearchVendorPurchaseAsync(requestModel, offset, count!);
             return HandleResponse(result);
         }
 

@@ -10,6 +10,7 @@ namespace DataAccess.Interfaces.VendorInvoiceReport
         Task<VendorInvoiceTxnSearchResponseEntity> SearchVendorInvoiceTxnAsync1(VendorInvoiceTxnSearchRequestEntity request);
         Task<VendorInvoiceReportSearchResponseEntity> SearchSaleInvoiceReportAsync(VendorInvoiceReportSearchRequestEntity request);
         Task<VendorInvoiceReportSearchResponseEntity> SearchCustomerInvoiceTotalReportAsync(VendorInvoiceReportSearchRequestEntity request);
+        Task<VendorInvoiceReportSearchResponseEntity> SearchVendorPurchaseAsync(VendorInvoiceReportSearchRequestEntity request);
         Task<VendorSearchResponseEntity> SearchVendorAsync(VendorSearchRequestEntity request);
     }
 }

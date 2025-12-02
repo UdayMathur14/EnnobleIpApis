@@ -8,6 +8,7 @@ using DataAccess.Interfaces.VendorInvoiceReport;
 using DataAccess.Interfaces.VendorInvoiceTxn;
 using Models.RequestModels.Masters.Vendor;
 using Models.RequestModels.Masters.VendorInvoiceTxn;
+using Models.RequestModels.Reports.VendorInvoiceReport;
 using Models.ResponseModels.Masters.Vendor;
 using Models.ResponseModels.Masters.VendorInvoiceReport;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
@@ -89,6 +90,19 @@ namespace BusinessLogic.Services.VendorInvoiceReports
             return wrapper;
         }
 
+        public async Task<IResponseWrapper<VendorInvoiceReportSearchResponse>> SearchVendorPurchaseAsync(VendorPurchaseRequestModel requestModel, string? offset, string count)
+        {
+            var wrapper = new ResponseWrapper<VendorInvoiceReportSearchResponse>();
 
+            VendorInvoiceReportSearchRequestEntity? request = mapper.Map<VendorInvoiceReportSearchRequestEntity>(requestModel);
+
+            VendorInvoiceReportSearchResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchVendorPurchaseAsync(request);
+            VendorInvoiceReportSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceReportSearchResponse>(entityResponse);
+
+            wrapper.Response = lookUpReadResponse;
+
+            return wrapper;
+        }
+        
     }
 }
