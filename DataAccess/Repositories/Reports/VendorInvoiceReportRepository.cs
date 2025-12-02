@@ -474,13 +474,27 @@ namespace DataAccess.Repositories.VendorInvoiceReports
                 query = query.Where(t => t.Status != null && t.Status.ToLower().Contains(request.Status.ToLower()));
             }
 
+            if (!string.IsNullOrWhiteSpace(request.Country))
+            {
+                query = query.Where(t => t.FeeDetails
+                    .Any(f => f.country != null
+                           && f.country.ToLower().Contains(request.Country.ToLower())));
+            }
+            var countryList = await query
+    .SelectMany(t => t.FeeDetails.Select(f => f.country))
+    .Where(c => !string.IsNullOrWhiteSpace(c))
+    .Distinct()
+    .OrderBy(c => c)
+    .ToListAsync();
+
             // Group at SQL Level
             var groupedQuery = query
                 .SelectMany(t => t.FeeDetails.DefaultIfEmpty(), (t, f) => new
                 {
                     VendorName = t.VendorEntity!.VendorName,
                     Status = t.Status,
-                    Amount = f.amount
+                    Amount = f.amount,
+                    Country = f.country
                 })
                 .GroupBy(x => new { x.VendorName, x.Status })
                 .Select(g => new VendorPurchaseAmountReadResponseModel
@@ -501,6 +515,11 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             var StatusList = await groupedQuery.Select(a => a.Status)
                                                .Distinct()
                                                .ToListAsync();
+            var countryList = await groupedQuery
+     .SelectMany(a => a.FeeDetails.Select(f => f.Country))
+     .Where(c => !string.IsNullOrWhiteSpace(c))
+     .Distinct()
+     .ToListAsync();
 
 
             // Paging

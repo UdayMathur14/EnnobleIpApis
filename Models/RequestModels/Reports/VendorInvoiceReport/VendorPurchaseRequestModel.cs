@@ -10,5 +10,6 @@ namespace Models.RequestModels.Reports.VendorInvoiceReport
     {
         public string? Status { get; set; }
         public string? Vendor { get; set; }
+        public string? Country { get; set; }
     }
 }
