@@ -614,6 +614,99 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             return response;
         }
 
+    //    public async Task<VendorInvoiceTxnSearchResponseEntity> GetTotalOutstandingAsync(VendorInvoiceTxnSearchRequestEntity request)
+    //    {
+    //        var response = new VendorInvoiceTxnSearchResponseEntity();
+
+    //        // Base query with eager loading
+    //        var query = _context.VendorInvoiceTxnEntity
+    //            .Include(x => x.VendorEntity)
+    //            .Include(x => x.PaymentInvoiceDetails)
+    //            .OrderByDescending(x => x.InvoiceDate)
+    //            .AsQueryable();
+
+    //        // Apply filters (optional: Vendor, Status, ClientInvoiceNo, ApplicationNumber)
+    //        if (!string.IsNullOrWhiteSpace(request.Status))
+    //            query = query.Where(t => t.Status!.ToLower().Equals(request.Status.ToLower()));
+
+    //        if (!string.IsNullOrWhiteSpace(request.ApplicationNumber))
+    //            query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
+
+    //        if (!string.IsNullOrWhiteSpace(request.ClientInvoiceNumber))
+    //            query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvoiceNumber.ToLower()));
+
+    //        if (!string.IsNullOrWhiteSpace(request.VendorName))
+    //            query = query.Where(t => t.VendorEntity.VendorName!.ToLower().Contains(request.VendorName.ToLower()));
+
+    //        // 🔹 Calculate TotalPaidAmount and RemainingBalance
+    //        var calculatedQuery = query
+    //            .Select(invoice => new VendorInvoiceTxnEntity
+    //            {
+    //                Id = invoice.Id,
+    //                TotalAmount = invoice.TotalAmount,
+    //                InvoiceDate = invoice.InvoiceDate,
+    //                ClientInvoiceNo = invoice.ClientInvoiceNo,
+    //                DueDateAsPerInvoice = invoice.DueDateAsPerInvoice,
+    //                DueDateAsPerContract = invoice.DueDateAsPerContract,
+    //                VendorEntity = invoice.VendorEntity,
+    //                TotalPaidAmount = invoice.PaymentInvoiceDetails.Sum(p => p.paymentAmount) ?? 0,
+    //                RemainingBalance = invoice.TotalAmount - (invoice.PaymentInvoiceDetails.Sum(p => p.paymentAmount) ?? 0)
+    //            });
+
+    //        // 🔹 Only unpaid invoices (outstanding) — due or not
+    //        var outstandingQuery = calculatedQuery.Where(x => x.RemainingBalance > 0);
+
+    //        // Total count for pagination
+    //        response.Paging.Total = await outstandingQuery.AsNoTracking().CountAsync();
+
+    //        // Pagination
+    //        int offsetValue = request.Offset;
+    //        int countValue = request.Count;
+
+    //        if (countValue == 0)
+    //        {
+    //            response.VendorInvoiceTxn = await outstandingQuery.ToListAsync();
+    //            response.Paging.TotalPages = 0;
+    //            response.Paging.CurrentPage = 0;
+    //            response.Paging.Results = response.VendorInvoiceTxn.Count();
+    //            response.Paging.NextOffset = null;
+    //            response.Paging.NextPage = null;
+    //            response.Paging.PrevPage = null;
+    //        }
+    //        else
+    //        {
+    //            response.VendorInvoiceTxn = await outstandingQuery
+    //                .Skip(offsetValue)
+    //                .Take(countValue)
+    //                .ToListAsync();
+
+    //            response.Paging.TotalPages = (int)Math.Ceiling((double)response.Paging.Total / countValue);
+    //            response.Paging.CurrentPage = (offsetValue / countValue) + 1;
+    //            response.Paging.Results = response.VendorInvoiceTxn.Count();
+    //            response.Paging.NextOffset = response.Paging.Total < offsetValue + countValue ? null : (offsetValue + countValue).ToString();
+    //            response.Paging.NextPage = response.Paging.NextOffset != null ? $"?offset={(response.Paging.CurrentPage * countValue)}&count={countValue}" : null;
+    //            response.Paging.PrevPage = response.Paging.CurrentPage > 1 ? $"?offset={(offsetValue - countValue)}&count={countValue}" : null;
+    //        }
+
+    //        // Filters for UI dropdowns
+    //        response.Filters = new Dictionary<string, List<string>>
+    //{
+    //    { "Status", await _context.VendorInvoiceTxnEntity.Select(a => a.Status).Distinct().ToListAsync() },
+    //    { "ApplicationNumber", await _context.VendorInvoiceTxnEntity.Select(a => a.ApplicationNumber).Distinct().ToListAsync() },
+    //    { "ClientInvoiceNo", await _context.VendorInvoiceTxnEntity.Select(a => a.ClientInvoiceNo).Distinct().ToListAsync() },
+    //    { "Vendors", await _context.VendorInvoiceTxnEntity
+    //                 .Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null)
+    //                 .Select(a => a.VendorEntity.VendorName)
+    //                 .Distinct()
+    //                 .OrderBy(x => x)
+    //                 .ToListAsync()
+    //    }
+    //};
+
+    //        return response;
+    //    }
+
+
 
 
 
