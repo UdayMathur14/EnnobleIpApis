@@ -25,7 +25,7 @@ namespace Api.Controllers.Reports
         }
 
         //outstanding Amount or not 
-        [HttpPost("search1")]
+        [HttpPost("outstandingVendorPayment")]
         public async Task<ActionResult> Search1(VendorInvoiceTxnSearchRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
         {
             IResponseWrapper<VendorInvoiceTxnSearchResponse> result = await vendorInvoiceReportService.SearchVendorInvoiceTxnAsync1(requestModel, offset, count!);
