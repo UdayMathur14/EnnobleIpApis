@@ -9,6 +9,7 @@ using Models.RequestModels.Reports.VendorInvoiceReport;
 using Models.ResponseModels.Masters.Bank;
 using Models.ResponseModels.Masters.Customer;
 using Models.ResponseModels.Masters.Vendor;
+using Models.ResponseModels.Masters.VendorInvoiceReport;
 using Models.ResponseModels.Reports.VendorInvoiceReport;
 
 namespace BusinessLogic.Mappings.VendorInvoiceReports
@@ -26,6 +27,12 @@ namespace BusinessLogic.Mappings.VendorInvoiceReports
 
             CreateMap<VendorPurchaseRequestModel, VendorInvoiceReportSearchRequestEntity>();
             CreateMap<PurchaseVendorHistoryResponseEntity, VendorPurchaseReportSearchResponse>();
+
+
+            CreateMap<VendorInvoiceReportRequestModel, VendorInvoiceReportSearchRequestEntity>();
+            CreateMap<VendorInvoiceReportSearchResponseEntity, VendorInvoiceReportSearchResponse>();
+
+
 
 
 
