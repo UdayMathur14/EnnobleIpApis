@@ -358,8 +358,6 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             return response;
         }
 
-
-
         public async Task<VendorInvoiceReportSearchResponseEntity> SearchCustomerInvoiceTotalReportAsync(VendorInvoiceReportSearchRequestEntity request)
         {
             var response = new VendorInvoiceReportSearchResponseEntity();

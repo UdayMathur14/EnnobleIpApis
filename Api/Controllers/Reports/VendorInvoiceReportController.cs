@@ -42,7 +42,7 @@ namespace Api.Controllers.Reports
         [HttpPost("saleinvoicecreated")]
         public async Task<ActionResult> SaleInvoiceCreated(VendorInvoiceReportRequestModel requestModel, [FromQuery] string? offset = null, [FromQuery] string? count = null)
         {
-            IResponseWrapper<VendorInvoiceReportSearchResponse> result = await vendorInvoiceReportService.SearchSaleInvoiceReportAsync(requestModel, offset, count!);
+           IResponseWrapper<VendorInvoiceReportSearchResponse> result = await vendorInvoiceReportService.SearchSaleInvoiceReportAsync(requestModel, offset, count!);
             return HandleResponse(result);
         }
 
