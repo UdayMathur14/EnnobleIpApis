@@ -1,8 +1,6 @@
 ﻿using Models.RequestModels.Masters.VendorInvoiceTxn;
-using Models.ResponseModels.Masters.Bank;
 using Models.ResponseModels.Masters.Customer;
 using Models.ResponseModels.Masters.Vendor;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models.ResponseModels.VendorInvoiceTxn.VendorInvoiceTxn
 {
