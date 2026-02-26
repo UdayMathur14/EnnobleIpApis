@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using BusinessLogic.Interfaces.Masters;
+using BusinessLogic.Rules.Enums;
+using BusinessLogic.Rules.Master.Customer;
+using BusinessLogic.Rules.Masters.Vendor.Search;
 using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Interfaces.Masters;
 using Models.RequestModels.Masters.Vendor;
@@ -35,6 +38,26 @@ namespace BusinessLogic.Services.Masters
             var wrapper = new ResponseWrapper<VendorSearchResponse>();
 
             VendorSearchRequestEntity? request = mapper.Map<VendorSearchRequestEntity>(requestModel);
+
+            var rules = new VendorSearchRules(request, offset, count);
+            rules.RunRules();
+            foreach (var result in rules.Results)
+            {
+                if (result.ResultCode == RuleResultType.Fail && result.Exception != null)
+                {
+                    wrapper.Messages.Add(Messages.GetErrorDetail(
+                        result.Exception.Code,
+                        result.Exception.Message,
+                        result.Exception.Element,
+                        result.Exception.Category)
+                        .ToDetailModel(result.Exception.ElementValue));
+                }
+            }
+
+            if (rules.Result == RuleResultType.Fail)
+            {
+                return wrapper;
+            }
 
             VendorSearchResponseEntity entityResponse = await VendorRepository.SearchVendorAsync(request);
             VendorSearchResponse lookUpReadResponse = mapper.Map<VendorSearchResponse>(entityResponse);
