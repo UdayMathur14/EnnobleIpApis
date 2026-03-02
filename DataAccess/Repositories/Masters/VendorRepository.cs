@@ -58,6 +58,10 @@ namespace DataAccess.Repositories.Masters
             {
                 query = query.Where(t => t.VendorType!.ToLower().Contains(request.VendorType.ToLower()));
             }
+            if (!string.IsNullOrWhiteSpace(request.Country))
+            {
+                query = query.Where(t => t.BillingCountry!.ToLower().Contains(request.Country.ToLower()));
+            }
 
             if (request.Count == 0)
             {
