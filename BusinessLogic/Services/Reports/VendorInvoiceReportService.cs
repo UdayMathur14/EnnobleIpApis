@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using BusinessLogic.Interfaces.VendorInvoiceReports;
+using BusinessLogic.Rules.Enums;
+using BusinessLogic.Rules.Masters.VendorInvoiceReport.Search;
+using BusinessLogic.Rules.Masters.VendorInvoiceTxn.Search;
 using DataAccess.Domain.Masters.Vendor;
 using DataAccess.Domain.Masters.VendorInvoiceReport;
 using DataAccess.Domain.Masters.VendorInvoiceTxn;
@@ -13,6 +16,8 @@ using Models.ResponseModels.Masters.VendorInvoiceReport;
 using Models.ResponseModels.Masters.VendorInvoiceTxn;
 using Models.ResponseModels.Reports.VendorInvoiceReport;
 using Utilities;
+using Utilities.Constants;
+using Utilities.Extensions;
 using Utilities.Implementation;
 
 namespace BusinessLogic.Services.VendorInvoiceReports
@@ -24,6 +29,25 @@ namespace BusinessLogic.Services.VendorInvoiceReports
             var wrapper = new ResponseWrapper<VendorInvoiceReportSearchResponse>();
 
             VendorInvoiceReportSearchRequestEntity? request = mapper.Map<VendorInvoiceReportSearchRequestEntity>(requestModel);
+            var rules = new VendorInvoiceReportSearchRules(request, offset, count);
+            rules.RunRules();
+            foreach (var result in rules.Results)
+            {
+                if (result.ResultCode == RuleResultType.Fail && result.Exception != null)
+                {
+                    wrapper.Messages.Add(Messages.GetErrorDetail(
+                        result.Exception.Code,
+                        result.Exception.Message,
+                        result.Exception.Element,
+                        result.Exception.Category)
+                        .ToDetailModel(result.Exception.ElementValue));
+                }
+            }
+
+            if (rules.Result == RuleResultType.Fail)
+            {
+                return wrapper;
+            }
 
             VendorInvoiceReportSearchResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchVendorInvoiceReportAsync(request);
             VendorInvoiceReportSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceReportSearchResponse>(entityResponse);
@@ -38,6 +62,8 @@ namespace BusinessLogic.Services.VendorInvoiceReports
             var wrapper = new ResponseWrapper<VendorInvoiceTxnSearchResponse>();
 
             VendorInvoiceTxnSearchRequestEntity? request = mapper.Map<VendorInvoiceTxnSearchRequestEntity>(requestModel);
+
+
 
             VendorInvoiceTxnSearchResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchVendorInvoiceTxnAsync1(request);
             VendorInvoiceTxnSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceTxnSearchResponse>(entityResponse);
@@ -67,6 +93,26 @@ namespace BusinessLogic.Services.VendorInvoiceReports
 
             VendorInvoiceReportSearchRequestEntity? request = mapper.Map<VendorInvoiceReportSearchRequestEntity>(requestModel);
 
+            var rules = new VendorInvoiceReportSearchRules(request, offset, count);
+            rules.RunRules();
+            foreach (var result in rules.Results)
+            {
+                if (result.ResultCode == RuleResultType.Fail && result.Exception != null)
+                {
+                    wrapper.Messages.Add(Messages.GetErrorDetail(
+                        result.Exception.Code,
+                        result.Exception.Message,
+                        result.Exception.Element,
+                        result.Exception.Category)
+                        .ToDetailModel(result.Exception.ElementValue));
+                }
+            }
+
+            if (rules.Result == RuleResultType.Fail)
+            {
+                return wrapper;
+            }
+
             VendorInvoiceReportSearchResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchSaleInvoiceReportAsync(request);
             VendorInvoiceReportSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceReportSearchResponse>(entityResponse);
 
@@ -81,6 +127,26 @@ namespace BusinessLogic.Services.VendorInvoiceReports
             var wrapper = new ResponseWrapper<VendorInvoiceReportSearchResponse>();
 
             VendorInvoiceReportSearchRequestEntity? request = mapper.Map<VendorInvoiceReportSearchRequestEntity>(requestModel);
+
+            var rules = new VendorInvoiceReportSearchRules(request, offset, count);
+            rules.RunRules();
+            foreach (var result in rules.Results)
+            {
+                if (result.ResultCode == RuleResultType.Fail && result.Exception != null)
+                {
+                    wrapper.Messages.Add(Messages.GetErrorDetail(
+                        result.Exception.Code,
+                        result.Exception.Message,
+                        result.Exception.Element,
+                        result.Exception.Category)
+                        .ToDetailModel(result.Exception.ElementValue));
+                }
+            }
+
+            if (rules.Result == RuleResultType.Fail)
+            {
+                return wrapper;
+            }
 
             VendorInvoiceReportSearchResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchCustomerInvoiceTotalReportAsync(request);
             VendorInvoiceReportSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceReportSearchResponse>(entityResponse);
@@ -109,6 +175,26 @@ namespace BusinessLogic.Services.VendorInvoiceReports
             var wrapper = new ResponseWrapper<VendorPurchaseReportSearchResponse>();
 
             VendorInvoiceReportSearchRequestEntity? request = mapper.Map<VendorInvoiceReportSearchRequestEntity>(requestModel);
+
+            var rules = new VendorInvoiceReportSearchRules(request, offset, count);
+            rules.RunRules();
+            foreach (var result in rules.Results)
+            {
+                if (result.ResultCode == RuleResultType.Fail && result.Exception != null)
+                {
+                    wrapper.Messages.Add(Messages.GetErrorDetail(
+                        result.Exception.Code,
+                        result.Exception.Message,
+                        result.Exception.Element,
+                        result.Exception.Category)
+                        .ToDetailModel(result.Exception.ElementValue));
+                }
+            }
+
+            if (rules.Result == RuleResultType.Fail)
+            {
+                return wrapper;
+            }
 
             PurchaseVendorHistoryResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchVendorPurchaseAsync(request);
             VendorPurchaseReportSearchResponse lookUpReadResponse = mapper.Map<VendorPurchaseReportSearchResponse>(entityResponse);

@@ -16,6 +16,7 @@ namespace Models.ResponseModels.Reports.VendorInvoiceReport
         public string Status { get; set; }
         public string ApplicationNumber { get; set; }
         public string ClientInvNo { get; set; }
+        public string CurrencySymbol { get; set; }
         public DateOnly InvoiceDate { get; set; }
         public VendorReadResponseModel? VendorDetails { get; set; }
     }

@@ -235,13 +235,14 @@ namespace DataAccess.Repositories.VendorInvoiceReports
                 RemainingBalance = invoice.TotalAmount - (invoice.PaymentInvoiceDetails.Sum(p => p.paymentAmount) ?? 0),
                 Status = invoice.Status,
                 ApplicationNumber = invoice.ApplicationNumber,
-                ClientInvNo = invoice.ClientInvoiceNo
+                ClientInvNo = invoice.ClientInvoiceNo,
+                CurrencySymbol = invoice.VendorEntity.CurrencySymbol,
             })
             .Where(x => x.RemainingBalance > 0); // All outstanding
 
             // Grouping by vendor with sum
             var groupedQuery = calculatedQuery
-                .GroupBy(x => new { x.VendorId, x.VendorName, x.Status, x.ApplicationNumber, x.ClientInvNo })
+                .GroupBy(x => new { x.VendorId, x.VendorName, x.Status, x.ApplicationNumber, x.ClientInvNo, x.CurrencySymbol })
                 .Select(g => new VendorPurchaseAmountReadResponseModel
                 {
                     VendorId = g.Key.VendorId,
@@ -250,6 +251,7 @@ namespace DataAccess.Repositories.VendorInvoiceReports
                     Status = g.Key.Status,
                     ApplicationNumber = g.Key.ApplicationNumber,
                     ClientInvNo = g.Key.ClientInvNo,
+                    CurrencySymbol = g.Key.CurrencySymbol
                 })
                 .OrderBy(x => x.VendorName)
                 .AsQueryable();
@@ -529,7 +531,6 @@ namespace DataAccess.Repositories.VendorInvoiceReports
                 .Include(x => x.VendorEntity)
                 .AsQueryable();
 
-            // Apply Filters
             if (!string.IsNullOrWhiteSpace(request.Status))
             {
                 query = query.Where(t => t.Status != null && t.Status.ToLower().Contains(request.Status.ToLower()));
@@ -555,7 +556,6 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             }
             var countryList = await query.SelectMany(t => t.FeeDetails.Select(f => f.country)).Where(c => !string.IsNullOrWhiteSpace(c)).Distinct().OrderBy(c => c).ToListAsync();
 
-            // Group at SQL Level
             var groupedQuery = query
                 .SelectMany(t => t.FeeDetails.DefaultIfEmpty(), (t, f) => new
                 {
@@ -563,19 +563,20 @@ namespace DataAccess.Repositories.VendorInvoiceReports
                     Status = t.Status,
                     Amount = f.amount,
                     Country = f.country,
-                    invoiceDate = f.VendorInvoiceTxnEntity.InvoiceDate
+                    invoiceDate = f.VendorInvoiceTxnEntity.InvoiceDate,
+                    CurrencySymbol = t.VendorEntity.CurrencySymbol
                 })
-                .GroupBy(x => new { x.VendorName, x.Status })
+                .GroupBy(x => new { x.VendorName, x.Status ,  x.CurrencySymbol  })
                 .Select(g => new VendorPurchaseAmountReadResponseModel
                 {
                     VendorName = g.Key.VendorName,
                     Status = g.Key.Status,
-                    TotalAmount = g.Sum(x => x.Amount)
+                    TotalAmount = g.Sum(x => x.Amount),
+                    CurrencySymbol = g.Key.CurrencySymbol,
                 })
                 .OrderBy(x => x.VendorName)
                 .AsQueryable();
 
-            // Filters (efficient way)
             var Vendors = await groupedQuery.Select(a => a.VendorName)
                                             .Distinct()
                                             .OrderBy(x => x)
@@ -629,98 +630,6 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             };
             return response;
         }
-
-        //    public async Task<VendorInvoiceTxnSearchResponseEntity> GetTotalOutstandingAsync(VendorInvoiceTxnSearchRequestEntity request)
-        //    {
-        //        var response = new VendorInvoiceTxnSearchResponseEntity();
-
-        //        // Base query with eager loading
-        //        var query = _context.VendorInvoiceTxnEntity
-        //            .Include(x => x.VendorEntity)
-        //            .Include(x => x.PaymentInvoiceDetails)
-        //            .OrderByDescending(x => x.InvoiceDate)
-        //            .AsQueryable();
-
-        //        // Apply filters (optional: Vendor, Status, ClientInvoiceNo, ApplicationNumber)
-        //        if (!string.IsNullOrWhiteSpace(request.Status))
-        //            query = query.Where(t => t.Status!.ToLower().Equals(request.Status.ToLower()));
-
-        //        if (!string.IsNullOrWhiteSpace(request.ApplicationNumber))
-        //            query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
-
-        //        if (!string.IsNullOrWhiteSpace(request.ClientInvoiceNumber))
-        //            query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvoiceNumber.ToLower()));
-
-        //        if (!string.IsNullOrWhiteSpace(request.VendorName))
-        //            query = query.Where(t => t.VendorEntity.VendorName!.ToLower().Contains(request.VendorName.ToLower()));
-
-        //        // 🔹 Calculate TotalPaidAmount and RemainingBalance
-        //        var calculatedQuery = query
-        //            .Select(invoice => new VendorInvoiceTxnEntity
-        //            {
-        //                Id = invoice.Id,
-        //                TotalAmount = invoice.TotalAmount,
-        //                InvoiceDate = invoice.InvoiceDate,
-        //                ClientInvoiceNo = invoice.ClientInvoiceNo,
-        //                DueDateAsPerInvoice = invoice.DueDateAsPerInvoice,
-        //                DueDateAsPerContract = invoice.DueDateAsPerContract,
-        //                VendorEntity = invoice.VendorEntity,
-        //                TotalPaidAmount = invoice.PaymentInvoiceDetails.Sum(p => p.paymentAmount) ?? 0,
-        //                RemainingBalance = invoice.TotalAmount - (invoice.PaymentInvoiceDetails.Sum(p => p.paymentAmount) ?? 0)
-        //            });
-
-        //        // 🔹 Only unpaid invoices (outstanding) — due or not
-        //        var outstandingQuery = calculatedQuery.Where(x => x.RemainingBalance > 0);
-
-        //        // Total count for pagination
-        //        response.Paging.Total = await outstandingQuery.AsNoTracking().CountAsync();
-
-        //        // Pagination
-        //        int offsetValue = request.Offset;
-        //        int countValue = request.Count;
-
-        //        if (countValue == 0)
-        //        {
-        //            response.VendorInvoiceTxn = await outstandingQuery.ToListAsync();
-        //            response.Paging.TotalPages = 0;
-        //            response.Paging.CurrentPage = 0;
-        //            response.Paging.Results = response.VendorInvoiceTxn.Count();
-        //            response.Paging.NextOffset = null;
-        //            response.Paging.NextPage = null;
-        //            response.Paging.PrevPage = null;
-        //        }
-        //        else
-        //        {
-        //            response.VendorInvoiceTxn = await outstandingQuery
-        //                .Skip(offsetValue)
-        //                .Take(countValue)
-        //                .ToListAsync();
-
-        //            response.Paging.TotalPages = (int)Math.Ceiling((double)response.Paging.Total / countValue);
-        //            response.Paging.CurrentPage = (offsetValue / countValue) + 1;
-        //            response.Paging.Results = response.VendorInvoiceTxn.Count();
-        //            response.Paging.NextOffset = response.Paging.Total < offsetValue + countValue ? null : (offsetValue + countValue).ToString();
-        //            response.Paging.NextPage = response.Paging.NextOffset != null ? $"?offset={(response.Paging.CurrentPage * countValue)}&count={countValue}" : null;
-        //            response.Paging.PrevPage = response.Paging.CurrentPage > 1 ? $"?offset={(offsetValue - countValue)}&count={countValue}" : null;
-        //        }
-
-        //        // Filters for UI dropdowns
-        //        response.Filters = new Dictionary<string, List<string>>
-        //{
-        //    { "Status", await _context.VendorInvoiceTxnEntity.Select(a => a.Status).Distinct().ToListAsync() },
-        //    { "ApplicationNumber", await _context.VendorInvoiceTxnEntity.Select(a => a.ApplicationNumber).Distinct().ToListAsync() },
-        //    { "ClientInvoiceNo", await _context.VendorInvoiceTxnEntity.Select(a => a.ClientInvoiceNo).Distinct().ToListAsync() },
-        //    { "Vendors", await _context.VendorInvoiceTxnEntity
-        //                 .Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null)
-        //                 .Select(a => a.VendorEntity.VendorName)
-        //                 .Distinct()
-        //                 .OrderBy(x => x)
-        //                 .ToListAsync()
-        //    }
-        //};
-
-        //        return response;
-        //    }
 
 
     }
