@@ -55,9 +55,9 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             {
                 query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
             }
-            if (!string.IsNullOrWhiteSpace(request.ClientRefNumber))
+            if (!string.IsNullOrWhiteSpace(request.ClientInvNumber))
             {
-                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientRefNumber.ToLower()));
+                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvNumber.ToLower()));
             }
 
             if (request.Count == 0)
@@ -208,7 +208,6 @@ namespace DataAccess.Repositories.VendorInvoiceReports
         {
             var response = new PurchaseVendorHistoryResponseEntity();
 
-            // Base query
             var query = _context.VendorInvoiceTxnEntity
                 .Include(x => x.VendorEntity)
                 .Include(x => x.PaymentInvoiceDetails)
@@ -237,12 +236,17 @@ namespace DataAccess.Repositories.VendorInvoiceReports
                 ApplicationNumber = invoice.ApplicationNumber,
                 ClientInvNo = invoice.ClientInvoiceNo,
                 CurrencySymbol = invoice.VendorEntity.CurrencySymbol,
+                invoiceDate = invoice.InvoiceDate,
+                DueDate = invoice.DueDateAsPerInvoice.HasValue && invoice.DueDateAsPerContract.HasValue
+                    ? (invoice.DueDateAsPerInvoice < invoice.DueDateAsPerContract ? invoice.DueDateAsPerInvoice : invoice.DueDateAsPerContract)
+                    : invoice.DueDateAsPerInvoice ?? invoice.DueDateAsPerContract,
+                ClientRefNumber = invoice.ClientRefNo
             })
             .Where(x => x.RemainingBalance > 0); // All outstanding
 
             // Grouping by vendor with sum
             var groupedQuery = calculatedQuery
-                .GroupBy(x => new { x.VendorId, x.VendorName, x.Status, x.ApplicationNumber, x.ClientInvNo, x.CurrencySymbol })
+                .GroupBy(x => new { x.VendorId, x.VendorName, x.Status, x.ApplicationNumber, x.ClientInvNo, x.CurrencySymbol , x.invoiceDate ,x.DueDate,x.ClientRefNumber })
                 .Select(g => new VendorPurchaseAmountReadResponseModel
                 {
                     VendorId = g.Key.VendorId,
@@ -251,7 +255,10 @@ namespace DataAccess.Repositories.VendorInvoiceReports
                     Status = g.Key.Status,
                     ApplicationNumber = g.Key.ApplicationNumber,
                     ClientInvNo = g.Key.ClientInvNo,
-                    CurrencySymbol = g.Key.CurrencySymbol
+                    CurrencySymbol = g.Key.CurrencySymbol,
+                    InvoiceDate = g.Key.invoiceDate,
+                    DueDate = g.Key.DueDate,
+                    ClientRefNumber = g.Key.ClientRefNumber
                 })
                 .OrderBy(x => x.VendorName)
                 .AsQueryable();
@@ -295,13 +302,33 @@ namespace DataAccess.Repositories.VendorInvoiceReports
 
             // Filters (same as existing)
             response.Filters = new Dictionary<string, List<string>>
-    {
-        { "Status", await _context.VendorInvoiceTxnEntity.Select(a => a.Status).Distinct().ToListAsync() },
-        { "ApplicationNumber", await _context.VendorInvoiceTxnEntity.Select(a => a.ApplicationNumber).Distinct().ToListAsync() },
-        { "ClientInvoiceNo", await _context.VendorInvoiceTxnEntity.Select(a => a.ClientInvoiceNo).Distinct().ToListAsync() },
-        { "Vendors", await _context.VendorInvoiceTxnEntity.Where(a => a.VendorEntity != null && a.VendorEntity.VendorName != null)
-                     .Select(a => a.VendorEntity.VendorName).Distinct().OrderBy(x => x).ToListAsync() }
-    };
+{
+    { "Status", await calculatedQuery
+        .Select(a => a.Status)
+        .Distinct()
+        .Where(s => s != null)
+        .ToListAsync()
+    },
+    { "ApplicationNumber", await calculatedQuery
+        .Select(a => a.ApplicationNumber)
+        .Distinct()
+        .Where(an => an != null)
+        .ToListAsync()
+    },
+    { "ClientInvoiceNo", await calculatedQuery
+        .Select(a => a.ClientInvNo)
+        .Distinct()
+        .Where(cin => cin != null)
+        .ToListAsync()
+    },
+    { "Vendors", await calculatedQuery
+        .Where(a => a.VendorName != null && a.VendorName != null)
+        .Select(a => a.VendorName)
+        .Distinct()
+        .OrderBy(x => x)
+        .ToListAsync()
+    }
+};
 
             return response;
         }
@@ -328,9 +355,9 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             {
                 query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
             }
-            if (!string.IsNullOrWhiteSpace(request.ClientRefNumber))
+            if (!string.IsNullOrWhiteSpace(request.ClientInvNumber))
             {
-                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientRefNumber.ToLower()));
+                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvNumber.ToLower()));
             }
 
             // Paging
@@ -399,9 +426,9 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             {
                 query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
             }
-            if (!string.IsNullOrWhiteSpace(request.ClientRefNumber))
+            if (!string.IsNullOrWhiteSpace(request.ClientInvNumber))
             {
-                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientRefNumber.ToLower()));
+                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvNumber.ToLower()));
             }
 
             if (request.Count == 0)
@@ -566,7 +593,7 @@ namespace DataAccess.Repositories.VendorInvoiceReports
                     invoiceDate = f.VendorInvoiceTxnEntity.InvoiceDate,
                     CurrencySymbol = t.VendorEntity.CurrencySymbol
                 })
-                .GroupBy(x => new { x.VendorName, x.Status ,  x.CurrencySymbol  })
+                .GroupBy(x => new { x.VendorName, x.Status, x.CurrencySymbol })
                 .Select(g => new VendorPurchaseAmountReadResponseModel
                 {
                     VendorName = g.Key.VendorName,

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using BusinessLogic.Interfaces.VendorInvoiceReports;
 using BusinessLogic.Rules.Enums;
 using BusinessLogic.Rules.Masters.VendorInvoiceReport.Search;
@@ -63,8 +64,6 @@ namespace BusinessLogic.Services.VendorInvoiceReports
 
             VendorInvoiceTxnSearchRequestEntity? request = mapper.Map<VendorInvoiceTxnSearchRequestEntity>(requestModel);
 
-
-
             VendorInvoiceTxnSearchResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchVendorInvoiceTxnAsync1(request);
             VendorInvoiceTxnSearchResponse lookUpReadResponse = mapper.Map<VendorInvoiceTxnSearchResponse>(entityResponse);
 
@@ -78,6 +77,26 @@ namespace BusinessLogic.Services.VendorInvoiceReports
             var wrapper = new ResponseWrapper<VendorPurchaseReportSearchResponse>();
 
             VendorInvoiceTxnSearchRequestEntity? request = mapper.Map<VendorInvoiceTxnSearchRequestEntity>(requestModel);
+
+            var rules = new VendorInvoiceTxnSearchRules(request, offset, count);
+            rules.RunRules();
+            foreach (var result in rules.Results)
+            {
+                if (result.ResultCode == RuleResultType.Fail && result.Exception != null)
+                {
+                    wrapper.Messages.Add(Messages.GetErrorDetail(
+                        result.Exception.Code,
+                        result.Exception.Message,
+                        result.Exception.Element,
+                        result.Exception.Category)
+                        .ToDetailModel(result.Exception.ElementValue));
+                }
+            }
+
+            if (rules.Result == RuleResultType.Fail)
+            {
+                return wrapper;
+            }
 
             PurchaseVendorHistoryResponseEntity entityResponse = await VendorInvoiceReportRepository.SearchVendorInvoiceTxnAsync3(request);
             VendorPurchaseReportSearchResponse lookUpReadResponse = mapper.Map<VendorPurchaseReportSearchResponse>(entityResponse);
