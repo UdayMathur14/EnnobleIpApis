@@ -6,7 +6,7 @@ namespace DataAccess.Domain.Masters.VendorInvoiceReport
     public class VendorInvoiceReportSearchRequestEntity
     {
         public string? ApplicationNumber { get; set; }
-        public string? ClientInvNumber { get; set; }
+        public string? ClientInvoiceNo { get; set; }
         public string? Status { get; set; }
         public DateTime? fromdate { get; set; }
         public DateTime? todate { get; set; }

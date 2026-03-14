@@ -55,9 +55,9 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             {
                 query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
             }
-            if (!string.IsNullOrWhiteSpace(request.ClientInvNumber))
+            if (!string.IsNullOrWhiteSpace(request.ClientInvoiceNo))
             {
-                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvNumber.ToLower()));
+                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvoiceNo.ToLower()));
             }
 
             if (request.Count == 0)
@@ -246,7 +246,7 @@ namespace DataAccess.Repositories.VendorInvoiceReports
 
             // Grouping by vendor with sum
             var groupedQuery = calculatedQuery
-                .GroupBy(x => new { x.VendorId, x.VendorName, x.Status, x.ApplicationNumber, x.ClientInvNo, x.CurrencySymbol , x.invoiceDate ,x.DueDate,x.ClientRefNumber })
+                .GroupBy(x => new { x.VendorId, x.VendorName, x.Status, x.ApplicationNumber, x.ClientInvNo, x.CurrencySymbol, x.invoiceDate, x.DueDate, x.ClientRefNumber })
                 .Select(g => new VendorPurchaseAmountReadResponseModel
                 {
                     VendorId = g.Key.VendorId,
@@ -355,9 +355,9 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             {
                 query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
             }
-            if (!string.IsNullOrWhiteSpace(request.ClientInvNumber))
+            if (!string.IsNullOrWhiteSpace(request.ClientInvoiceNo))
             {
-                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvNumber.ToLower()));
+                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvoiceNo.ToLower()));
             }
 
             // Paging
@@ -384,13 +384,13 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             }
 
             // Filters for frontend dropdowns
-            response.Filters = new Dictionary<string, List<string>>
-    {
-        { "Status", await _context.VendorInvoiceTxnEntity.Select(a => a.Status).Distinct().ToListAsync() },
-        { "ApplicationNumber", await _context.VendorInvoiceTxnEntity.Select(a => a.ApplicationNumber).Distinct().ToListAsync() },
-        { "ClientInvoiceNo", await _context.VendorInvoiceTxnEntity.Select(a => a.ClientInvoiceNo).Distinct().ToListAsync() }
-    };
 
+            response.Filters = new Dictionary<string, List<string>>
+             {
+                { "Status", await query.Select(a => a.Status).Distinct().ToListAsync() },
+                { "ApplicationNumber", await query.Select(a => a.ApplicationNumber).Distinct().ToListAsync() },
+                { "ClientInvoiceNo", await query.Select(a => a.ClientInvoiceNo).Distinct().ToListAsync() }
+            };
             return response;
         }
 
@@ -426,9 +426,9 @@ namespace DataAccess.Repositories.VendorInvoiceReports
             {
                 query = query.Where(t => t.ApplicationNumber!.ToLower().Contains(request.ApplicationNumber.ToLower()));
             }
-            if (!string.IsNullOrWhiteSpace(request.ClientInvNumber))
+            if (!string.IsNullOrWhiteSpace(request.ClientInvoiceNo))
             {
-                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvNumber.ToLower()));
+                query = query.Where(t => t.ClientInvoiceNo!.ToLower().Contains(request.ClientInvoiceNo.ToLower()));
             }
 
             if (request.Count == 0)

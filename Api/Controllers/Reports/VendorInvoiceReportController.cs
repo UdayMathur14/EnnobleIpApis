@@ -1,6 +1,4 @@
-﻿using BusinessLogic.Interfaces.Masters;
-using BusinessLogic.Interfaces.VendorInvoiceReports;
-using BusinessLogic.Interfaces.VendorInvoiceTxns;
+﻿using BusinessLogic.Interfaces.VendorInvoiceReports;
 using Microsoft.AspNetCore.Mvc;
 using Models.RequestModels.Masters.Vendor;
 using Models.RequestModels.Masters.VendorInvoiceTxn;
